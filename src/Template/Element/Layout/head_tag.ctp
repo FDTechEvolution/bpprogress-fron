@@ -19,6 +19,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vuex@2.0.0"></script>
+<script src="https://unpkg.com/vue-cookies@1.7.0/vue-cookies.js"></script>
 <script src="https://unpkg.com/vee-validate@<3.0.0"></script>
 <script>Vue.use(VeeValidate);</script>
 <!-------------------->
