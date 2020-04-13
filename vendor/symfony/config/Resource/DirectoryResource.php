@@ -15,10 +15,8 @@ namespace Symfony\Component\Config\Resource;
  * DirectoryResource represents a resources stored in a subdirectory tree.
  *
  * @author Fabien Potencier <fabien@symfony.com>
- *
- * @final
  */
-class DirectoryResource implements SelfCheckingResourceInterface
+class DirectoryResource implements SelfCheckingResourceInterface, \Serializable
 {
     private $resource;
     private $pattern;
@@ -29,7 +27,7 @@ class DirectoryResource implements SelfCheckingResourceInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function __construct(string $resource, string $pattern = null)
+    public function __construct($resource, $pattern = null)
     {
         $this->resource = realpath($resource) ?: (file_exists($resource) ? $resource : false);
         $this->pattern = $pattern;
@@ -42,7 +40,7 @@ class DirectoryResource implements SelfCheckingResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function __toString(): string
+    public function __toString()
     {
         return md5(serialize([$this->resource, $this->pattern]));
     }
@@ -50,15 +48,17 @@ class DirectoryResource implements SelfCheckingResourceInterface
     /**
      * @return string The file path to the resource
      */
-    public function getResource(): string
+    public function getResource()
     {
         return $this->resource;
     }
 
     /**
      * Returns the pattern to restrict monitored files.
+     *
+     * @return string|null
      */
-    public function getPattern(): ?string
+    public function getPattern()
     {
         return $this->pattern;
     }
@@ -66,7 +66,7 @@ class DirectoryResource implements SelfCheckingResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function isFresh(int $timestamp): bool
+    public function isFresh($timestamp)
     {
         if (!is_dir($this->resource)) {
             return false;
@@ -102,5 +102,21 @@ class DirectoryResource implements SelfCheckingResourceInterface
         }
 
         return true;
+    }
+
+    /**
+     * @internal
+     */
+    public function serialize()
+    {
+        return serialize([$this->resource, $this->pattern]);
+    }
+
+    /**
+     * @internal
+     */
+    public function unserialize($serialized)
+    {
+        list($this->resource, $this->pattern) = unserialize($serialized);
     }
 }

@@ -15,19 +15,18 @@ namespace Symfony\Component\Config\Definition;
  * This class is the entry point for config normalization/merging/finalization.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
- *
- * @final
  */
 class Processor
 {
     /**
      * Processes an array of configurations.
      *
-     * @param array $configs An array of configuration items to process
+     * @param NodeInterface $configTree The node tree describing the configuration
+     * @param array         $configs    An array of configuration items to process
      *
      * @return array The processed configuration
      */
-    public function process(NodeInterface $configTree, array $configs): array
+    public function process(NodeInterface $configTree, array $configs)
     {
         $currentConfig = [];
         foreach ($configs as $config) {
@@ -41,11 +40,12 @@ class Processor
     /**
      * Processes an array of configurations.
      *
-     * @param array $configs An array of configuration items to process
+     * @param ConfigurationInterface $configuration The configuration class
+     * @param array                  $configs       An array of configuration items to process
      *
      * @return array The processed configuration
      */
-    public function processConfiguration(ConfigurationInterface $configuration, array $configs): array
+    public function processConfiguration(ConfigurationInterface $configuration, array $configs)
     {
         return $this->process($configuration->getConfigTreeBuilder()->buildTree(), $configs);
     }
@@ -70,8 +70,10 @@ class Processor
      * @param array  $config A config array
      * @param string $key    The key to normalize
      * @param string $plural The plural form of the key if it is irregular
+     *
+     * @return array
      */
-    public static function normalizeConfig(array $config, string $key, string $plural = null): array
+    public static function normalizeConfig($config, $key, $plural = null)
     {
         if (null === $plural) {
             $plural = $key.'s';

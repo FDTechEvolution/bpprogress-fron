@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\Config\Definition\Builder;
 
-use Symfony\Component\Config\Definition\BaseNode;
 use Symfony\Component\Config\Definition\Exception\InvalidDefinitionException;
 use Symfony\Component\Config\Definition\NodeInterface;
 
@@ -34,11 +33,14 @@ abstract class NodeDefinition implements NodeParentInterface
     protected $nullEquivalent;
     protected $trueEquivalent = true;
     protected $falseEquivalent = false;
-    protected $pathSeparator = BaseNode::DEFAULT_PATH_SEPARATOR;
     protected $parent;
     protected $attributes = [];
 
-    public function __construct(?string $name, NodeParentInterface $parent = null)
+    /**
+     * @param string|null              $name   The name of the node
+     * @param NodeParentInterface|null $parent The parent
+     */
+    public function __construct($name, NodeParentInterface $parent = null)
     {
         $this->parent = $parent;
         $this->name = $name;
@@ -59,9 +61,11 @@ abstract class NodeDefinition implements NodeParentInterface
     /**
      * Sets info message.
      *
+     * @param string $info The info text
+     *
      * @return $this
      */
-    public function info(string $info)
+    public function info($info)
     {
         return $this->attribute('info', $info);
     }
@@ -81,11 +85,12 @@ abstract class NodeDefinition implements NodeParentInterface
     /**
      * Sets an attribute on the node.
      *
-     * @param mixed $value
+     * @param string $key
+     * @param mixed  $value
      *
      * @return $this
      */
-    public function attribute(string $key, $value)
+    public function attribute($key, $value)
     {
         $this->attributes[$key] = $value;
 
@@ -109,7 +114,7 @@ abstract class NodeDefinition implements NodeParentInterface
      *
      * @return NodeInterface
      */
-    public function getNode(bool $forceRootNode = false)
+    public function getNode($forceRootNode = false)
     {
         if ($forceRootNode) {
             $this->parent = null;
@@ -162,9 +167,11 @@ abstract class NodeDefinition implements NodeParentInterface
      * You can use %node% and %path% placeholders in your message to display,
      * respectively, the node name and its complete path.
      *
+     * @param string $message Deprecation message
+     *
      * @return $this
      */
-    public function setDeprecated(string $message = 'The child node "%node%" at path "%path%" is deprecated.')
+    public function setDeprecated($message = 'The child node "%node%" at path "%path%" is deprecated.')
     {
         $this->deprecationMessage = $message;
 
@@ -282,9 +289,11 @@ abstract class NodeDefinition implements NodeParentInterface
     /**
      * Sets whether the node can be overwritten.
      *
+     * @param bool $deny Whether the overwriting is forbidden or not
+     *
      * @return $this
      */
-    public function cannotBeOverwritten(bool $deny = true)
+    public function cannotBeOverwritten($deny = true)
     {
         $this->merge()->denyOverwrite($deny);
 
@@ -341,22 +350,4 @@ abstract class NodeDefinition implements NodeParentInterface
      * @throws InvalidDefinitionException When the definition is invalid
      */
     abstract protected function createNode();
-
-    /**
-     * Set PathSeparator to use.
-     *
-     * @return $this
-     */
-    public function setPathSeparator(string $separator)
-    {
-        if ($this instanceof ParentNodeDefinitionInterface) {
-            foreach ($this->getChildNodeDefinitions() as $child) {
-                $child->setPathSeparator($separator);
-            }
-        }
-
-        $this->pathSeparator = $separator;
-
-        return $this;
-    }
 }
