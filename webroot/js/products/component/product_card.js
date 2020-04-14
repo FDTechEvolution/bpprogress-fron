@@ -1,10 +1,10 @@
-import {add_to_cart} from '../../cart/component/add_to_cart.js'
+import {add_to_cart} from './add_to_cart.js'
 
 export const product_card = {
     components: {
         'add-to-cart' : add_to_cart
     },
-    props: ['name','price'],
+    props: ['name','price','id'],
     template: `<div class="col-lg-2 col-md-4 col-sm-12 mb-3 px-1">
                     <article class="single_product">
                         <figure>
@@ -30,7 +30,9 @@ export const product_card = {
                                         <span class="current_price">{{price}}</span>
                                     </div>
                                 </div>
-                                <add-to-cart></add-to-cart>
+                                <add-to-cart
+                                    :id = "id"
+                                />
                             </div>
                         </figure>
                     </article>

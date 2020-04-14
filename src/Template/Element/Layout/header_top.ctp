@@ -121,6 +121,16 @@
                         <div class="mini_cart_inner">
                             <mini-cart/>
                         </div>
+                        <div class="mini_cart_table">
+                            <div class="cart_total">
+                                <span>Sub total:</span>
+                                <span class="price">$138.00</span>
+                            </div>
+                            <div class="cart_total mt-10">
+                                <span>total:</span>
+                                <span class="price">$138.00</span>
+                            </div>
+                        </div>
                         <div class="mini_cart_footer">
                             <div class="cart_button">
                                 <a href="cart.html">View cart</a>

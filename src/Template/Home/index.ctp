@@ -595,6 +595,7 @@
                 <div class="row no-gutters">
                     <product-card
                         v-for="(product, index) in $store.getters.products"
+                        :id = "product.employee_id"
                         :name = "product.employee_name"
                         :price = "product.employee_salary"
                     />

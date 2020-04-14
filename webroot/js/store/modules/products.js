@@ -26,6 +26,10 @@ const actions = {
         }catch(e){
             console.log(e)
         }
+    },
+    addToCart ({commit}, id) {
+        Vue.prototype.$cookies.set('product', id)
+        console.log($cookies.get('product'))
     }
 }
 

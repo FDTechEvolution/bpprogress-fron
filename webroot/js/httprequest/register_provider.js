@@ -12,13 +12,21 @@ class RegisterProvider extends HttpRequest {
       }
 
     async createUser (name,mobile,password) {
-        const data = await this.create('register',{
+        const data = await this.create('sv-registers/register',{
             fullname: name,
             mobile: mobile,
             password: password
         })
         return data
+    }
 
+    async otpConfirm (id, otp_ref, otp_code) {
+        const data = await this.create('sv-registers/check-otp', {
+            id: id,
+            otp_ref: otp_ref,
+            otp_code: otp_code
+        })
+        return data
     }
 }
 
