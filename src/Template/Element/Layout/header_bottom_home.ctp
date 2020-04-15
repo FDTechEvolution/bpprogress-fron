@@ -4,7 +4,7 @@
         <div class="column1 col-lg-3 col-md-6">
             <div class="categories_menu">
                 <div class="categories_title">
-                    <h2 class="categori_toggle">ALL CATEGORIES</h2>
+                    <h2 class="categori_toggle">ประเภทสินค้าทั้งหมด</h2>
                 </div>
                 <div class="categories_menu_toggle">
                     <ul>
@@ -133,7 +133,7 @@
                 <form action="#">
                     <div class="hover_category">
                         <select class="select_option" name="select" id="categori2">
-                            <option selected value="1">All Categories</option>
+                            <option selected value="1">ทุกประเภทสินค้า</option>
                             <option value="2">Accessories</option>
                             <option value="3">Accessories & More</option>
                             <option value="4">Butters & Eggs</option>
@@ -152,8 +152,8 @@
                         </select>
                     </div>
                     <div class="search_box">
-                        <input placeholder="Search product..." type="text">
-                        <button type="submit">Search</button>
+                        <input placeholder="ค้นหาสินค้า..." type="text">
+                        <button type="submit">ค้นหา</button>
                     </div>
                 </form>
             </div>
