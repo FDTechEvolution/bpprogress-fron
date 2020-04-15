@@ -10,14 +10,19 @@
                         <form action="#" @submit.prevent="validateBeforeSubmit">
                             <div class="row pb-2">
                                 <div class="col-md-10 offset-md-1">
-                                    <label>เบอร์โทรศัพท์ <small v-if="errors.has('phone')" class="field-text is-danger">{{ errors.first('phone') }}</small></label>
-                                    <input data-vv-name="phone" v-model="phone" type="text" v-validate="'required|numeric'" :class="{ 'is-danger': errors.has('phone') }" placeholder="ตัวเลขเท่านั้น">
+                                    <label>เบอร์โทรศัพท์ <small v-if="errors.has('mobile')" class="field-text is-danger">{{ errors.first('mobile') }}</small></label>
+                                    <input data-vv-name="mobile" v-model="login.mobile" type="text" v-validate="'required|numeric'" :class="{ 'is-danger': errors.has('mobile'), 'is-danger': $store.getters.msgLog != '' }" placeholder="ตัวเลขเท่านั้น">
                                 </div>
                             </div>
                             <div class="row py-2">
                                 <div class="col-md-10 offset-md-1">
                                     <label>รหัสผ่าน <small v-if="errors.has('password')" class="field-text is-danger">{{ errors.first('password') }}</small></label>
-                                    <input data-vv-name="password" v-model="password" type="password" v-validate="'required'" :class="{ 'is-danger': errors.has('password') }">
+                                    <input data-vv-name="password" v-model="login.password" type="password" v-validate="'required'" :class="{ 'is-danger': errors.has('password'), 'is-danger': $store.getters.msgLog != '' }">
+                                </div>
+                            </div>
+                            <div class="row py-1" v-if="$store.getters.msgLog != ''">
+                                <div class="col-12 text-center">
+                                    <small class="field-text is-danger text-center">{{ $store.getters.msgLog }}</small>
                                 </div>
                             </div>
                             <div class="row pt-3">

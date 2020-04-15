@@ -6,8 +6,10 @@ new Vue ({
     store,
     data () {
         return {
-            phone: null,
-            password: null
+            login: {
+                mobile: null,
+                password: null
+            }
         }
     },
     mounted () {
@@ -17,12 +19,12 @@ new Vue ({
         validateBeforeSubmit(e) {
             this.$validator.validateAll().then((result) => {
                 if (result) {
-                    // let payload = { // set to array for vuex action
-                    //     phone: this.user.phone,
-                    //     password: this.user.password
-                    // }
-                    // this.$store.dispatch('getRegisterData', payload)
-                    alert('phone : ' + this.phone + 'pass : ' + this.password)
+                    let payload = { // set to array for vuex action
+                        mobile: this.login.mobile,
+                        password: this.login.password
+                    }
+                    this.$store.dispatch('getLoginData', payload)
+                    // alert('phone : ' + this.phone + 'pass : ' + this.password)
                     return;
                 }
                 // alert('errors!');

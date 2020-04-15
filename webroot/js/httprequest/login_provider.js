@@ -6,10 +6,10 @@ class LoginProvider extends HttpRequest {
         super ()
     }
 
-    async logining (user, pass) {
-        const data = await this.create('login', {
-            user: user,
-            pass: pass
+    async logining (mobile, password) {
+        const data = await this.create('sv-login/login', {
+            mobile: mobile,
+            password: password
         })
         return data
     }
