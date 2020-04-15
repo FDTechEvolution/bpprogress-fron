@@ -5,12 +5,9 @@
                 <div class="col-lg-9 offset-lg-3 col-md-12">
                     <div class="swiper-container gallery-top">
                         <div class="slider_area swiper-wrapper">
-                            <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="assets/img/slider/slider5.jpg">
+                            <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="img/banners/01.jpg">
                                 <div class="slider_content">
-                                    <h3>new collection</h3>
-                                    <h1>new collection <br> sport clothes for mens</h1>
-                                        <p>discount <span> -30% off</span> this week</p>
-                                        <a class="button" href="shop.html">DISCOVER NOW</a>
+                                    
                                 </div>
                             </div>
                             <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="assets/img/slider/slider6.jpg">
