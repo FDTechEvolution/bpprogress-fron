@@ -1,40 +1,6 @@
 <!--footer area start-->
 <footer class="footer_widgets">
-    <!--newsletter area start-->
-    <div class="newsletter_area">
-        <div class="container">
-            <div class="newsletter_inner">
-                <div class="row">
-                    <div class="col-lg-3 col-md-5">
-                        <div class="newsletter_sing_up">
-                            <h3>Newsletter Sign Up</h3>
-                            <p>(Get <span>30% OFF</span> coupon today subscibers)</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-7">
-                        <div class="subscribe_content">
-                            <p><strong>Join 226.000+ subscribers</strong> and get a new discount coupon on every Monday.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 col-md-12">
-                        <div class="subscribe_form">
-                            <form id="mc-form" class="mc-form footer-newsletter">
-                                <input id="mc-email" type="email" autocomplete="off" placeholder="Your email address..." />
-                                <button id="mc-submit">Subscribe</button>
-                            </form>
-                            <!-- mailchimp-alerts Start -->
-                            <div class="mailchimp-alerts text-centre">
-                                <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                                <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                                <div class="mailchimp-error"></div><!-- mailchimp-error end -->
-                            </div><!-- mailchimp-alerts end -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--newsletter area end-->
+    
     <div class="footer_top">
         <div class="container">
             <div class="row">
@@ -133,7 +99,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6">
                     <div class="copyright_area">
-                        <p>Copyright &copy; 2019 <a href="#">Antomi</a> All Right Reserved.</p>
+                        <p>Copyright &copy; 2020 <a href="#">FDTECH</a> All Right Reserved.</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">

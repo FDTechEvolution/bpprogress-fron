@@ -3,15 +3,13 @@
     <div class="row align-items-center">
         <div class="col-lg-4 col-md-5">
             <div class="antomi_message">
-                <p>Get free shipping – Free 30 day money back guarantee</p>
+                <p>BP Progress International Co.,Ltd.</p>
             </div>
         </div>
         <div class="col-lg-8 col-md-7">
             <div class="header_top_settings text-right">
                 <ul>
-                    <li><a href="#">Store Locations</a></li>
-                    <li><a href="#">Track Your Order</a></li>
-                    <li>Hotline: <a href="tel:+(012)800456789">(012) 800 456 789 </a></li>
+                    <li>โทร: <a href="tel:+6644276886">044-276886</a></li>
                     <li><?= $this->Html->link('เข้าสู่ระบบ', ['controller' => 'login', 'action' => 'index']) ?> | <?= $this->Html->link('สมัครสมาชิก', ['controller' => 'register', 'action' => 'index']) ?></li>
                 </ul>
             </div>
@@ -25,7 +23,8 @@
     <div class="row align-items-center">
         <div class="col-lg-2 col-md-6">
             <div class="logo">
-                <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                <?=$this->Html->link($this->Html->image('logo/logo.png'),['controller'=>'home'],['escape'=>false])?>
+               
             </div>
         </div>
         <div class="col-lg-7 col-md-12">
