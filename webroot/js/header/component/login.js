@@ -6,9 +6,7 @@ export const login = {
         }
     },
     computed: {
-        chkLogin () {
-            
-        }
+        
     },
     template: `<div>เข้าสู่ระบบแล้ว | <a href="" @click="logOut()">ออกจากระบบ</a></div>`
 }

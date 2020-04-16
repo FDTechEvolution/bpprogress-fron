@@ -42,6 +42,19 @@ const actions = {
     },
     async logout ({commit}) {
         localStorage.removeItem("_u_ss_isset")
+        localStorage.removeItem("_u_ss_ison_t")
+    },
+    async checkStillUser ({commit}, uid) {
+        // console.log(uid)
+        try{
+            await loginService.correctUser(uid)
+            .then((response) => {
+                console.log(response)
+                // return response.data.msg
+            })
+        }catch(e){
+            console.log(e)
+        }
     }
 }
 

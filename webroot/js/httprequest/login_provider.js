@@ -13,6 +13,13 @@ class LoginProvider extends HttpRequest {
         })
         return data
     }
+
+    async correctUser (uid) {
+        const data = await this.get('sv-login/onlogged', {
+            uid: uid
+        })
+        return data
+    }
 }
 
 export default LoginProvider

@@ -21,7 +21,19 @@ const actions = {
         try{
             await productService.getAllProducts()
             .then((response) => {
+                console.log(response)
                 commit('GET_ALL_PRODUCTS', response)
+            })
+        }catch(e){
+            console.log(e)
+        }
+    },
+    async getAllRegister ({commit}) {
+        try{
+            await productService.getAllRegister()
+            .then((response) => {
+                console.log(response)
+                // commit('GET_ALL_PRODUCTS', response)
             })
         }catch(e){
             console.log(e)

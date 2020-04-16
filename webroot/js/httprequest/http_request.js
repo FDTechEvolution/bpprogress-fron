@@ -1,9 +1,14 @@
 class HttpRequest {
-    constructor (url = 'http://localhost/git/bpprogress-back/') {
+    constructor (url = 'https://bpprogress-back.wesales.online/') {
+      // https://bpprogress-back.wesales.online/
+      // http://localhost/git/bpprogress-back/
       // this.axios = axios
       this.axiosInstance = axios.create({
         baseURL: url,
-        timeout: 120000
+        timeout: 120000,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
       })
   
       this.axiosInstance.interceptors.request.use(function (config) {
@@ -24,11 +29,14 @@ class HttpRequest {
       })
     }
   
-    setHeader (header) {
+    // setHeader (header) {
       // this.axiosInstance.defaults.headers.common[header.key] = header.value
-      this.axiosInstance.defaults.headers.common = header
-      this.axiosInstance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-    }
+      // this.axiosInstance.defaults.headers.common = header
+      // this.axiosInstance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+      // this.axiosInstance.defaults.headers.common['Accept'] = '*/*'
+      // this.axiosInstance.defaults.headers.get['Access-Control-Allow-Origin'] = '*'
+      // this.axiosInstance.defaults.headers.common['Access-Control-Allow-Methods'] = '*,*'
+    // }
   
     get (methodName, data) {
       return this.axiosInstance.get(methodName, {

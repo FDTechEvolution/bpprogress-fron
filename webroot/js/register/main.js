@@ -45,6 +45,9 @@ new Vue ({
             otp_notice: ''
         }
     },
+    mounted () {
+        
+    },
     methods: {
         validateBeforeSubmit(e) {
             this.$validator.validateAll().then((result) => {
@@ -56,10 +59,25 @@ new Vue ({
                     }
                     this.$store.dispatch('getRegisterData', payload)
                     return
+                    // this.testToServer()
                 }
                 // alert('errors!');
               });
 
+        },
+        testToServer () {
+            console.log('in test')
+            axios.post('https://bpprogress-back.wesales.online/sv-registers/register', {
+                fullname: this.user.fullname,
+                mobile: this.user.phone,
+                password: this.user.password
+            })
+            .then((response) => {
+                console.log(response)
+            })
+            .catch(e => {
+                console.log(e)
+            })
         },
         confirmOTP (id, otp_ref) {
             if(this.otp_code == '') {

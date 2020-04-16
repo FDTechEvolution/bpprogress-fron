@@ -1,11 +1,19 @@
 <div class="login_page_bg py-0">
     <div class="container">
         <div class="customer_login">
-            <div class="row justify-content-md-center">
-
-                <!--register area start-->
+            <div id="app-login" class="row justify-content-md-center">
+            {{chkLogin}}
+                <!--login area start-->
                 <div class="col-lg-6 col-md-6">
-                    <div id="login-frm" class="account_form register">
+                    <div v-if="localStorage.hasOwnProperty('_u_ss_isset')" class="account_form register">
+                        <div class="row py-3">
+                            <div class="col-md-10 offset-md-1 text-center">
+                                <h2>เข้าสู่ระบบแล้ว</h2>
+                                <p>กรุณารอซักครู่ . . .</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else class="account_form register">
                         <h2>เข้าใช้งาน</h2>
                         <form action="#" @submit.prevent="validateBeforeSubmit">
                             <div class="row pb-2">
@@ -37,7 +45,7 @@
                         </form>
                     </div>
                 </div>
-                <!--register area end-->
+                <!--login area end-->
 
             </div>
         </div>

@@ -38,6 +38,7 @@ const actions = {
     async getRegisterData ({commit}, user_register) {
         await regService.createUser(user_register.fullname, user_register.phone, user_register.password)
         .then((response) => {
+            // console.log(response)
             if(response.data.status == 403) {
                 alert(response.data.msg)
             }

@@ -1,5 +1,5 @@
 <!--header middel start-->
-<div class="header_middle sticky-header">
+<div id="app-header" class="header_middle sticky-header">
     <div class="row align-items-center">
         <div class="col-lg-2 col-md-6">
             <div class="logo">
@@ -36,7 +36,7 @@
         <div class="col-lg-3">
             <div class="header_configure_area">
                 
-                <div id="app-cart" class="mini_cart_wrapper">
+                <div class="mini_cart_wrapper">
                     <a href="javascript:void(0)">
                         <i class="fa fa-shopping-bag"></i>
                         <span class="cart_price">$152.00 <i class="ion-ios-arrow-down"></i></span>
@@ -72,4 +72,4 @@
 </div>
 <!--header middel end-->
 
-<?= $this->Html->script('cart/main.js', ['type' => 'module']) ?>
+<?= $this->Html->script('header/main.js', ['type' => 'module']) ?>

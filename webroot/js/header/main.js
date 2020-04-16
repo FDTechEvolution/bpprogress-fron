@@ -3,7 +3,7 @@ import {mini_cart} from './component/mini_cart.js'
 import {login} from './component/login.js'
 
 new Vue ({
-    el: '#app-header-top',
+    el: '#app-header',
     store,
     components: {
         'mini-cart' : mini_cart,

@@ -12,6 +12,9 @@ new Vue ({
 
         }
     },
+    mounted () {
+
+    },
     methods: {
 
     },
@@ -19,6 +22,7 @@ new Vue ({
 
     },
     created () {
-        this.$store.dispatch('getAllProducts')
+        // this.$store.dispatch('getAllProducts')
+        this.$store.dispatch('getAllRegister')
     }
 })
