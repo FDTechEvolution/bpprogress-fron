@@ -22,3 +22,4 @@
 /app/Config/core.php
 /app/Config/database.php
 /vendors/*
+config/app_config.php
