@@ -7,7 +7,7 @@ class HttpRequest {
         baseURL: url,
         timeout: 120000,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         }
       })
   

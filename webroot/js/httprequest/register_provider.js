@@ -17,7 +17,6 @@ class RegisterProvider extends HttpRequest {
             mobile: mobile,
             password: password
         })
-        console.log(data)
         return data
     }
 
