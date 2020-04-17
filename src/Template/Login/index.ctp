@@ -2,50 +2,17 @@
     <div class="container">
         <div class="customer_login">
             <div id="app-login" class="row justify-content-md-center">
-            {{chkLogin}}
+
                 <!--login area start-->
-                <div class="col-lg-6 col-md-6">
-                    <div v-if="localStorage.hasOwnProperty('_u_ss_isset')" class="account_form register">
-                        <div class="row py-3">
-                            <div class="col-md-10 offset-md-1 text-center">
-                                <h2>เข้าสู่ระบบแล้ว</h2>
-                                <p>กรุณารอซักครู่ . . .</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-else class="account_form register">
-                        <h2>เข้าใช้งาน</h2>
-                        <form action="#" @submit.prevent="validateBeforeSubmit">
-                            <div class="row pb-2">
-                                <div class="col-md-10 offset-md-1">
-                                    <label>เบอร์โทรศัพท์ <small v-if="errors.has('mobile')" class="field-text is-danger">{{ errors.first('mobile') }}</small></label>
-                                    <input data-vv-name="mobile" v-model="login.mobile" type="text" v-validate="'required|numeric'" :class="{ 'is-danger': errors.has('mobile'), 'is-danger': $store.getters.msgLog != '' }" placeholder="ตัวเลขเท่านั้น">
-                                </div>
-                            </div>
-                            <div class="row py-2">
-                                <div class="col-md-10 offset-md-1">
-                                    <label>รหัสผ่าน <small v-if="errors.has('password')" class="field-text is-danger">{{ errors.first('password') }}</small></label>
-                                    <input data-vv-name="password" v-model="login.password" type="password" v-validate="'required'" :class="{ 'is-danger': errors.has('password'), 'is-danger': $store.getters.msgLog != '' }">
-                                </div>
-                            </div>
-                            <div class="row py-1" v-if="$store.getters.msgLog != ''">
-                                <div class="col-12 text-center">
-                                    <small class="field-text is-danger text-center">{{ $store.getters.msgLog }}</small>
-                                </div>
-                            </div>
-                            <div class="row pt-3">
-                                <div class="col-md-6 offset-md-3 text-center align-self-center">
-                                    <button class="btn btn-block ml-0" type="submit">เข้าสู่ระบบ</button>
-                                </div>
-                                <div class="col-md-6 offset-md-3 text-center py-3 align-self-center">หรือเข้าสู่ระบบทาง</div>
-                                <div class="col-md-6 offset-md-3 text-center align-self-center">
-                                    <button class="btn btn-block ml-0 bg-primary" type="button">facebook</button>
-                                </div>
-                            </div>
-                        </form>
+                <login-form/>
+                <!--login area end-->
+                <div class="loadingio-spinner-pulse-0xjpjhx0lbxl">
+                    <div class="ldio-7znirwuftg4">
+                        <div></div>
+                        <div></div>
+                        <div></div>
                     </div>
                 </div>
-                <!--login area end-->
 
             </div>
         </div>
@@ -64,5 +31,52 @@
         border-color: #dd0000 !important;
         color: #dd0000 !important;
     }
+    .modal-mask {
+        position: fixed;
+        z-index: 9998;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: table;
+        transition: opacity 0.3s ease;
+    }
+    .modal-wrapper {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    .modal-container {
+        width: 300px;
+        margin: 0px auto;
+        padding: 20px 30px;
+        background-color: #fff;
+        border-radius: 2px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+        transition: all 0.3s ease;
+        font-family: Helvetica, Arial, sans-serif;
+    }
+    .modal-header h3 {
+        margin-top: 0;
+        color: #42b983;
+    }
+    .modal-body {
+        margin: 20px 0;
+    }
+    .modal-default-button {
+        float: right;
+    }
+    .modal-enter {
+        opacity: 0;
+    }
+    .modal-leave-active {
+        opacity: 0;
+    }
+    .modal-enter .modal-container,
+    .modal-leave-active .modal-container {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
 </style>
+
 <?= $this->Html->script('login/main.js', ['type' => 'module']) ?>

@@ -14,6 +14,7 @@
 
 <!-- Main Style CSS -->
 <?= $this->Html->css("/assets/css/style.css") ?>
+<?= $this->Html->css("/css/bpp_style.css") ?>
 
 <!-- Vue.js & Axios -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>

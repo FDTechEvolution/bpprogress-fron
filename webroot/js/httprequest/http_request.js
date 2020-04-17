@@ -1,5 +1,5 @@
 class HttpRequest {
-    constructor (url = 'https://bpprogress-back.wesales.online/') {
+    constructor (url = 'http://localhost/git/bpprogress-back/') {
       // https://bpprogress-back.wesales.online/
       // http://localhost/git/bpprogress-back/
       // this.axios = axios

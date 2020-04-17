@@ -22,13 +22,12 @@
                             </div>
                         </li>
                         
-
-                        <li>
-                            <?= $this->Html->link('เข้าสู่ระบบ', ['controller' => 'login', 'action' => 'index']) ?>
-                        </li>
                         <li>
                             <?= $this->Html->link('สมัครสมาชิก', ['controller' => 'register', 'action' => 'index']) ?>
                         </li>
+
+                        <login/>
+                        
                     </ul>
                 </nav>
             </div>
