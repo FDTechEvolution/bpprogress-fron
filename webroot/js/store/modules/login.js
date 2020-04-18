@@ -32,7 +32,7 @@ const actions = {
         try {
             await loginService.logining(user_login.mobile, user_login.password)
             .then((response) => {
-                // console.log(response)
+                console.log(response)
                 if(response.data.status === 403) {
                     commit('LOGIN_MSG', response.data.msg)
                 }
@@ -42,9 +42,15 @@ const actions = {
                 }
 
                 if(response.data.status === 200) {
-                    localStorage.setItem('_u_ss_isset', response.data.data.id)
-                    // localStorage.setItem('_bpsm_u_t_pe', response.data.data.type)
+                    let setExp = (new Date(Date.now() + 6.04e+8)).getTime()
+                    let usetArray = {
+                        data: response.data.data.id,
+                        exp: setExp,
+                        normal: (response.data.data.type == 'NORMAL')?true:false
+                    }
+                    localStorage.setItem('_u_ss_isset', JSON.stringify(usetArray))
                     localStorage.setItem('_u_ss_ison_t', null)
+                    Vue.prototype.$cookies.set('_u_ss_isprop', response.data.data.fullname)
                     commit('LOGIN_SUCCESS', true)
                     // console.log(response)
                 }
@@ -56,6 +62,7 @@ const actions = {
     async logout ({commit}) {
         localStorage.removeItem("_u_ss_isset")
         localStorage.removeItem("_u_ss_ison_t")
+        Vue.prototype.$cookies.remove('_u_ss_isprop')
     },
     async checkStillUser ({commit}, uid) {
         // console.log(uid)

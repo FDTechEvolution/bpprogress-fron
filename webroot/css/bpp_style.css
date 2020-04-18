@@ -48,3 +48,19 @@
   transform-origin: 0 0; /* see note above */
 }
 .ldio-7znirwuftg4 div { box-sizing: content-box; }
+
+.main_menu nav > ul > li .mega_menu.user_account {
+  min-width: 40%;
+  left: unset;
+  padding: 10px 20px;
+}
+ul.mega_menu_inner.user_account {
+  display: block;
+}
+ul.mega_menu_inner.user_account li {
+  border-bottom: 1px solid #eee;
+  padding: 8px 0;
+}
+ul.mega_menu_inner.user_account li a {
+  margin-bottom: 0;
+}
