@@ -12,17 +12,20 @@ export const login_form = {
     },
     computed: {
         chkLogin () {
-            // console.log(localStorage.getItem('_u_ss_isset'))
-            if(this.$store.getters.userLogin == true) {
-                localStorage.setItem('_u_ss_ison_t', true)
+            if(this.$store.getters.userLogin) { //เช็คการ login ใหม่
+                localStorage.setItem('_u_ss_ison_t', true) // ยืนยันการ login
+                if(JSON.parse(localStorage.getItem('_u_ss_isset')).normal){ // ตรวจสอบสถานะผู้ login
+                    setTimeout("window.location.href=\"home\";", 200) // ถ้าเป็น user
+                }else if(JSON.parse(localStorage.getItem('_u_ss_isset')).normal === 'n-true'){
+                    // ถ้าเป็น admin / seller
+                }
+            }else{
+                this.submitted = false
             }
-            // console.log(localStorage.getItem('_u_ss_isset'))
-            // console.log(localStorage.getItem('_u_ss_ison_t'))
         }
     },
     methods: {
         validateBeforeSubmit(e) {
-            this.submitted = true
             this.$validator.validateAll().then((result) => {
                 if (result) {
                     let payload = { // set to array for vuex action
@@ -30,13 +33,13 @@ export const login_form = {
                         password: this.login.password
                     }
                     this.$store.dispatch('getLoginData', payload)
+                    this.submitted = true
                     // alert('phone : ' + this.phone + 'pass : ' + this.password)
                     return;
                 }
                 // alert('errors!');
-                this.submitted = false
-              });
-
+            });
+            this.submitted = false
         },
         confirmOTP (id, otp_ref) {
             if(this.otp_code == '') {

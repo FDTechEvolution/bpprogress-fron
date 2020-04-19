@@ -3,7 +3,7 @@ const loginService = new LoginProvider
 
 const state = {
     msg: '',
-    login: false,
+    login: null,
     loginData: []
 
 }
@@ -29,12 +29,14 @@ const mutations = {
 
 const actions = {
     async getLoginData ({commit}, user_login) {
+        commit('LOGIN_SUCCESS', null)
         try {
             await loginService.logining(user_login.mobile, user_login.password)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 if(response.data.status === 403) {
                     commit('LOGIN_MSG', response.data.msg)
+                    commit('LOGIN_SUCCESS', false)
                 }
 
                 if(response.data.status === 404) {
@@ -42,11 +44,11 @@ const actions = {
                 }
 
                 if(response.data.status === 200) {
-                    let setExp = (new Date(Date.now() + 6.04e+8)).getTime()
+                    let setExp = (new Date(Date.now() + 1)).getTime()
                     let usetArray = {
                         data: response.data.data.id,
                         exp: setExp,
-                        normal: (response.data.data.type == 'NORMAL')?true:false
+                        normal: (response.data.data.type == 'NORMAL')?true:'n-true'
                     }
                     localStorage.setItem('_u_ss_isset', JSON.stringify(usetArray))
                     localStorage.setItem('_u_ss_ison_t', null)

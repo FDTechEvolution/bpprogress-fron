@@ -2,7 +2,7 @@ export const login = {
     props:['url'],
     data () {
         return {
-            url: 'dfsdfsfsdfsdf'
+            
         }
     },
     methods: {
@@ -10,7 +10,7 @@ export const login = {
             this.$store.dispatch('logout')
         },
         logIn () {
-            window.location.replace(window.location + '/login')
+            setTimeout("window.location.href=\"login\";", 0)
         }
     },
     computed: {
@@ -33,6 +33,6 @@ export const login = {
                                 <li><a href="" @click="logOut()"><i class="fa fa-sign-out"></i> ออกจากระบบ</a>
                             </ul>
                         </div>
-                    <a v-if="!localStorage.getItem('_u_ss_ison_t')" href="http://localhost/git/bpprogress-fron/login">เข้าสู่ระบบ</a>
+                    <a v-if="!localStorage.getItem('_u_ss_ison_t')" href="" @click="logIn()">เข้าสู่ระบบ</a>
                 </li>`
 }
