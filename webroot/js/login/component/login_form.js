@@ -14,11 +14,7 @@ export const login_form = {
         chkLogin () {
             if(this.$store.getters.userLogin) { //เช็คการ login ใหม่
                 localStorage.setItem('_u_ss_ison_t', true) // ยืนยันการ login
-                if(JSON.parse(localStorage.getItem('_u_ss_isset')).normal){ // ตรวจสอบสถานะผู้ login
-                    setTimeout("window.location.href=\"home\";", 200) // ถ้าเป็น user
-                }else if(JSON.parse(localStorage.getItem('_u_ss_isset')).normal === 'n-true'){
-                    // ถ้าเป็น admin / seller
-                }
+                setTimeout("window.location.href=\"home\";", 200)
             }else{
                 this.submitted = false
             }

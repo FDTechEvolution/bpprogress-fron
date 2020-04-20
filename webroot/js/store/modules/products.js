@@ -32,7 +32,7 @@ const actions = {
         try{
             await productService.getAllRegister()
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 // commit('GET_ALL_PRODUCTS', response)
             })
         }catch(e){

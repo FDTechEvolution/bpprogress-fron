@@ -4,14 +4,16 @@ const loginService = new LoginProvider
 const state = {
     msg: '',
     login: null,
-    loginData: []
+    loginData: [],
+    loginExp: null
 
 }
 
 const getters = {
     msgLog: state => state.msg,
     userLogin: state => state.login,
-    userOTP: state => state.loginData
+    userOTP: state => state.loginData,
+    userExp: state => state.loginExp
 }
 
 const mutations = {
@@ -23,7 +25,10 @@ const mutations = {
     },
     CONFIRM_OTP (state, data) {
         state.loginData = data
-        console.log(state.loginData)
+    },
+    LOGIN_EXP (state, status) {
+        state.loginExp = status
+        // console.log(state.loginExp)
     }
 }
 
@@ -44,16 +49,21 @@ const actions = {
                 }
 
                 if(response.data.status === 200) {
-                    let setExp = (new Date(Date.now() + 1)).getTime()
-                    let usetArray = {
-                        data: response.data.data.id,
-                        exp: setExp,
-                        normal: (response.data.data.type == 'NORMAL')?true:'n-true'
+                    if(response.data.data.type == 'NORMAL') { // ถ้าเป็น user
+                        // let setExp = (new Date(Date.now() + 1*24*3600*1000)).getTime() // 1 day
+                        let setExp = (new Date(Date.now() + 1*6*3600*1000)).getTime() // 5 minute
+                        let usetArray = {
+                            data: response.data.data.id,
+                            exp: setExp
+                        }
+                        localStorage.setItem('_u_ss_isset', JSON.stringify(usetArray))
+                        localStorage.setItem('_u_ss_ison_t', null)
+                        Vue.prototype.$cookies.set('_u_ss_isprop', response.data.data.fullname)
+                        commit('LOGIN_SUCCESS', true)
+                    }else{
+                        let api = new LoginProvider();
+                        window.location.href = api.url + 'login/authen-code?authencode=' + response.data.data.authen_code
                     }
-                    localStorage.setItem('_u_ss_isset', JSON.stringify(usetArray))
-                    localStorage.setItem('_u_ss_ison_t', null)
-                    Vue.prototype.$cookies.set('_u_ss_isprop', response.data.data.fullname)
-                    commit('LOGIN_SUCCESS', true)
                     // console.log(response)
                 }
             })
@@ -66,17 +76,22 @@ const actions = {
         localStorage.removeItem("_u_ss_ison_t")
         Vue.prototype.$cookies.remove('_u_ss_isprop')
     },
-    async checkStillUser ({commit}, uid) {
-        // console.log(uid)
-        try{
-            await loginService.correctUser(uid)
-            .then((response) => {
-                // console.log(response)
-                localStorage.setItem('_u_ss_ison_t', response.data.msg)
-                // return response.data.msg
-            })
-        }catch(e){
-            console.log(e)
+    async checkStillUser ({commit}) {
+        if(localStorage.getItem('_u_ss_ison_t')){
+            let setExp = (new Date(Date.now())).getTime()
+            let setExpNew = new Date(Date.now() + 1*6*3600*1000).getTime()
+            let getExp = JSON.parse(localStorage.getItem('_u_ss_isset'))
+
+            if(setExp > getExp.exp){
+                commit('LOGIN_EXP', true)
+            }else{
+                let usetArray = {
+                    data: getExp.data,
+                    exp: setExpNew
+                }
+                localStorage.setItem('_u_ss_isset', JSON.stringify(usetArray))
+                commit('LOGIN_EXP', false)
+            }
         }
     }
 }

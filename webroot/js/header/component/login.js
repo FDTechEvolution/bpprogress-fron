@@ -15,12 +15,10 @@ export const login = {
     },
     computed: {
         chkLogin () {
-            // console.log(localStorage.getItem('_u_ss_isset'))
-            if(this.$store.getters.userLogin == true) {
-                localStorage.setItem('_u_ss_ison_t', true)
+            this.$store.dispatch('checkStillUser')
+            if(this.$store.getters.userExp){
+                this.$store.dispatch('logout')
             }
-            // console.log(localStorage.getItem('_u_ss_isset'))
-            // console.log(localStorage.getItem('_u_ss_ison_t'))
         }
     },
     template: `<li class="mega_items">

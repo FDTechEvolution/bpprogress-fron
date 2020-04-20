@@ -1,10 +1,11 @@
 class HttpRequest {
-    constructor (url = 'http://localhost/git/bpprogress-back/') {
+    constructor () {
       // https://bpprogress-back.wesales.online/
       // http://localhost/git/bpprogress-back/
       // this.axios = axios
+      this.url = 'http://localhost/git/bpprogress-back/'
       this.axiosInstance = axios.create({
-        baseURL: url,
+        baseURL: this.url,
         timeout: 120000,
         headers: {
           'Content-Type': 'application/json'

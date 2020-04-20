@@ -20,6 +20,13 @@ class LoginProvider extends HttpRequest {
         })
         return data
     }
+
+    async userAuthen (authenCode) {
+        const data = await this.create('login/authen-code', {
+            authencode: authenCode
+        })
+        return data
+    }
 }
 
 export default LoginProvider
