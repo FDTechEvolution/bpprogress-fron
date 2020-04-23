@@ -12,9 +12,17 @@ export const register_form = {
             submitted: false
         }
     },
+    computed: {
+        checkRegister () {
+            if(this.$store.getters.msgRegister != '') {
+                alert(this.$store.getters.msgRegister)
+                this.$store.dispatch('setNewMsg')
+                this.submitted = false
+            }
+        }
+    },
     methods: {
         validateBeforeSubmit(e) {
-            this.submitted = true
             this.$validator.validateAll().then((result) => {
                 if (result) {
                     let payload = { // set to array for vuex action
@@ -23,13 +31,10 @@ export const register_form = {
                         password: this.user.password
                     }
                     this.$store.dispatch('getRegisterData', payload)
+                    this.submitted = true
                     return
-                    // this.testToServer()
                 }
-                // alert('errors!');
-                this.submitted = false
-              });
-
+            });
         },
         confirmOTP (id, otp_ref) {
             if(this.otp_code == '') {
@@ -46,11 +51,9 @@ export const register_form = {
                 return
             }
         }
-        // ...Vuex.mapActions([
-        //     'checkFormRegister'
-        // ])
     },
     template: `<div class="col-lg-8 col-md-8">
+                {{checkRegister}}
                     <div class="account_form register">
                         <h2>สมัครเข้าใช้งาน</h2>
                         <form action="#" @submit.prevent="validateBeforeSubmit">

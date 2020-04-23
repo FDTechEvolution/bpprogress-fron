@@ -4,13 +4,15 @@ const regService = new RegisterProvider
 const state = {
     employee: [],
     otp: [],
-    modalOtp: false
+    modalOtp: false,
+    msg: ''
 }
 
 const getters = {
     employee: state => state.employee,
     otp: state => state.otp,
-    modalOtp: state => state.modalOtp
+    modalOtp: state => state.modalOtp,
+    msgRegister: state => state.msg
 }
 
 const mutations = {
@@ -25,6 +27,10 @@ const mutations = {
     MODAL_OTP (state, status) {
         state.modalOtp = status
         // console.log(state.modalOtp)
+    },
+    SUBMITED (state, msg) {
+        state.msg = msg
+        // console.log(state.submited)
     }
 }
 
@@ -40,11 +46,13 @@ const actions = {
         .then((response) => {
             // console.log(response)
             if(response.data.status == 403) {
-                alert(response.data.msg)
+                // alert(response.data.msg)
+                commit('SUBMITED', response.data.msg)
             }
 
             if(response.data.status == 400) {
-                alert(response.data.msg)
+                // alert(response.data.msg)
+                commit('SUBMITED', response.data.msg)
             }
 
             if(response.data.status == 200) {
@@ -63,9 +71,13 @@ const actions = {
             }
 
             if(response.data.status == 200) {
-                window.location.href = 'http://localhost/git/bpprogress-fron/login'
+                setTimeout("window.location.href=\"login\";", 0)
+                // window.location.href = 'http://localhost/git/bpprogress-fron/login'
             }
         })
+    },
+    setNewMsg ({commit}) {
+        commit('SUBMITED', '')
     }
 }
 
