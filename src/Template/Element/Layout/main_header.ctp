@@ -20,7 +20,7 @@
                                         <?= $this->Html->link('หน้าหลัก', ['controller' => 'home']) ?>
                                     </li>
                                     <li>
-                                        <?= $this->Html->link('สินค้าทั้งหมด', ['controller' => 'home']) ?>
+                                        <?= $this->Html->link('สินค้าทั้งหมด', ['controller' => 'products']) ?>
                                     </li>
                                    
                                     <li>

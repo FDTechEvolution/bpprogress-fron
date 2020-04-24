@@ -56,7 +56,7 @@
                         <div class="footer_contact">
                             <div class="footer_contact_inner">
                                 <div class="contact_icone">
-                                    <img src="assets/img/icon/icon-phone.png" alt="">
+                                    <img src="css/assets/img/icon/icon-phone.png" alt="">
                                 </div>
                                 <div class="contact_text">
                                     <p>สายด่วน ติดต่อเรา: <br> <strong>083 816 8636</strong></p>
@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="footer_payment text-right">
-                        <img src="assets/img/icon/payment.png" alt="">
+                        <img src="css/assets/img/icon/payment.png" alt="">
                     </div>
                 </div>
             </div>
