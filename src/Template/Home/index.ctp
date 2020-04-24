@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="product_header">
                     <div class="section_title">
-                        <h2>Deals Of The Month</h2>
+                        <h2>สินค้าประจำเดือน</h2>
 
                     </div>
                     <div class="product_tab_btn">

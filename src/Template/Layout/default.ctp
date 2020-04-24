@@ -6,8 +6,7 @@
 </head>
 
 <body>
-    <?= $this->element('Layout/offcanvas') ?>
-    <?= $this->element('Layout/header') ?>
+    <?= $this->element('Layout/main_header') ?>
 
     <div class="home_section_bg">
         <?= $this->fetch('content') ?>
@@ -17,8 +16,8 @@
 </body>
 
     <!-- Plugins JS -->
-    <?= $this->Html->script("/assets/js/plugins.js") ?>
+    <?= $this->Html->script("/css/assets/js/plugins.js") ?>
 
     <!-- Main JS -->
-    <?= $this->Html->script("/assets/js/main.js") ?>
+    <?= $this->Html->script("/css/assets/js/main.js") ?>
 </html>

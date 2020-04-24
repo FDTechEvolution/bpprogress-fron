@@ -1,0 +1,16 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 24, 2020, 3:39:01 PM
+    Author     : sakorn.s
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;600;800&display=swap');
+
+h1,h2,h3{
+    font-family: 'Kanit', sans-serif !important;
+    font-weight: 600 !important;
+}

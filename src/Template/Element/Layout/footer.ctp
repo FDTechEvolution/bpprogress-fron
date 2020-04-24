@@ -4,22 +4,7 @@
     <div class="footer_top">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-5 col-sm-7">
-                    <div class="widgets_container contact_us">
-                        <h3>GET THE APP</h3>
-                        <div class="aff_content">
-                            <p><strong>ANTOMI</strong> App is now available on Google Play & App Store. Get it now.</p>
-                        </div>
-                        <div class="app_img">
-                            <figure class="app_img">
-                                <a href="#"><img src="assets/img/icon/icon-appstore.png" alt=""></a>
-                            </figure>
-                            <figure class="app_img">
-                                <a href="#"><img src="assets/img/icon/icon-googleplay.png" alt=""></a>
-                            </figure>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="col-lg-2 col-md-3 col-sm-5">
                     <div class="widgets_container widget_menu">
                         <h3>Information</h3>
@@ -67,14 +52,14 @@
                 </div>
                 <div class="col-lg-3 col-md-7 col-sm-12">
                     <div class="widgets_container">
-                        <h3>CONTACT INFO</h3>
+                        <h3>ติดต่อเรา</h3>
                         <div class="footer_contact">
                             <div class="footer_contact_inner">
                                 <div class="contact_icone">
                                     <img src="assets/img/icon/icon-phone.png" alt="">
                                 </div>
                                 <div class="contact_text">
-                                    <p>Hotline Free 24/24: <br> <strong>(+800) 123 456 789</strong></p>
+                                    <p>สายด่วน ติดต่อเรา: <br> <strong>083 816 8636</strong></p>
                                 </div>
                             </div>
                             <p>The Barn, Henley in Arden B578. England. Support@eCommerce</p>
@@ -82,11 +67,8 @@
 
                         <div class="footer_social">
                             <ul>
-                                <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-                                <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a class="rss" href="#"><i class="fa fa-rss"></i></a></li>
+                                <li><a class="facebook" href="https://www.facebook.com/bpshoppingmallthai/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+  
                             </ul>
                         </div>
                     </div>

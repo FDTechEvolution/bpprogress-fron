@@ -10,11 +10,12 @@
 ========================= -->
 
 <!-- Plugins CSS -->
-<?= $this->Html->css("/assets/css/plugins.css") ?>
+<?= $this->Html->css("assets/css/plugins.css") ?>
 
 <!-- Main Style CSS -->
-<?= $this->Html->css("/assets/css/style.css") ?>
-<?= $this->Html->css("/css/bpp_style.css") ?>
+<?= $this->Html->css("thai-font.css") ?>
+<?= $this->Html->css("assets/css/style.css") ?>
+<?= $this->Html->css("bpp_style.css") ?>
 
 <!-- Vue.js & Axios -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
