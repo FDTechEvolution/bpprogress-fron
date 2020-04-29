@@ -4,14 +4,14 @@ export const product_card = {
     components: {
         'add-to-cart' : add_to_cart
     },
-    props: ['name','price','id'],
-    template: `<div class="col-lg-2 col-md-4 col-sm-12 mb-3 px-1">
+    props: ['product'],
+    template: `<div class="col-lg-3 col-md-3 col-sm-1 mb-3 px-1">
                     <article class="single_product">
                         <figure>
                             <div class="product_thumb">
-                                <a class="primary_img" href="product-details.html"><img src="assets/img/product/product1.jpg" alt=""></a>
-                                <a class="secondary_img" href="product-details.html"><img src="assets/img/product/product2.jpg" alt=""></a>
-                                <div class="label_product">
+                                <a class="primary_img" :href="'products/product-details?product=' + product.id"><img src="assets/img/product/product1.jpg" alt=""></a>
+                                <a class="secondary_img" :href="'products/product-details?product=' + product.id"><img src="assets/img/product/product2.jpg" alt=""></a>
+                                <div v-if="product.special_price !== 0" class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
                                 <div class="action_links">
@@ -24,15 +24,18 @@ export const product_card = {
                             </div>
                             <div class="product_content">
                                 <div class="product_content_inner">
-                                    <h4 class="product_name"><a href="product-details.html">{{name}}</a></h4>
-                                    <div class="price_box">
-                                        <span class="old_price">{{price}}</span>
-                                        <span class="current_price">{{price}}</span>
+                                    <h4 class="product_name"><a :href="'products/product-details?product=' + product.id">{{product.name}}</a></h4>
+                                    <div v-if="product.special_price !== 0" class="price_box">
+                                        <span class="old_price">{{product.price}}</span>
+                                        <span class="current_price">{{product.special_price}}</span>
+                                    </div>
+                                    <div v-else class="price_box">
+                                        <span class="current_price">{{product.price}}</span>
                                     </div>
                                 </div>
-                                <add-to-cart
-                                    :id = "id"
-                                />
+                                <div class="add_to_cart">
+                                    <add-to-cart/>
+                                </div>
                             </div>
                         </figure>
                     </article>

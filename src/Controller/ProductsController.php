@@ -21,4 +21,8 @@ class ProductsController extends AppController {
 
     }
 
+    public function productDetails () {
+
+    }
+
 }

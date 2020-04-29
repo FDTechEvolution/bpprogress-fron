@@ -1,13 +1,12 @@
 export const add_to_cart = {
+    props: ['id', 'name', 'price', 's_price', 'qty'],
     methods: {
-        addToCart (d1,d2,d3,d4) {
-            let cookie_payload = {d1,d2,d3,d4}
+        addToCart (d1,d2,d3,d4,d5) {
+            let cookie_payload = {d1,d2,d3,d4,d5}
             this.$store.dispatch('addToCart', cookie_payload)
             // this.$cookies.set('product', id)
             // console.log($cookies.get('product'))
         }
     },
-    template: `<div class="add_to_cart">
-                    <a title="Add to cart" @click="addToCart('test1','data1','data2','data3')">Add to cart</a>
-                </div>`
+    template: `<button type="button" class="button" title="เพิ่มลงตะกร้า" @click="addToCart(id,name,price,s_price,qty)">เพิ่มลงตะกร้า</button>`
 }

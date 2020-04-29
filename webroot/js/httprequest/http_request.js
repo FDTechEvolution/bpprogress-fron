@@ -2,10 +2,11 @@ class HttpRequest {
     constructor() {
         // https://bpprogress-back.wesales.online/
         // http://localhost/git/bpprogress-back/
+        // 'https://cors-anywhere.herokuapp.com/'+this.url
         // this.axios = axios
-        this.url = 'https://bpprogress-back.wesales.online/'
+        this.url = 'https://cors-anywhere.herokuapp.com/'+this.url
         this.axiosInstance = axios.create({
-            baseURL: 'https://cors-anywhere.herokuapp.com/'+this.url,
+            baseURL: this.url,
             timeout: 120000,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',

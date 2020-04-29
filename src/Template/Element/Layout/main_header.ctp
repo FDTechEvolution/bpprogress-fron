@@ -35,37 +35,7 @@
                     </div>
                     <div class="col-lg-2">
                         <div class="header_configure_area">
-
-                            <div class="mini_cart_wrapper">
-                                <a href="javascript:void(0)">
-                                    <i class="fa fa-shopping-bag"></i>
-                                    <span class="cart_price">$152.00 <i class="ion-ios-arrow-down"></i></span>
-                                    <span class="cart_count">2</span>
-                                </a>
-                                <!--mini cart-->
-                                <div class="mini_cart">
-                                    <div class="mini_cart_inner">
-                                        <mini-cart/>
-                                    </div>
-                                    <div class="mini_cart_table">
-                                        <div class="cart_total">
-                                            <span>Sub total:</span>
-                                            <span class="price">$138.00</span>
-                                        </div>
-                                        <div class="cart_total mt-10">
-                                            <span>total:</span>
-                                            <span class="price">$138.00</span>
-                                        </div>
-                                    </div>
-                                    <div class="mini_cart_footer">
-                                        <div class="cart_button">
-                                            <a href="cart.html">ตะกร้าสินค้า</a>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!--mini cart end-->
-                            </div>
+                            <mini-cart></mini-cart>
                         </div>
                     </div>
                 </div>
