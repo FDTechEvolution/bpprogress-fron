@@ -1,7 +1,7 @@
 # CakePHP 3
 
 /config/app_setting.php
-
+/nbproject/nbproject
 /tmp/*
 !/tmp/cache/models/empty
 /tmp/cache/persistent/*
