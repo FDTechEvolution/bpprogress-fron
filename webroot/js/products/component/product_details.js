@@ -38,7 +38,7 @@ export const product_details = {
                             <div class="product-details-tab">
                                 <div id="img-1" class="zoomWrapper single-zoom">
                                     <a href="#">
-                                        <img id="zoom1" src="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" data-zoom-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" alt="big-1">
+                                        <img id="zoom1" :src="product_detail.images" data-zoom-image="product_detail.images" alt="big-1">
                                     </a>
                                 </div>
                                 <div class="single-zoom-thumb">

@@ -68,17 +68,19 @@ const actions = {
     },
     addToCart ({commit}, itemToAdd) {
         let found = false;
+        // console.log(itemToAdd)
         if(localStorage.getItem('__u_set_pct')) {
             let itemInCart = []
             itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
-            let checkIndex = itemInCart.filter(item => item.d1===itemToAdd.d1)
-            let isItemInCart = itemInCart.length > 0;
+            let itemIndex = itemInCart.filter(item => item.d1===itemToAdd.d1)
+            let isItemInCart = itemIndex.length > 0;
 
             if(isItemInCart === false) {
                 itemInCart.push(itemToAdd)
                 localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
             }else{
-                itemInCart[0].d5 += itemToAdd.d5;
+                itemIndex[0].d5 = parseInt(itemIndex[0].d5) + parseInt(itemToAdd.d5)
+                localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
             }
         }else{
             console.log('!get __u_set_pct')

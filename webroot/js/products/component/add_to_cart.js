@@ -1,5 +1,11 @@
 export const add_to_cart = {
-    props: ['id', 'name', 'price', 's_price', 'qty'],
+    props : {
+        id: String,
+        name: String,
+        price: Number,
+        s_price: Number,
+        qty: Number
+    },
     methods: {
         addToCart (d1,d2,d3,d4,d5) {
             let cookie_payload = {d1,d2,d3,d4,d5}

@@ -9,8 +9,8 @@ export const product_card = {
                     <article class="single_product">
                         <figure>
                             <div class="product_thumb">
-                                <a class="primary_img" :href="'products/product-details?product=' + product.id"><img src="assets/img/product/product1.jpg" alt=""></a>
-                                <a class="secondary_img" :href="'products/product-details?product=' + product.id"><img src="assets/img/product/product2.jpg" alt=""></a>
+                                <a class="primary_img" :href="'products/product-details?product=' + product.id"><img :src="product.images" alt=""></a>
+                                <a class="secondary_img" :href="'products/product-details?product=' + product.id"><img :src="product.images" alt=""></a>
                                 <div v-if="product.special_price !== 0" class="label_product">
                                     <span class="label_sale">Sale</span>
                                 </div>
