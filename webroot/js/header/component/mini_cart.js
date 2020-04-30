@@ -14,37 +14,45 @@ export const mini_cart = {
         }
     },
     computed: {
-        totalPrice () {
+        pushCart () {
+            this.$store.getters.product_push_cart
+        },
+        totalAllPrice () {
             if(localStorage.getItem('__u_set_pct')){
                 let inCart = JSON.parse(localStorage.getItem('__u_set_pct'))
                 let totalPrice = null
                 inCart.forEach(item => {
                     if(item.d4 !== 0) {
                         totalPrice += (item.d4*item.d5)
+                        console.log(totalPrice)
                     }else if(item.d4 === 0){
                         totalPrice += (item.d3*item.d5)
                     }
                 })
-                return totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+                return totalPrice
             }else{
-                return 0
+                let totalPrice = 0;
+                return totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
             }
         },
         countInCart () {
-            if(localStorage.getItem('__u_set_pct')){
-                let inCart = JSON.parse(localStorage.getItem('__u_set_pct'))
+            let inCart = null
+            if(JSON.parse(localStorage.getItem('__u_set_pct'))) {
+                inCart = JSON.parse(localStorage.getItem('__u_set_pct'))
                 return inCart.length
             }else{
-                return 0
+                inCart = 0
             }
         }
     },
     template: `<div class="mini_cart_wrapper">
-
+                    {{pushCart}}
                     <a href="javascript:void(0)">
                         <i class="fa fa-shopping-bag"></i>
-                        <span class="cart_price">{{totalPrice}} ฿<i class="ion-ios-arrow-down"></i></span>
-                        <span class="cart_count">{{countInCart}}</span>
+                        <span v-if="localStorage.getItem('__u_set_pct')" class="cart_price">{{totalAllPrice}} ฿<i class="ion-ios-arrow-down"></i></span>
+                        <span v-else class="cart_price">0 ฿<i class="ion-ios-arrow-down"></i></span>
+                        <span v-if="localStorage.getItem('__u_set_pct')" class="cart_count">{{countInCart}}</span>
+                        <span v-else class="cart_count">0</span>
                     </a>
 
                     <!--mini cart-->
@@ -72,7 +80,7 @@ export const mini_cart = {
                         <div class="mini_cart_table">
                             <div class="cart_total mt-10">
                                 <span>ราคารวม : </span>
-                                <span class="price">{{totalPrice}} ฿</span>
+                                <span class="price">{{totalAllPrice}} ฿</span>
                             </div>
                         </div>
                         <div class="mini_cart_footer">

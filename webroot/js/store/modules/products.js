@@ -5,7 +5,7 @@ const state = {
     products: [],
     product_detail: [],
     product_category: [],
-    product_in_cart: [],
+    product_push_cart: false,
     loading: true,
     loading_detail: true
 }
@@ -14,6 +14,7 @@ const getters = {
     products: state => state.products,
     product_detail: state => state.product_detail,
     product_category: state => state.product_category,
+    product_push_cart: state => state.product_push_cart,
     loading: state => state.loading,
     loading_detail: state => state.loading_detail
 }
@@ -34,10 +35,9 @@ const mutations = {
     LOADING_DETAIL (state, status) {
         state.loading_detail = status
     },
-    ADD_TO_CART (state, items) {
-        state.product_in_cart.push(items)
-        localStorage.setItem('__u_set_pct', JSON.stringify(state.product_in_cart))
-        // console.log(localStorage.getItem('__u_set_pct'))
+    PUSH_TO_CART (state, status) {
+        state.product_push_cart = status
+        state.product_push_cart = false
     }
 }
 
@@ -67,7 +67,6 @@ const actions = {
         }
     },
     addToCart ({commit}, itemToAdd) {
-        let found = false;
         // console.log(itemToAdd)
         if(localStorage.getItem('__u_set_pct')) {
             let itemInCart = []
@@ -78,15 +77,18 @@ const actions = {
             if(isItemInCart === false) {
                 itemInCart.push(itemToAdd)
                 localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+                commit('PUSH_TO_CART', true)
             }else{
                 itemIndex[0].d5 = parseInt(itemIndex[0].d5) + parseInt(itemToAdd.d5)
                 localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+                commit('PUSH_TO_CART', true)
             }
         }else{
-            console.log('!get __u_set_pct')
+            // console.log('!get __u_set_pct')
             let itemInCart = []
             itemInCart.push(itemToAdd)
             localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+            commit('PUSH_TO_CART', true)
         }
         
         // Vue.prototype.$cookies.set('__u_set_pct', JSON.stringify(items))
