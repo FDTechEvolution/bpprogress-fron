@@ -4,6 +4,11 @@ export const product_card = {
     components: {
         'add-to-cart' : add_to_cart
     },
+    data () {
+        return {
+            qty: 1
+        }
+    },
     props: ['product'],
     template: `<div class="col-lg-3 col-md-3 col-sm-1 mb-3 px-1">
                     <article class="single_product">
@@ -33,8 +38,17 @@ export const product_card = {
                                         <span class="current_price">{{product.price}}</span>
                                     </div>
                                 </div>
-                                <div class="add_to_cart">
-                                    <add-to-cart/>
+                                <div v-if="product.qty > 0" class="add_to_cart">
+                                    <add-to-cart
+                                        :id = 'product.id'
+                                        :name = 'product.name'
+                                        :price = 'product.price'
+                                        :s_price = 'product.special_price'
+                                        :qty = 'qty'
+                                    ></add-to-cart>
+                                </div>
+                                <div v-if="product.qty === 0" class="add_to_cart">
+                                    <span class="text-danger">สินค้าหมด</span>
                                 </div>
                             </div>
                         </figure>

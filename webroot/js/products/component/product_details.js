@@ -85,9 +85,9 @@ export const product_details = {
                                             {{product_detail.short_description}}
                                         </span>
                                     </div>
-                                    <div class="product_variant quantity">
+                                    <div v-if="product_detail.qty > 0" class="product_variant quantity">
                                         <label>จำนวน</label>
-                                        <input v-model="qty" min="1" :max="product_detail.qty" value="1" type="number">
+                                        <input v-model="qty" min="1" :max="product_detail.qty" type="number">
                                         <add-to-cart
                                             :id = 'product_detail.id'
                                             :name = 'product_detail.name'
@@ -95,6 +95,9 @@ export const product_details = {
                                             :s_price = 'product_detail.special_price'
                                             :qty = 'qty'
                                         ></add-to-cart>
+                                    </div>
+                                    <div v-else class="product_variant quantity">
+                                        <label class="text-danger">สินค้าหมด</label>
                                     </div>
                                     <div class="product_meta mb-1">
                                         <span>จำนวนสินค้าคงเหลือ : <span :class="{'text-success' : product_detail.qty >= 20, 'text-danger' : product_detail.qty <= 20}">{{formatNumber(product_detail.qty)}}</span> ชิ้น</span>
