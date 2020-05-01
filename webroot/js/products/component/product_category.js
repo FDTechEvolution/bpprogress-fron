@@ -28,8 +28,8 @@ export const product_category = {
                         <article class="single_product">
                             <figure>
                                 <div class="product_thumb">
-                                    <a class="primary_img" :href="'products/product-details?product=' + product.id"><img :src="product.images" alt=""></a>
-                                    <a class="secondary_img" :href="'products/product-details?product=' + product.id"><img :src="product.images" alt=""></a>
+                                    <a class="primary_img" :href="'product-details?product=' + product.id"><img :src="product.images" alt=""></a>
+                                    <a class="secondary_img" :href="'product-details?product=' + product.id"><img :src="product.images" alt=""></a>
                                     <div v-if="product.special_price !== 0" class="label_product">
                                         <span class="label_sale">Sale</span>
                                     </div>
@@ -43,7 +43,7 @@ export const product_category = {
                                 </div>
                                 <div class="product_content">
                                     <div class="product_content_inner">
-                                        <h4 class="product_name"><a :href="'products/product-details?product=' + product.id">{{product.name}}</a></h4>
+                                        <h4 class="product_name"><a :href="'product-details?product=' + product.id">{{product.name}}</a></h4>
                                         <div v-if="product.special_price !== 0" class="price_box">
                                             <span class="old_price">{{formatNumber(product.price)}}฿</span>
                                             <span class="current_price">{{formatNumber(product.special_price)}}฿</span>
