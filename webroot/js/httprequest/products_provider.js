@@ -18,6 +18,11 @@ class ProductsProvider extends HttpRequest {
         return data
     }
 
+    async getNewHomeProduct () {
+        const {data} = await this.get('sv-products/get-new-products')
+        return data
+    }
+
 }
 
 export default ProductsProvider

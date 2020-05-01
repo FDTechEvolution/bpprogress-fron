@@ -3,6 +3,7 @@ const productService = new ProductsProvider
 
 const state = {
     products: [],
+    newProducts: [],
     product_detail: [],
     product_category: [],
     product_push_cart: false,
@@ -12,6 +13,7 @@ const state = {
 
 const getters = {
     products: state => state.products,
+    new_product: state => state.newProducts,
     product_detail: state => state.product_detail,
     product_category: state => state.product_category,
     product_push_cart: state => state.product_push_cart,
@@ -28,6 +30,10 @@ const mutations = {
         state.product_detail = response.data
         state.product_category = response.data.product_category
         // console.log(state.product_category)
+    },
+    GET_NEW_PRODUCT (state, response) {
+        state.newProducts = response.data
+        // console.log(state.newProducts)
     },
     LOADING (state, status) {
         state.loading = status
@@ -62,6 +68,18 @@ const actions = {
                 commit('GET_DETAIL_PRODUCT', response)
             })
             .finally(() => commit('LOADING_DETAIL', false))
+        }catch(e){
+            console.log(e)
+        }
+    },
+    async getNewProduct({commit}) {
+        try{
+            await productService.getNewHomeProduct()
+            .then((response) => {
+                // console.log(response)
+                commit('GET_NEW_PRODUCT', response)
+            })
+            .finally(() => commit('LOADING', false))
         }catch(e){
             console.log(e)
         }

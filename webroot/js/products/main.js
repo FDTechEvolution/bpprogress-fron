@@ -27,5 +27,6 @@ new Vue ({
     },
     created () {
         this.$store.dispatch('getAllProducts')
+        this.$store.dispatch('getNewProduct')
     }
 })

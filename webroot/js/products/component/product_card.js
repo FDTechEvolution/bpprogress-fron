@@ -9,6 +9,11 @@ export const product_card = {
             qty: 1
         }
     },
+    methods: {
+        formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
+    },
     props: ['product'],
     template: `<div class="col-lg-3 col-md-3 col-sm-1 mb-3 px-1">
                     <article class="single_product">
@@ -31,11 +36,11 @@ export const product_card = {
                                 <div class="product_content_inner">
                                     <h4 class="product_name"><a :href="'products/product-details?product=' + product.id">{{product.name}}</a></h4>
                                     <div v-if="product.special_price !== 0" class="price_box">
-                                        <span class="old_price">{{product.price}}</span>
-                                        <span class="current_price">{{product.special_price}}</span>
+                                        <span class="old_price">{{formatNumber(product.price)}}฿</span>
+                                        <span class="current_price">{{formatNumber(product.special_price)}}฿</span>
                                     </div>
                                     <div v-else class="price_box">
-                                        <span class="current_price">{{product.price}}</span>
+                                        <span class="current_price">{{formatNumber(product.price)}}฿</span>
                                     </div>
                                 </div>
                                 <div v-if="product.qty > 0" class="add_to_cart">
