@@ -14,5 +14,4 @@
 
     <!-- Main JS -->
     <?= $this->Html->script("/css/assets/js/main.js") ?>
-    <?= $this->Html->script("product_category.js") ?>
 </html>
