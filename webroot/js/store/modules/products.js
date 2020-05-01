@@ -44,6 +44,9 @@ const mutations = {
     PUSH_TO_CART (state, status) {
         state.product_push_cart = status
         state.product_push_cart = false
+    },
+    CART_PUSHED (state, status) {
+        state.product_push_cart = status
     }
 }
 
@@ -108,9 +111,24 @@ const actions = {
             localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
             commit('PUSH_TO_CART', true)
         }
-        
-        // Vue.prototype.$cookies.set('__u_set_pct', JSON.stringify(items))
-        // console.log($cookies.get('__u_set_pct'))
+    },
+    deleteFromCart ({commit}, id) {
+        let itemInCart = []
+        let itemIndex = []
+        itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
+        itemIndex = itemInCart.filter(item => item.d1===id)
+        let isItemInCart = itemIndex.length > 0;
+
+        if(isItemInCart === true) {
+            if(itemInCart.length === 1){
+                localStorage.removeItem('__u_set_pct')
+                commit('PUSH_TO_CART', true)
+            }else{
+                itemInCart.splice(0,1)
+                localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+                commit('PUSH_TO_CART', true)
+            }
+        }
     }
 }
 

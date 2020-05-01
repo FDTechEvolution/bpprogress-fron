@@ -94,6 +94,7 @@ export const product_details = {
                                             :price = 'product_detail.price'
                                             :s_price = 'product_detail.special_price'
                                             :qty = 'qty'
+                                            :img = 'product_detail.images'
                                         ></add-to-cart>
                                     </div>
                                     <div v-else class="product_variant quantity">

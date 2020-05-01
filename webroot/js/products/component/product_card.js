@@ -50,6 +50,7 @@ export const product_card = {
                                         :price = 'product.price'
                                         :s_price = 'product.special_price'
                                         :qty = 'qty'
+                                        :img = 'product.images'
                                     ></add-to-cart>
                                 </div>
                                 <div v-if="product.qty === 0" class="add_to_cart">
