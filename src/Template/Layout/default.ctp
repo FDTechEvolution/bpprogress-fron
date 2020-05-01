@@ -2,6 +2,7 @@
 <html class="no-js" lang="en">
     <head>
         <?= $this->element('Layout/head_tag') ?>
+
     </head>
     <body>
         <?= $this->element('Layout/main_header') ?>

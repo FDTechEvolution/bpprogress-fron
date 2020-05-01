@@ -31,11 +31,15 @@ class AppController extends Controller {
 
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
-        
         $CNAME = strtolower($this->request->getParam('controller'));
         
-        $this->set(compact('CNAME'));
+        //Get product cat
+        $productCategories = $this->Httprequest->get(SITE_API.'sv-product-categories');
+        $productCategories = $productCategories['data'];
+        $this->set(compact('CNAME','productCategories'));
     }
+
+    
 
     /**
      * Initialization hook method.
@@ -53,12 +57,17 @@ class AppController extends Controller {
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        $this->loadComponent('Httprequest', ['apiUrl' => SITE_API]);
 
         /*
          * Enable the following component for recommended CakePHP security settings.
          * see https://book.cakephp.org/3/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+    }
+
+    public function getProductCategory() {
+        
     }
 
 }
