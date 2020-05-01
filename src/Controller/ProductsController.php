@@ -30,4 +30,8 @@ class ProductsController extends AppController {
 
     }
 
+    public function category () {
+
+    }
+
 }

@@ -6,6 +6,8 @@ const state = {
     newProducts: [],
     product_detail: [],
     product_category: [],
+    category_product: [],
+    category_product_check: true,
     product_push_cart: false,
     loading: true,
     loading_detail: true
@@ -16,6 +18,8 @@ const getters = {
     new_product: state => state.newProducts,
     product_detail: state => state.product_detail,
     product_category: state => state.product_category,
+    category_product: state => state.category_product,
+    category_product_check: state => state.category_product_check,
     product_push_cart: state => state.product_push_cart,
     loading: state => state.loading,
     loading_detail: state => state.loading_detail
@@ -34,6 +38,14 @@ const mutations = {
     GET_NEW_PRODUCT (state, response) {
         state.newProducts = response.data
         // console.log(state.newProducts)
+    },
+    GET_PRODUCT_CATEGORY (state, response) {
+        state.category_product = response
+        // console.log(state.category_product)
+    },
+    GET_PRODUCT_CATEGORY_CHECK (state, status) {
+        state.category_product_check = status
+        // console.log(state.category_product_check)
     },
     LOADING (state, status) {
         state.loading = status
@@ -81,6 +93,23 @@ const actions = {
             .then((response) => {
                 // console.log(response)
                 commit('GET_NEW_PRODUCT', response)
+            })
+            .finally(() => commit('LOADING', false))
+        }catch(e){
+            console.log(e)
+        }
+    },
+    async getProductCategory ({commit}, id) {
+        try{
+            await productService.getCategoryProduct(id)
+            .then((response) => {
+                // console.log(response)
+                if(response.status === 400) {
+                    commit('GET_PRODUCT_CATEGORY_CHECK', false)
+                }else if(response.status === 200) {
+                    commit('GET_PRODUCT_CATEGORY', response.data)
+                }
+                
             })
             .finally(() => commit('LOADING', false))
         }catch(e){
