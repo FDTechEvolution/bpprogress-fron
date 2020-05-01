@@ -26,4 +26,4 @@
 <script>Vue.use(VeeValidate);</script>
 <!-------------------->
 
-<script>var siteurl = '<?= SITE_URL ?>'; var apiurl = '<?= SITE_API ?>';</script>
+

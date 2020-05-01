@@ -2,6 +2,7 @@
 <html class="no-js" lang="en">
     <head>
         <?= $this->element('Layout/head_tag') ?>
+
     </head>
     <body>
         <?= $this->element('Layout/main_header') ?>
@@ -13,4 +14,5 @@
 
     <!-- Main JS -->
     <?= $this->Html->script("/css/assets/js/main.js") ?>
+    <?= $this->Html->script("product_category.js") ?>
 </html>
