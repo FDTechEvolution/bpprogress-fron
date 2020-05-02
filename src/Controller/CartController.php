@@ -33,13 +33,33 @@ class CartController extends AppController {
     
     public function checkout(){
         $orderId = $this->request->getQuery('order');
-        //$this->log($orderId,'debug');
+        if($this->request->is(['POST'])){
+            $postData = $this->request->getData();
+            $postData['status'] = 'NEW';
+            //$this->log($postData,'debug');
+            $result = $this->Httprequest->post(SITE_API.'sv-orders/update-order',$postData);
+            $order = $result['data'];
+            if($result['status'] ==200){
+                if($order['payment_method']=='transfer'){
+                     return $this->redirect(['controller'=>'payments','action'=>'transfer']);
+                }elseif($order['payment_method']=='creditcard'){
+                     return $this->redirect(['controller'=>'payments','action'=>'creditcard']);
+                }else{
+                    return $this->redirect(['action'=>'success']);
+                }
+                
+            }
+        }
         $order = $this->Httprequest->get(SITE_API.'sv-orders/get-order/'.$orderId);
         $order = $order['data'];
         
         $user = $this->Httprequest->get(SITE_API.'sv-users/get-user/'.$order['user_id']);
         $user = $user['data'];
         $this->set(compact('order','user'));
+    }
+    
+    public function success(){
+        
     }
 
 }

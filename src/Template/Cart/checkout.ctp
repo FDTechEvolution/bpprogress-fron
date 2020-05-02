@@ -2,6 +2,7 @@
     <div class="container">
         <div class="shopping_cart_area">
             <?= $this->Form->create('checkout', ['id' => 'checkout']) ?>
+            <?= $this->Form->hidden('order_id',['value'=>$order['id']])?>
             <?php $amount = 0; ?>
             <div class="row">
                 <div class="col-12">
