@@ -53,7 +53,7 @@ export const login_form = {
             }
         }
     },
-    template: `<div class="col-lg-6 col-md-6">
+    template: `<div class="col-lg-6 col-md-6 mt-5 pb-3">
                 {{chkLogin}}
                     <div v-if="localStorage.getItem('_u_ss_ison_t')" class="account_form register">
                         <div class="row py-3">
@@ -64,7 +64,7 @@ export const login_form = {
                         </div>
                     </div>
                     <div v-else class="account_form register">
-                        <h2>เข้าสู่ระบบ</h2>
+                        <h3>เข้าสู่ระบบ</h3>
                         <form action="#" @submit.prevent="validateBeforeSubmit">
                             <div class="row pb-2">
                                 <div class="col-md-10 offset-md-1">

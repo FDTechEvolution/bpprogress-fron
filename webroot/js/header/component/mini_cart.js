@@ -88,7 +88,7 @@ export const mini_cart = {
                         </div>
                         <div class="mini_cart_footer">
                             <div class="cart_button">
-                                <a href="cart.html">ตะกร้าสินค้า</a>
+                                <a :href="'/cart/'">ตะกร้าสินค้า</a>
                             </div>
                         </div>
                     </div>

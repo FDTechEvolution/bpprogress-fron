@@ -25,5 +25,5 @@
 <script src="https://unpkg.com/vee-validate@<3.0.0"></script>
 <script>Vue.use(VeeValidate);</script>
 <!-------------------->
-
+<?= $this->Html->script('utils.js')?>
 
