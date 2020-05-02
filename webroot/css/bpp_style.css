@@ -64,3 +64,10 @@ ul.mega_menu_inner.user_account li {
 ul.mega_menu_inner.user_account li a {
   margin-bottom: 0;
 }
+
+.mouse{
+   
+}
+.mouse:hover {
+    cursor: pointer;
+}

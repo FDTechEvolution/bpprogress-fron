@@ -32,7 +32,14 @@ class CartController extends AppController {
     }
     
     public function checkout(){
+        $orderId = $this->request->getQuery('order');
+        //$this->log($orderId,'debug');
+        $order = $this->Httprequest->get(SITE_API.'sv-orders/get-order/'.$orderId);
+        $order = $order['data'];
         
+        $user = $this->Httprequest->get(SITE_API.'sv-users/get-user/'.$order['user_id']);
+        $user = $user['data'];
+        $this->set(compact('order','user'));
     }
 
 }
