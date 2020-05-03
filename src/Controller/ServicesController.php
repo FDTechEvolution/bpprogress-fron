@@ -52,7 +52,32 @@ class ServicesController extends AppController {
 
         return $this->response;
     }
-    
-   
+
+    public function session($userId = null) {
+        $this->modifyHeader();
+        $this->RequestHandler->respondAs('json');
+        //$this->log($userId,'debug');
+        if (!is_null($userId) && $userId != '' && $userId != 'null') {
+            $user = $this->Httprequest->get(SITE_API . 'sv-users/get-user/' . $userId);
+            if ($user['data'] != '') {
+                $this->request->getSession()->write('User', $user);
+                $this->responData = ['status' => 200, 'msg' => '', 'data' => 'LOGGED'];
+            } else {
+                $this->request->getSession()->destroy();
+                $this->responData = ['status' => 200, 'msg' => '', 'data' => 'NOT_LOGGED'];
+            }
+
+            //$this->log($user,'debug');
+        } else {
+            $this->request->getSession()->destroy();
+            $this->responData = ['status' => 200, 'msg' => '', 'data' => 'NOT_LOGGED'];
+        }
+
+        $json = json_encode($this->responData, JSON_UNESCAPED_UNICODE);
+        $this->response = $this->response->withStringBody($json);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
+    }
 
 }

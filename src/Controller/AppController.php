@@ -36,7 +36,13 @@ class AppController extends Controller {
         //Get product cat
         $productCategories = $this->Httprequest->get(SITE_API.'sv-product-categories');
         $productCategories = $productCategories['data'];
-        $this->set(compact('CNAME','productCategories'));
+        
+        $isLogged = false;
+        if($this->request->getSession()->read('User') != NULL){
+            $isLogged = true;
+        }
+        
+        $this->set(compact('CNAME','productCategories','isLogged'));
     }
 
     
@@ -58,6 +64,7 @@ class AppController extends Controller {
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Httprequest', ['apiUrl' => SITE_API]);
+        $this->loadComponent('CheckAuthen');
 
         /*
          * Enable the following component for recommended CakePHP security settings.

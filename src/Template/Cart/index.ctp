@@ -106,7 +106,10 @@
         });
         $('#subtotal').text(totalamt);
         $('#totalamt').text(totalamt);
-        $('#user_id').val(user.data);
+        if(user !== null){
+             $('#user_id').val(user.data);
+        }
+       
 
 
         $('#_bt-checkout').on('click', function () {

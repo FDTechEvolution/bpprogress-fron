@@ -3,7 +3,9 @@
 
     <head>
         <?= $this->element('Layout/head_tag') ?>
-       <script>var siteurl = '<?= SITE_URL ?>'; var apiurl = '<?= SITE_API ?>';</script>
+      <script>
+            var siteUrl = '<?= SITE_URL ?>';
+        </script>
     </head>
 
     <body>
@@ -22,5 +24,5 @@
 
     <!-- Main JS -->
     <?= $this->Html->script("/css/assets/js/main.js") ?>
-    
+    <?= $this->Html->script("session.js") ?>
 </html>

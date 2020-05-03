@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
 /**
  * Cart Controller
  *
@@ -12,12 +12,19 @@ use App\Controller\AppController;
  */
 class CartController extends AppController {
 
+     public function beforeFilter(Event $event) {
+        parent::beforeFilter($event);
+
+        $this->CheckAuthen->forceLogin();
+    }
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null
      */
     public function index() {
+        
+        
         if($this->request->is(['POST'])){
             $postData = $this->request->getData();
             //$this->log($postData,'debug');

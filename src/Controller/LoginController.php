@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -9,10 +10,10 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\Login[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class LoginController extends AppController
-{
-    public function index()
-    {
+class LoginController extends AppController {
 
+    public function index() {
+        
     }
+
 }

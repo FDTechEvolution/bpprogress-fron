@@ -22,10 +22,11 @@
                                     <li>
                                         <?= $this->Html->link('สินค้าทั้งหมด', ['controller' => 'products']) ?>
                                     </li>
-
+                                    <?php if(!$isLogged){?>
                                     <li>
                                         <?= $this->Html->link('สมัครสมาชิก', ['controller' => 'register', 'action' => 'index']) ?>
                                     </li>
+                                    <?php }?>
 
                                     <login/>
 
