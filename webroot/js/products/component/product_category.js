@@ -52,16 +52,6 @@ export const product_category = {
                                             <span class="current_price">{{formatNumber(product.price)}}฿</span>
                                         </div>
                                     </div>
-                                    <div v-if="product.qty > 0" class="add_to_cart">
-                                        <add-to-cart
-                                            :id = 'product.id'
-                                            :name = 'product.name'
-                                            :price = 'product.price'
-                                            :s_price = 'product.special_price'
-                                            :qty = 'qty'
-                                            :img = 'product.images'
-                                        ></add-to-cart>
-                                    </div>
                                     <div v-if="product.qty === 0" class="add_to_cart">
                                         <span class="text-danger">สินค้าหมด</span>
                                     </div>

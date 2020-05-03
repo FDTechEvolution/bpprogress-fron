@@ -16,6 +16,18 @@
     </div>
 </div>
 
+<style>
+    .table td, .table th {
+        padding: .3rem;
+    }
+    .btn-sm {
+        font-size: .75rem;
+    }
+    .font-size-7 {
+        font-size: .7rem !important;
+    }
+</style>
+
 <!-- <?= $this->Html->script('libs/plugins.js') ?>
 <?= $this->Html->script('libs/main.js') ?> -->
 

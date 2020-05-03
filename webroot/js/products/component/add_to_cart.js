@@ -3,9 +3,9 @@ export const add_to_cart = {
         id: String,
         name: String,
         price: Number,
-        s_price: Number,
         qty: Number,
-        img: String
+        img: String,
+        wholesale: Array
     },
     methods: {
         addToCart (d1,d2,d3,d4,d5,d6) {
@@ -15,5 +15,5 @@ export const add_to_cart = {
             // console.log($cookies.get('product'))
         }
     },
-    template: `<button type="button" class="button" title="เพิ่มลงตะกร้า" @click="addToCart(id,name,price,s_price,qty,img)">เพิ่มลงตะกร้า</button>`
+    template: `<button type="button" class="button" title="เพิ่มลงตะกร้า" @click="addToCart(id,name,price,qty,img,wholesale)">เพิ่มลงตะกร้า</button>`
 }

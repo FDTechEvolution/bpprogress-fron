@@ -1,6 +1,7 @@
 import {add_to_cart} from './add_to_cart.js'
 
 export const product_card = {
+    props: ['product'],
     components: {
         'add-to-cart' : add_to_cart
     },
@@ -14,7 +15,6 @@ export const product_card = {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
     },
-    props: ['product'],
     template: `<div class="col-lg-3 col-md-3 col-sm-1 mb-3 px-1">
                     <article class="single_product">
                         <figure>
@@ -42,16 +42,6 @@ export const product_card = {
                                     <div v-else class="price_box">
                                         <span class="current_price">{{formatNumber(product.price)}}฿</span>
                                     </div>
-                                </div>
-                                <div v-if="product.qty > 0" class="add_to_cart">
-                                    <add-to-cart
-                                        :id = 'product.id'
-                                        :name = 'product.name'
-                                        :price = 'product.price'
-                                        :s_price = 'product.special_price'
-                                        :qty = 'qty'
-                                        :img = 'product.images'
-                                    ></add-to-cart>
                                 </div>
                                 <div v-if="product.qty === 0" class="add_to_cart">
                                     <span class="text-danger">สินค้าหมด</span>

@@ -1,6 +1,7 @@
 import {add_to_cart} from './add_to_cart.js'
 
 export const product_details = {
+    props: ['product_detail', 'product_category'],
     components: {
         'add-to-cart' : add_to_cart
     },
@@ -20,7 +21,116 @@ export const product_details = {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
         }
     },
-    props: ['product_detail', 'product_category'],
+    computed: {
+        calculatePrice() {
+            let product_detail = this.$store.getters.product_detail
+            if(product_detail.special_price !== 0) {
+                if(product_detail.iswholesale === 'Y'){
+                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+                        return (parseInt(this.qty) * parseInt(product_detail.special_price))
+                    }else{
+                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                            let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
+                            return (parseInt(this.qty) * parseInt(wholesale_price.price))
+                        }else{
+                            let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
+                            return (parseInt(this.qty) * parseInt(wholesale_price.price))
+                        }
+                    }
+                }else{
+                    return (parseInt(this.qty) * parseInt(product_detail.special_price))
+                }
+            }else{
+                if(product_detail.iswholesale === 'Y'){
+                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+                        return (parseInt(this.qty) * parseInt(product_detail.price))
+                    }else{
+                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                            let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
+                            return (parseInt(this.qty) * parseInt(wholesale_price.price))
+                        }else{
+                            let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
+                            return (parseInt(this.qty) * parseInt(wholesale_price.price))
+                        }
+                    }
+                }else{
+                    return (parseInt(this.qty) * parseInt(product_detail.price))
+                }
+            }
+        },
+        wholesalePrice() {
+            let product_detail = this.$store.getters.product_detail
+            if(product_detail.special_price !== 0) {
+                if(product_detail.iswholesale === 'Y'){
+                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+                        return parseInt(product_detail.special_price)
+                    }else{
+                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                            let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
+                            return parseInt(wholesale_price.price)
+                        }else{
+                            let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
+                            return parseInt(wholesale_price.price)
+                        }
+                    }
+                }else{
+                    return parseInt(product_detail.special_price)
+                }
+            }else{
+                if(product_detail.iswholesale === 'Y'){
+                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+                        return parseInt(product_detail.price)
+                    }else{
+                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                            let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
+                            return parseInt(wholesale_price.price)
+                        }else{
+                            let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
+                            return parseInt(wholesale_price.price)
+                        }
+                    }
+                }else{
+                    return parseInt(product_detail.price)
+                }
+            }
+        },
+        pricePerProduct() {
+            let product_detail = this.$store.getters.product_detail
+            if(product_detail.special_price !== 0) {
+                if(product_detail.iswholesale === 'Y'){
+                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+                        return parseInt(product_detail.special_price)
+                    }else{
+                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                            let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
+                            return parseInt(wholesale_price.price)
+                        }else{
+                            let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
+                            return parseInt(wholesale_price.price)
+                        }
+                    }
+                }else{
+                    return parseInt(product_detail.special_price)
+                }
+            }else{
+                if(product_detail.iswholesale === 'Y'){
+                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+                        return parseInt(product_detail.price)
+                    }else{
+                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                            let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
+                            return parseInt(wholesale_price.price)
+                        }else{
+                            let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
+                            return parseInt(wholesale_price.price)
+                        }
+                    }
+                }else{
+                    return parseInt(product_detail.price)
+                }
+            }
+        }
+    },
     template: `<div class="product_details">
 
                     <div v-if="$store.getters.loading_detail == true" class="col-12 text-center">
@@ -76,28 +186,52 @@ export const product_details = {
                                     <div v-if="product_detail.special_price !== 0" class="price_box">
                                         <span class="old_price">{{formatNumber(product_detail.price)}} ฿</span>
                                         <span class="current_price">{{formatNumber(product_detail.special_price)}} ฿</span>
+                                        <span> / ชิ้น</span>
                                     </div>
                                     <div v-else class="price_box">
-                                        <span class="current_price">{{formatNumber(product_detail.price)}} ฿</span>
+                                        <span class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
+                                    </div>
+                                    <div v-if="product_detail.iswholesale === 'Y'" class="mb-3">
+                                        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" title="คลิกเพื่อดูราคาพิเศษ" aria-controls="multiCollapseExample1">ราคาพิเศษ</a>
+                                        <div class="collapse multi-collapse w-75" id="multiCollapseExample1">
+                                            <div class="card card-body">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center" scope="col">#</th>
+                                                            <th class="text-center" scope="col">จำนวนสินค้า</th>
+                                                            <th class="text-center" scope="col">ราคา/ชิ้น</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="(rate, index) in product_detail.wholesale_rate" style="border-bottom: 1px solid #ddd;">
+                                                            <td class="text-center">{{index+1}}.</td>
+                                                            <td class="text-center">{{rate.startqty}} - {{rate.endqty}} ชิ้น</td>
+                                                            <td class="text-center">{{rate.price}} ฿</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="product_desc">
                                         <span v-html="product_detail.short_description">
                                             {{product_detail.short_description}}
                                         </span>
                                     </div>
-                                    <div v-if="product_detail.qty > 0" class="product_variant quantity">
+                                    <div v-if="product_detail.qty > 0" class="product_variant quantity mb-1">
                                         <label>จำนวน</label>
                                         <input v-model="qty" min="1" :max="product_detail.qty" type="number">
                                         <add-to-cart
                                             :id = 'product_detail.id'
                                             :name = 'product_detail.name'
-                                            :price = 'product_detail.price'
-                                            :s_price = 'product_detail.special_price'
+                                            :price = 'pricePerProduct'
                                             :qty = 'qty'
                                             :img = 'product_detail.images'
+                                            :wholesale = 'product_detail.wholesale_rate'
                                         ></add-to-cart>
                                     </div>
-                                    <div v-else class="product_variant quantity">
+                                    <div v-if="product_detail.qty === 0" class="mb-2">
                                         <label class="text-danger">สินค้าหมด</label>
                                     </div>
                                     <div class="product_meta mb-1">

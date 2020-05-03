@@ -36,11 +36,7 @@ export const mini_cart = {
                 itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
                 if(!this.$store.getters.product_push_cart) {
                     itemInCart.forEach(item => {
-                        if(item.d4 !== 0) {
-                            totalPrice += (item.d4*item.d5)
-                        }else if(item.d4 === 0){
-                            totalPrice += (item.d3*item.d5)
-                        }
+                        totalPrice += (parseInt(item.qt) * parseInt(item.pi))
                     })
                 }
                 return totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -62,15 +58,14 @@ export const mini_cart = {
                         <div v-if="localStorage.getItem('__u_set_pct')" class="mini_cart_inner">
                             <div v-for="(product, index) in JSON.parse(localStorage.getItem('__u_set_pct'))" class="cart_item">
                                 <div class="cart_img">
-                                    <a :href="'products/product-details?product=' + product.d1"><img :src="product.d6" alt=""></a>
+                                    <a :href="'products/product-details?product=' + product.d1"><img :src="product.im" alt=""></a>
                                 </div>
                                 <div class="cart_info">
-                                    <a :href="'products/product-details?product=' + product.d1">{{product.d2}}</a>
-                                    <p v-if="product.d4 !== 0">จำนวน : <span>{{product.d5}}</span> x <span> {{product.d4}} ฿</span> - <span>{{totalPerProduct(product.d5, product.d4)}} ฿</span></p>
-                                    <p v-else>จำนวน : <span>{{product.d5}}</span> x <span> {{product.d3}} ฿</span> - <span>{{totalPerProduct(product.d5, product.d3)}} ฿</span></p>
+                                    <a :href="'products/product-details?product=' + product.pr">{{product.ne}}</a>
+                                    <p>จำนวน : <span>{{product.qt}}</span> x <span> {{product.pi}} ฿</span> - <span>{{totalPerProduct(product.qt, product.pi)}} ฿</span></p>
                                 </div>
                                 <div class="cart_remove">
-                                    <a title="ลบ" @click="deleteProductInCart(product.d1)"><i class="ion-android-close"></i></a>
+                                    <a title="ลบ" @click="deleteProductInCart(product.pr)"><i class="ion-android-close"></i></a>
                                 </div>
                             </div>
                         </div>

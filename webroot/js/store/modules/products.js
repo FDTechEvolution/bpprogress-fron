@@ -118,25 +118,62 @@ const actions = {
     },
     addToCart ({commit}, itemToAdd) {
         // console.log(itemToAdd)
+        let itemInCart = []
         if(localStorage.getItem('__u_set_pct')) {
-            let itemInCart = []
             itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
-            let itemIndex = itemInCart.filter(item => item.d1===itemToAdd.d1)
+            let itemIndex = itemInCart.filter(item => item.pr===itemToAdd.d1)
             let isItemInCart = itemIndex.length > 0;
 
             if(isItemInCart === false) {
-                itemInCart.push(itemToAdd)
+                let itemToCart = []
+                itemToCart = {
+                    pr : itemToAdd.d1,
+                    ne : itemToAdd.d2,
+                    pi : itemToAdd.d3,
+                    qt : itemToAdd.d4,
+                    im : itemToAdd.d5
+                }
+                itemInCart.push(itemToCart)
                 localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
                 commit('PUSH_TO_CART', true)
             }else{
-                itemIndex[0].d5 = parseInt(itemIndex[0].d5) + parseInt(itemToAdd.d5)
-                localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
-                commit('PUSH_TO_CART', true)
+                let newQty = parseInt(itemIndex[0].qt) + parseInt(itemToAdd.d4)
+                if(itemToAdd.d6){
+                    if(newQty < itemToAdd.d6[0].startqty) {
+                        itemIndex[0].qt = newQty
+                        localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+                        commit('PUSH_TO_CART', true)
+                    }else{
+                        if(newQty <= itemToAdd.d6.slice(-1)[0].endqty){
+                            let wholesale_price = itemToAdd.d6.find(item => item.endqty >= (parseInt(newQty)))
+                            itemIndex[0].qt = newQty
+                            itemIndex[0].pi = wholesale_price.price
+                            localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+                            commit('PUSH_TO_CART', true)
+                        }else{
+                            let wholesale_price = itemToAdd.d6.slice(-1)[0]
+                            itemIndex[0].pi = wholesale_price.price
+                            itemIndex[0].qt = newQty
+                            localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+                            commit('PUSH_TO_CART', true)
+                        }
+                    }
+                }else{
+                    itemIndex[0].qt = newQty
+                    localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+                    commit('PUSH_TO_CART', true)
+                }
             }
         }else{
-            // console.log('!get __u_set_pct')
-            let itemInCart = []
-            itemInCart.push(itemToAdd)
+            let itemToCart = []
+            itemToCart = {
+                pr : itemToAdd.d1,
+                ne : itemToAdd.d2,
+                pi : itemToAdd.d3,
+                qt : itemToAdd.d4,
+                im : itemToAdd.d5
+            }
+            itemInCart.push(itemToCart)
             localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
             commit('PUSH_TO_CART', true)
         }
@@ -145,7 +182,7 @@ const actions = {
         let itemInCart = []
         let itemIndex = []
         itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
-        itemIndex = itemInCart.filter(item => item.d1===id)
+        itemIndex = itemInCart.filter(item => item.pr===id)
         let isItemInCart = itemIndex.length > 0;
 
         if(isItemInCart === true) {
