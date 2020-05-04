@@ -82,19 +82,19 @@
 
         var totalamt = 0;
         $.each(products, function (index, product) {
-            var product_id = product.pr;
-            var qty = parseInt(product.qt);
-            var price = parseInt(product.pi);
+            var product_id = product.d1;
+            var qty = parseInt(product.d5);
+            var price = parseInt(product.d4);
             var amount = qty * price;
             totalamt += amount;
             var rowHtml = '';
             rowHtml += '<tr id="'+product_id+'">';
             rowHtml += '<td class="product_thumb">';
-            rowHtml += '<image src="' + product.im + '" width="70" />';
+            rowHtml += '<image src="' + product.d6 + '" width="70" />';
             rowHtml += '<input type="hidden" name="order_lines[' + index + '][product_id]" value="' + product_id + '"/>';
             rowHtml += '<input type="hidden" name="order_lines[' + index + '][qty]" value="' + qty + '"/>';
             rowHtml += '</td>';
-            rowHtml += '<td class="product_name">' + product.ne + '</td>';
+            rowHtml += '<td class="product_name">' + product.d2 + '</td>';
             rowHtml += '<td class="product-price">' + price + '</td>';
             rowHtml += '<td class="product_quantity">' + qty + '</td>';
             rowHtml += '<td class="product_total">' + amount + '</td>';
