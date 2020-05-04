@@ -1,5 +1,5 @@
 export const login_form = {
-    data () {
+    data() {
         return {
             login: {
                 mobile: null,
@@ -11,11 +11,18 @@ export const login_form = {
         }
     },
     computed: {
-        chkLogin () {
-            if(this.$store.getters.userLogin) { //เช็คการ login ใหม่
+        chkLogin() {
+            if (this.$store.getters.userLogin) { //เช็คการ login ใหม่
                 localStorage.setItem('_u_ss_ison_t', true) // ยืนยันการ login
-                setTimeout("window.location.href=\"home\";", 200)
-            }else{
+                let logged_user = localStorage.getItem('_u_ss_isset');
+                logged_user = JSON.parse(logged_user);
+                if (logged_user !== null) {
+                    //window.location = siteUrl + 'login';
+                    logged_user = logged_user.data;
+
+                }
+                setTimeout("window.location.href='login/verify/"+logged_user+"';", 200)
+            } else {
                 this.submitted = false
             }
         }
@@ -24,7 +31,7 @@ export const login_form = {
         validateBeforeSubmit(e) {
             this.$validator.validateAll().then((result) => {
                 if (result) {
-                    let payload = { // set to array for vuex action
+                    let payload = {// set to array for vuex action
                         mobile: this.login.mobile,
                         password: this.login.password
                     }
@@ -37,10 +44,10 @@ export const login_form = {
             });
             this.submitted = false
         },
-        confirmOTP (id, otp_ref) {
-            if(this.otp_code == '') {
+        confirmOTP(id, otp_ref) {
+            if (this.otp_code == '') {
                 this.otp_notice = 'กรุณากรอกรหัส OTP'
-            }else{
+            } else {
                 let payload = {
                     id: id,
                     otp_ref: otp_ref,
@@ -48,7 +55,7 @@ export const login_form = {
                 }
                 this.$store.dispatch('confirmOTP', payload)
                 this.otp_code = '',
-                this.otp_notice = ''
+                        this.otp_notice = ''
                 return
             }
         }

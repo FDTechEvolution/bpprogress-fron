@@ -52,6 +52,24 @@ class ServicesController extends AppController {
 
         return $this->response;
     }
+    
+    public function updateAddress(){
+        if ($this->request->is(['POST', 'AJAX', 'PUT'])) {
+            $postData = $this->request->getData();
+            //$this->log($postData,'debug');
+            $result = $this->Httprequest->post(SITE_API . 'sv-users/update-address', $postData);
+            $address = $result['data'];
+
+            $this->responData = ['status' => 200, 'msg' => '', 'data' => $address];
+        }
+        $this->modifyHeader();
+        $this->RequestHandler->respondAs('json');
+        $json = json_encode($this->responData, JSON_UNESCAPED_UNICODE);
+        $this->response = $this->response->withStringBody($json);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
+    }
 
     public function session($userId = null) {
         $this->modifyHeader();

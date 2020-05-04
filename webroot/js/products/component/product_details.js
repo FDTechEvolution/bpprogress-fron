@@ -192,8 +192,7 @@ export const product_details = {
                                         <span class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
                                     </div>
                                     <div v-if="product_detail.iswholesale === 'Y'" class="mb-3">
-                                        <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" title="คลิกเพื่อดูราคาพิเศษ" aria-controls="multiCollapseExample1">ราคาพิเศษ</a>
-                                        <div class="collapse multi-collapse w-75" id="multiCollapseExample1">
+                                        <div class="w-75" id="multiCollapseExample1">
                                             <div class="card card-body">
                                                 <table class="table table-striped">
                                                     <thead>

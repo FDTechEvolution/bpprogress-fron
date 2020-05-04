@@ -17,6 +17,7 @@
 <?= $this->Html->css("assets/css/style.css") ?>
 <?= $this->Html->css("bpp_style.css") ?>
 
+
 <!-- Vue.js & Axios -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -25,5 +26,9 @@
 <script src="https://unpkg.com/vee-validate@<3.0.0"></script>
 <script>Vue.use(VeeValidate);</script>
 <!-------------------->
-<?= $this->Html->script('utils.js')?>
+<!--  jquery script  -->
+<?= $this->Html->script("/css/assets/js/plugins_head.js") ?>
+<!--  validation script  -->
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
+<?= $this->Html->script('utils.js')?>

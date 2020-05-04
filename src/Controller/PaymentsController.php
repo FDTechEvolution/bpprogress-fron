@@ -17,6 +17,11 @@ class PaymentsController extends AppController {
     }
     
     public function creditcard(){
+        $orderId = $this->request->getQuery('order');
         
+        $order = $this->Httprequest->get(SITE_API.'sv-orders/get-order/'.$orderId);
+        $order = $order['data'];
+        
+        $this->set(compact('order'));
     }
 }

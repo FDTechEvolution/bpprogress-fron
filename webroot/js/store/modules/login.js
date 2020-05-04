@@ -75,7 +75,7 @@ const actions = {
         localStorage.removeItem("_u_ss_isset")
         localStorage.removeItem("_u_ss_ison_t")
         Vue.prototype.$cookies.remove('_u_ss_isprop')
-        setTimeout("window.location.href=\"home\";", 200)
+        setTimeout("window.location.href='login/verify/';", 200)
     },
     async checkStillUser ({commit}) {
         if(localStorage.getItem('_u_ss_ison_t')){
