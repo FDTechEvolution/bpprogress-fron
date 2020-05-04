@@ -48,9 +48,9 @@ class CartController extends AppController {
             $order = $result['data'];
             if($result['status'] ==200){
                 if($order['payment_method']=='transfer'){
-                     return $this->redirect(['controller'=>'payments','action'=>'transfer','order'=>$order['id']]);
+                     return $this->redirect(['controller'=>'payments','action'=>'transfer']);
                 }elseif($order['payment_method']=='creditcard'){
-                     return $this->redirect(['controller'=>'payments','action'=>'creditcard','order'=>$order['id']]);
+                     return $this->redirect(['controller'=>'payments','action'=>'creditcard']);
                 }else{
                     return $this->redirect(['action'=>'success']);
                 }
