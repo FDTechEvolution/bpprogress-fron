@@ -7,6 +7,7 @@
 
 $(document).ready(function () {
 
+/*
     var logged_user = localStorage.getItem('_u_ss_isset');
     logged_user = JSON.parse(logged_user);
     console.log(logged_user);
@@ -22,4 +23,5 @@ $(document).ready(function () {
 
             });
 
+*/
 });
