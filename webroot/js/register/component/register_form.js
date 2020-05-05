@@ -52,7 +52,7 @@ export const register_form = {
             }
         }
     },
-    template: `<div class="col-lg-8 col-md-8">
+    template: `<div class="col-lg-8 col-md-8 mt-2 mb-2">
                 {{checkRegister}}
                     <div class="account_form register">
                         <h2>สมัครเข้าใช้งาน</h2>

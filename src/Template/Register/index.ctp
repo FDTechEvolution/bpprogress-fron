@@ -1,7 +1,7 @@
 <div id="app-register" class="login_page_bg py-0">
     <div class="container">
         <div class="customer_login">
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-md-center pt-3">
 
                 <!--register area start-->
                 <register-form/>

@@ -10,17 +10,17 @@
                                     
                                 </div>
                             </div>
-                            <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="img/banners/01.jpg">
+                            <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="img/banners/banner-bpshoppingmall-m01.jpg">
                                 <div class="slider_content">
                                    
                                 </div>
                             </div>
-                            <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="img/banners/01.jpg">
+                            <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="img/banners/banner-bpshoppingmall-m02.jpg">
                                 <div class="slider_content color_white">
                                     
                                 </div>
                             </div>
-                            <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="img/banners/01.jpg">
+                            <div class="single_slider swiper-slide d-flex align-items-center" data-bgimg="img/banners/banner-bpshoppingmall-m03.jpg">
                                 <div class="slider_content">
                                    
                                 </div>

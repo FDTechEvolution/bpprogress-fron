@@ -7813,7 +7813,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   text-transform: capitalize;
   font-weight: 500;
   line-height: 22px;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 @media only screen and (max-width: 767px) {
   .account_form h2 {
