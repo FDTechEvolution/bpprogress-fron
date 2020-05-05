@@ -182,19 +182,31 @@ const actions = {
         let itemInCart = []
         let itemIndex = []
         itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
-        itemIndex = itemInCart.filter(item => item.pr===id)
-        let isItemInCart = itemIndex.length > 0;
+        // itemIndex = itemInCart.filter(item => item.pr===id)
+        // let isItemInCart = itemIndex.length > 0;
 
-        if(isItemInCart === true) {
-            if(itemInCart.length === 1){
-                localStorage.removeItem('__u_set_pct')
-                commit('PUSH_TO_CART', true)
-            }else{
-                itemInCart.splice(0,1)
-                localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
-                commit('PUSH_TO_CART', true)
+        itemInCart.forEach((item,index) => {
+            if(item.pr === id) {
+                if(itemInCart.length === 1){
+                    localStorage.removeItem('__u_set_pct')
+                    commit('PUSH_TO_CART', true)
+                }else{
+                    itemInCart.splice(index,1)
+                    localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+                    commit('PUSH_TO_CART', true)
+                }
             }
-        }
+        })
+        // if(isItemInCart === true) {
+        //     if(itemInCart.length === 1){
+        //         localStorage.removeItem('__u_set_pct')
+        //         commit('PUSH_TO_CART', true)
+        //     }else{
+        //         itemInCart.splice(0,1)
+        //         localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
+        //         commit('PUSH_TO_CART', true)
+        //     }
+        // }
     }
 }
 
