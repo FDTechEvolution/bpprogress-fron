@@ -45,7 +45,7 @@
 
             <!--header bottom satrt-->
             <div class="header_bottom">
-                <div class="row align-items-center">
+                <div class="row align-items-center pb-2">
                     <div class="column1 col-lg-3 col-md-6">
                         <div class="categories_menu <?= $CNAME == 'home' ? '' : 'categories_three' ?>">
                             <div class="categories_title">
@@ -78,7 +78,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="column2 col-lg-9 ">
+                    <div class=" col-lg-9">
                         <div class="search_container">
                             <form action="#">
                                 <div class="hover_category">
@@ -109,11 +109,7 @@
                         </div>
 
                     </div>
-                    <div class="column3 col-lg-3 col-md-6">
-                        <div class="header_bigsale">
-                            <a href="#">BIG SALE BLACK FRIDAY</a>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
             <!--header bottom end-->

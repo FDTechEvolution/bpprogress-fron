@@ -195,7 +195,7 @@
 </div>
 
 <script>
-    var siteUrl = '<?= SITE_URL ?>';
+   
 
     $(document).ready(function () {
         $("#frm-address").validate({

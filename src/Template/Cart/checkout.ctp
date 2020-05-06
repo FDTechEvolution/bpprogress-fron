@@ -2,7 +2,7 @@
     <div class="container">
         <div class="shopping_cart_area">
             <?= $this->Form->create('checkout', ['id' => 'checkout']) ?>
-            <?= $this->Form->hidden('order_id',['value'=>$order['id']])?>
+            <?= $this->Form->hidden('order_id', ['value' => $order['id']]) ?>
             <?php $amount = 0; ?>
             <div class="row">
                 <div class="col-12">
@@ -62,7 +62,7 @@
                                     <div class="form-check p-2 pl-4">
                                         <input class="form-check-input" type="radio" name="address_id" id="<?= $address['id'] ?>" value="<?= $address['id'] ?>" <?= $index == 0 ? 'checked' : '' ?> />
                                         <label class="form-check-label" for="<?= $address['id'] ?>">
-                                            <strong><?=$user['fullname']?></strong>
+                                            <strong><?= $user['fullname'] ?></strong>
                                             <?= sprintf('%s ต.%s อ.%s จ.%s %s โทร.%s', $address['address_line'], $address['subdistrict'], $address['district'], $address['province'], $address['zipcode'], $address['mobile']) ?>
                                         </label>
                                     </div>
@@ -162,9 +162,27 @@
 <script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
 <script>
-    var siteUrl = '<?= SITE_URL ?>';
-    $(document).ready(function () {
 
+    $(document).ready(function () {
+        $("#frm-address").validate({
+            rules: {
+                email: {
+                    required: true
+                },
+
+            },
+
+            // Messages for form validation
+            messages: {
+
+            },
+
+            // Do not change code below
+            errorPlacement: function (error, element)
+            {
+                error.insertAfter(element);
+            }
+        });
 
         $('[data-type="box-payment-method"]').on('click', function () {
             $('[data-type="box-payment-method"]').removeClass('bg-secondary text-white');
@@ -177,12 +195,15 @@
         });
 
         $('#bt-save-address').on('click', function () {
-            $.post(siteUrl + 'services/save-address', $('#frm-address').serialize(), function (data) {
-                console.log(data);
-                if (data.status === 200) {
-                    location.reload();
-                }
-            });
+            if ($("#frm-address").valid()) {
+                $.post(siteUrl + 'services/save-address', $('#frm-address').serialize(), function (data) {
+                    console.log(data);
+                    if (data.status === 200) {
+                        location.reload();
+                    }
+                });
+            }
+
         });
 
     });

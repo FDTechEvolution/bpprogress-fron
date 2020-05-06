@@ -19,6 +19,16 @@
                 </div>
             </div>
         </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="product_header">
+                    <div class="section_title">
+                        <h2>สินค้ายอดนิยม</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!--product area end-->

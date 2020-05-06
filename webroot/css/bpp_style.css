@@ -82,3 +82,11 @@ ul.mega_menu_inner.user_account li a {
     background-color: #222222 !important;
     border-color: #222222 !important;
 }
+.link{
+    text-decoration: underline;
+    color: #0062cc !important;
+}
+
+.error{
+    color: #c40316;
+}
