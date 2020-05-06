@@ -37,7 +37,7 @@ class HttprequestComponent extends Component {
 
     public function post($url = '', $data = null) {
         //$url = $this->_defaultConfig['apiUrl'].$url;
-        $this->log($url,'debug');
+        //$this->log($url,'debug');
         try {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -51,8 +51,8 @@ class HttprequestComponent extends Component {
             $obj = json_decode($content, true);
             return $obj;
         } catch (Exception $ex) {
-
-            //echo $ex;
+            $this->log($ex,'debug');
+            return $ex;
         }
     }
 

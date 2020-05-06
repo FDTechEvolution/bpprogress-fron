@@ -27,9 +27,9 @@
                                                 <image src="<?= $line['product']['product_images'][0]['image']['fullpath'] ?>" width="70" />
                                             </td>
                                             <td><?= $line['product']['name'] ?></td>
-                                            <td><?= $line['unit_price'] ?></td>
+                                            <td><?= number_format($line['unit_price']) ?></td>
                                             <td><?= $line['qty'] ?></td>
-                                            <td><?= $line['amount'] ?></td>
+                                            <td><?= number_format($line['amount']) ?></td>
                                         </tr>
                                         <?php $amount += $line['amount']; ?>
                                     <?php endforeach; ?>

@@ -52,8 +52,8 @@ class ServicesController extends AppController {
 
         return $this->response;
     }
-    
-    public function updateAddress(){
+
+    public function updateAddress() {
         if ($this->request->is(['POST', 'AJAX', 'PUT'])) {
             $postData = $this->request->getData();
             //$this->log($postData,'debug');
@@ -91,6 +91,39 @@ class ServicesController extends AppController {
             $this->responData = ['status' => 200, 'msg' => '', 'data' => 'NOT_LOGGED'];
         }
 
+        $json = json_encode($this->responData, JSON_UNESCAPED_UNICODE);
+        $this->response = $this->response->withStringBody($json);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
+    }
+
+    public function api() {
+        $data = [];
+        $url = $this->request->getQuery('url');
+        //$this->log($url, 'debug');
+        $this->responData['method'] = $this->request->getMethod();
+        if ($this->request->is(['GET'])) {
+            $result = $this->Httprequest->get($url);
+            $data = $result['data'];
+            $this->responData['status'] = 200;
+            $this->responData['data'] = $data;
+        } else {
+            $postData = $this->request->getData();
+            
+            $result = $this->Httprequest->post($url, $postData);
+           // $this->log($result, 'debug');
+            $data = $result['data'];
+
+            $this->responData['status'] = 200;
+            $this->responData['data'] = $data;
+            $this->responData['result'] = $postData;
+        }
+
+
+
+        $this->modifyHeader();
+        $this->RequestHandler->respondAs('json');
         $json = json_encode($this->responData, JSON_UNESCAPED_UNICODE);
         $this->response = $this->response->withStringBody($json);
         $this->response = $this->response->withType('json');

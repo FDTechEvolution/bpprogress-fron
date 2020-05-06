@@ -10,7 +10,7 @@ export const login = {
             this.$store.dispatch('logout')
         },
         logIn () {
-            setTimeout("window.location.href=\"login\";", 0)
+            setTimeout("window.location.href='/login';", 0)
         }
     },
     computed: {
