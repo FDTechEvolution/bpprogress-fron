@@ -57,6 +57,7 @@
                                                         <th>สถานะ</th>
                                                         <th>สถานะการชำระเงิน</th>
                                                         <th class="text-right">จำนวนเงิน</th>
+                                                        <th></th>
 
                                                     </tr>
                                                 </thead>
@@ -66,10 +67,18 @@
 
                                                             <td><?= $order['docdate'] ?></td>
                                                             <td><?= $this->Html->link($order['docno'], '#') ?></td>
-                                                            <td><?= $order['status'] ?></td>
-                                                            <td><?= $order['payment_status'] ?></td>
-                                                            <td class="text-right"><?= number_format($order['totalamt']) ?></td>
+                                                            <td>
+                                                                <?= $orderStatus[$order['status']] ?>
 
+                                                            </td>
+                                                            <td><?= $paymentStatus[$order['payment_status']] ?></td>
+                                                            <td class="text-right"><?= number_format($order['totalamt']) ?></td>
+                                                            <td>
+                                                                <?php if ($order['status'] == 'DR') { ?>
+                                                                    <?= $this->Html->link('ดำเนินการต่อ', ['controller' => 'cart', 'action' => 'checkout', 'order' => $order['id']]) ?> | 
+                                                                    <?= $this->Html->link('ยกเลิก', ['controller' => 'cart', 'action' => 'void', 'order' => $order['id']]) ?>
+                                                                <?php } ?>
+                                                            </td>
                                                         </tr>
 
                                                     <?php endforeach; ?>
@@ -195,7 +204,7 @@
 </div>
 
 <script>
-   
+
 
     $(document).ready(function () {
         $("#frm-address").validate({
@@ -234,7 +243,7 @@
                         rowHtml += '</tr>';
 
                         $('#tb-address tbody').append(rowHtml);
-                  
+
                         $('#modal-add-address').modal('hide');
                         $('#frm-address')[0].reset();
                     }

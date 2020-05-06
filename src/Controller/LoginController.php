@@ -21,7 +21,7 @@ class LoginController extends AppController {
         if (!is_null($userId) && $userId != '' && $userId != 'null') {
             $user = $this->Httprequest->get(SITE_API . 'sv-users/get-user/' . $userId);
             if ($user['data'] != '') {
-                $this->request->getSession()->write('User', $user);
+                $this->request->getSession()->write('User', $user['data']);
                 
             } else {
                 $this->request->getSession()->destroy();

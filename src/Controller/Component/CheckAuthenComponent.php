@@ -18,7 +18,7 @@ class CheckAuthenComponent extends Component
     
     public function forceLogin(){
         $user = $this->request->getSession()->read('User');
-        $this->log($user,'debug');
+        //$this->log($user,'debug');
         if(is_null($user) || $user ==''){
              $controller = $this->_registry->getController();
               return $controller->redirect(['controller'=>'login']);

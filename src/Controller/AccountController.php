@@ -12,6 +12,19 @@ use App\Controller\AppController;
  */
 class AccountController extends AppController {
 
+    public $OrderStatus = [
+        'DR'=>'ฉบับร่าง',
+        'NEW'=>'คำสั่งซื้อใหม่',
+        'WT'=>'รอจัดส่ง',
+        'SENT'=>'ส่งแล้ว',
+        'RECEIPT'=>'รับสินค้าแล้ว',
+        'VO'=>'ยกเลิก'
+    ];
+    
+    public $PaymentStatus = [
+        'PAID'=>'ชำระเงินแล้ว',
+        'NOTPAID'=>'ยังไม่ได้ชำระเงิน'
+    ];
     /**
      * Index method
      *
@@ -21,14 +34,17 @@ class AccountController extends AppController {
         $user = $this->request->getSession()->read('User');
         
         
-        $user = $this->Httprequest->get(SITE_API.'sv-users/get-user/'.$user['data']['id']);
+        $user = $this->Httprequest->get(SITE_API.'sv-users/get-user/'.$user['id']);
         //$this->log($user,'debug');
         $user = $user['data'];
         
         $orders = $this->Httprequest->get(SITE_API.'sv-orders/get-order-by-user/'.$user['id']);
         $orders = $orders['data'];
-        $this->log($orders,'debug');
-        $this->set(compact('user','orders'));
+        $orderStatus = $this->OrderStatus;
+        $paymentStatus = $this->PaymentStatus;
+        
+        
+        $this->set(compact('user','orders','orderStatus','paymentStatus'));
     }
 
     public function myorder() {

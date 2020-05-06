@@ -49,6 +49,7 @@
             <div class="row">
                 <div class="col-md-6 col-12">
                     <h4>ที่อยู่สำหรับจัดส่ง <a href="javascript:void(0);" data-toggle="modal" data-target="#modal-add-address" class="text-primary"> [เพิ่มที่อยู่สำหรับจัดส่ง]</a></h4>
+                    <p class="text-danger">กรุณาเลือกที่อยู่สำหรับการส่งของหมายเลขคำสั่งซื้อนี้</p>
                     <hr/>
                     <div class="row">
                         <?php if (sizeof($user['addresses']) == 0) { ?>
@@ -77,6 +78,7 @@
                 </div>
                 <div class="col-md-6 col-12">
                     <h4>รูปแบบการชำระเงิน</h4>
+                    <p class="text-danger">กรุณาเลือกรูปแบบการชำระเงินสำหรับการส่งของหมายเลขคำสั่งซื้อนี้</p>
                     <hr/>
                     <div class="row text-center">
                         <div class="col-4 border border-light p-3 mouse" data-type="box-payment-method" data-value="transfer">
@@ -159,7 +161,6 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
 
 <script>
 
