@@ -31,4 +31,11 @@
 <!--  validation script  -->
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
-<?= $this->Html->script('utils.js')?>
+<?= $this->Html->script('utils.js') ?>
+<script>
+   
+        var siteUrl = '<?= SITE_URL ?>';
+        var apiUrl = 'https://bpprogress-back.wesales.online/';
+        var fullServiceUrl = siteUrl+'services/api?url='+apiUrl;
+
+</script>

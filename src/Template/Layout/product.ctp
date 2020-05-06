@@ -20,7 +20,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="shop_banner_thumb">
-                                        <img src="css/assets/img/bg/banner16.jpg" alt="">
+                                        <?=$this->Html->image('banners/banner-02.jpg')?>
                                     </div>
                                 </div>
                             </div>
@@ -48,79 +48,8 @@
                            
                             <div class="widget_list">
                                 <h3>สินค้าแนะนำ</h3>
-                                <div class="recent_product_container">
-                                    <article class="recent_product_list">
-                                        <figure>
-                                            <div class="product_thumb">
-                                                <a class="primary_img" href="product-details.html"><img src="img/products/product-01.jpg" alt=""></a>
-                                                <a class="secondary_img" href="product-details.html"><img src="img/products/product-01.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product_content">
-                                                <h4><a href="product-details.html">Aliquam lobortis pellentesque</a></h4>
-                                                <div class="product_rating">
-                                                    <ul>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price_box">
-                                                    <span class="old_price">$70.00</span>
-                                                    <span class="current_price">$65.00</span>
-                                                </div>
-                                            </div>
-                                        </figure>
-                                    </article>
-                                    <article class="recent_product_list">
-                                        <figure>
-                                            <div class="product_thumb">
-                                                <a class="primary_img" href="product-details.html"><img src="img/products/product-01.jpg" alt=""></a>
-                                                <a class="secondary_img" href="product-details.html"><img src="img/products/product-01.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product_content">
-                                                <h4><a href="product-details.html">Convallis quam sit vitae sodales</a></h4>
-                                                <div class="product_rating">
-                                                    <ul>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price_box">
-                                                    <span class="old_price">$70.00</span>
-                                                    <span class="current_price">$65.00</span>
-                                                </div>
-                                            </div>
-                                        </figure>
-                                    </article>
-                                    <article class="recent_product_list">
-                                        <figure>
-                                            <div class="product_thumb">
-                                                <a class="primary_img" href="product-details.html"><img src="img/products/product-01.jpg" alt=""></a>
-                                                <a class="secondary_img" href="product-details.html"><img src="img/products/product-01.jpg" alt=""></a>
-                                            </div>
-                                            <div class="product_content">
-                                                <h4><a href="product-details.html">Cillum dolore nisl fermentum</a></h4>
-                                                <div class="product_rating">
-                                                    <ul>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                        <li><a href="#"><i class="ion-android-star-outline"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="price_box">
-                                                    <span class="old_price">$70.00</span>
-                                                    <span class="current_price">$65.00</span>
-                                                </div>
-                                            </div>
-                                        </figure>
-                                    </article>
+                                <div class="recent_product_container" id="box-top-product">
+                                    
                                 </div>
                             </div>
                            
@@ -135,9 +64,12 @@
         
         <?= $this->element('Layout/footer') ?>
     </body>
+    <?= $this->Html->script('product_top_view.js') ?>
     <!-- Plugins JS -->
     <?= $this->Html->script("/css/assets/js/plugins.js") ?>
 
     <!-- Main JS -->
     <?= $this->Html->script("/css/assets/js/main.js") ?>
+    
+    
 </html>

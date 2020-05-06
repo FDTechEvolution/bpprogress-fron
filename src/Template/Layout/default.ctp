@@ -2,9 +2,7 @@
 <html class="no-js" lang="en">
     <head>
         <?= $this->element('Layout/head_tag') ?>
-        <script>
-            var siteUrl = '<?= SITE_URL ?>';
-        </script>
+        
     </head>
     <body>
         <?= $this->element('Layout/main_header') ?>

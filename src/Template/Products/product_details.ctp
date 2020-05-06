@@ -32,3 +32,5 @@
 <?= $this->Html->script('libs/main.js') ?> -->
 
 <?= $this->Html->script('products/main.js', ['type' => 'module']) ?>
+
+<?= $this->Html->script('product_view_count.js') ?>

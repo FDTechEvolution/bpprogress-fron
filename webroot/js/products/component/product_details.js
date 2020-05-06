@@ -180,7 +180,7 @@ export const product_details = {
                         <div class="col-lg-7 col-md-6">
                             <div class="product_d_right">
                                 <form action="#">
-
+                                    
                                     <h3>{{product_detail.name}}</h3>
 
                                     <div v-if="product_detail.special_price !== 0" class="price_box">
