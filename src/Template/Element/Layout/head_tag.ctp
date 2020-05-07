@@ -16,7 +16,7 @@
 <?= $this->Html->css("thai-font.css") ?>
 <?= $this->Html->css("assets/css/style.css") ?>
 <?= $this->Html->css("bpp_style.css") ?>
-
+<script src="https://kit.fontawesome.com/4e1914be33.js" crossorigin="anonymous"></script>
 
 <!-- Vue.js & Axios -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>

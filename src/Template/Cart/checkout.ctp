@@ -119,37 +119,37 @@
                     <div class="form-group row">
                         <label for="address_line" class="col-md-3 col-sm-2 col-4 col-form-label">บ้านเลขที่/อาคาร/หมู่บ้าน/ถนน/หมู่ที่</label>
                         <div class="col-md-9 col-sm-10 col-6">
-                            <input type="text" class="form-control" id="address_line" name="address_line" placeholder="">
+                            <input type="text" class="form-control" id="address_line" name="address_line" placeholder="" required="">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="subdistrict" class="col-md-3 col-sm-2 col-4 col-form-label">ตำบล</label>
                         <div class="col-md-9 col-sm-10 col-6">
-                            <input type="text" class="form-control" id="subdistrict" name="subdistrict" placeholder="">
+                            <input type="text" class="form-control" id="subdistrict" name="subdistrict" placeholder="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="district" class="col-md-3 col-sm-2 col-4 col-form-label">อำเภอ</label>
                         <div class="col-md-9 col-sm-10 col-6">
-                            <input type="text" class="form-control" id="district" name="district" placeholder="">
+                            <input type="text" class="form-control" id="district" name="district" placeholder="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="province" class="col-md-3 col-sm-2 col-4 col-form-label">จังหวัด</label>
                         <div class="col-md-9 col-sm-10 col-6">
-                            <input type="text" class="form-control" id="province" name="province" placeholder="">
+                            <input type="text" class="form-control" id="province" name="province" placeholder="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="zipcode" class="col-md-3 col-sm-2 col-4 col-form-label">รหัสไปรษณีย์</label>
                         <div class="col-md-9 col-sm-10 col-6">
-                            <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="">
+                            <input type="number" class="form-control" id="zipcode" name="zipcode" placeholder="" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="mobile" class="col-md-3 col-sm-2 col-4 col-form-label">โทร</label>
                         <div class="col-md-9 col-sm-10 col-6">
-                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="">
+                            <input type="number" class="form-control" id="mobile" name="mobile" placeholder="" required>
                         </div>
                     </div>
                 </form>
@@ -167,9 +167,6 @@
     $(document).ready(function () {
         $("#frm-address").validate({
             rules: {
-                email: {
-                    required: true
-                },
 
             },
 

@@ -72,6 +72,10 @@ ul.mega_menu_inner.user_account li a {
     cursor: pointer;
 }
 
+.text-primary{
+     color: #c40316 !important;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #c40316 !important;

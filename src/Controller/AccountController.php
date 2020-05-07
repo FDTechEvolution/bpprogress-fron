@@ -14,7 +14,7 @@ class AccountController extends AppController {
 
     public $OrderStatus = [
         'DR'=>'ฉบับร่าง',
-        'NEW'=>'คำสั่งซื้อใหม่',
+        'NEW'=>'รอผู้ขายยืนยัน',
         'WT'=>'รอจัดส่ง',
         'SENT'=>'ส่งแล้ว',
         'RECEIPT'=>'รับสินค้าแล้ว',
@@ -25,13 +25,20 @@ class AccountController extends AppController {
         'PAID'=>'ชำระเงินแล้ว',
         'NOTPAID'=>'ยังไม่ได้ชำระเงิน'
     ];
+    public $PaymentMethod = [
+        'cod'=>'เก็บเงินปลายทาง',
+        'transfer'=>'โอนเงิน',
+        'creditcard'=>'บัตรเครดิต',
+        'cash'=>'เงินสด'
+    ];
+    
     /**
      * Index method
      *
      * @return \Cake\Http\Response|null
      */
     public function index() {
-        $user = $this->request->getSession()->read('User');
+        $user = $this->Cookie->read('User');
         
         
         $user = $this->Httprequest->get(SITE_API.'sv-users/get-user/'.$user['id']);
@@ -42,9 +49,10 @@ class AccountController extends AppController {
         $orders = $orders['data'];
         $orderStatus = $this->OrderStatus;
         $paymentStatus = $this->PaymentStatus;
+        $paymentMethod = $this->PaymentMethod;
         
         
-        $this->set(compact('user','orders','orderStatus','paymentStatus'));
+        $this->set(compact('user','orders','orderStatus','paymentStatus','paymentMethod'));
     }
 
     public function myorder() {

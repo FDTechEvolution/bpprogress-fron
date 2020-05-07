@@ -15,9 +15,11 @@ class CheckAuthenComponent extends Component
      * @var array
      */
     protected $_defaultConfig = [];
+    public $components = ['Cookie'];
     
     public function forceLogin(){
-        $user = $this->request->getSession()->read('User');
+        
+        $user = $this->Cookie->read('User');
         //$this->log($user,'debug');
         if(is_null($user) || $user ==''){
              $controller = $this->_registry->getController();

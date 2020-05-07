@@ -71,7 +71,7 @@ const actions = {
             }
 
             if(response.data.status == 200) {
-                setTimeout("window.location.href=\"login\";", 0)
+                setTimeout("window.location.href='/login/verify/';", 0)
                 // window.location.href = 'http://localhost/git/bpprogress-fron/login'
             }
         })

@@ -32,20 +32,18 @@ class AppController extends Controller {
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         $CNAME = strtolower($this->request->getParam('controller'));
-        
+
         //Get product cat
-        $productCategories = $this->Httprequest->get(SITE_API.'sv-product-categories');
+        $productCategories = $this->Httprequest->get(SITE_API . 'sv-product-categories');
         $productCategories = $productCategories['data'];
-        
+
         $isLogged = false;
-        if($this->request->getSession()->read('User') != NULL){
+        if ($this->Cookie->read('User') != NULL) {
             $isLogged = true;
         }
-        
-        $this->set(compact('CNAME','productCategories','isLogged'));
-    }
 
-    
+        $this->set(compact('CNAME', 'productCategories', 'isLogged'));
+    }
 
     /**
      * Initialization hook method.
@@ -65,6 +63,7 @@ class AppController extends Controller {
         $this->loadComponent('Flash');
         $this->loadComponent('Httprequest', ['apiUrl' => SITE_API]);
         $this->loadComponent('CheckAuthen');
+        $this->loadComponent('Cookie');
 
         /*
          * Enable the following component for recommended CakePHP security settings.

@@ -31,6 +31,7 @@ class CartController extends AppController {
             $postData = $this->request->getData();
             //$this->log($postData,'debug');
             $result = $this->Httprequest->post(SITE_API . 'sv-orders/save', $postData);
+            $this->log($result,'debug');
             $order = $result['data'];
 
             return $this->redirect(['action' => 'process', $order['id']]);

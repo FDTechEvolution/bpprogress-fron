@@ -56,6 +56,7 @@
                                                         <th>หมายเลขคำสั่งซื้อ</th>
                                                         <th>สถานะ</th>
                                                         <th>สถานะการชำระเงิน</th>
+                                                        <th>รูปบการชำระเงิน</th>
                                                         <th class="text-right">จำนวนเงิน</th>
                                                         <th></th>
 
@@ -66,18 +67,25 @@
                                                         <tr>
 
                                                             <td><?= $order['docdate'] ?></td>
-                                                            <td><?= $this->Html->link($order['docno'], '#') ?></td>
+                                                            <td><?= $this->Html->link($order['docno'], ['controller' => 'orders', 'action' => 'view', 'order' => $order['id']], ['class' => 'link']) ?></td>
                                                             <td>
                                                                 <?= $orderStatus[$order['status']] ?>
 
                                                             </td>
-                                                            <td><?= $paymentStatus[$order['payment_status']] ?></td>
+                                                            <td>
+                                                                <?= $paymentStatus[$order['payment_status']] ?> | 
+                                                                <?php if ($order['payment_status'] == 'NOTPAID' && $order['payment_method'] != 'cod') { ?>
+                                                                    <?= $this->Html->link('ชำระตอนนี้', ['controller' => 'payments', 'action' => 'index', 'order' => $order['id']], ['class' => 'link']) ?> 
+                                                                <?php } ?>
+                                                            </td>
+                                                            <td><?= $paymentMethod[$order['payment_method']] ?></td>
                                                             <td class="text-right"><?= number_format($order['totalamt']) ?></td>
                                                             <td>
                                                                 <?php if ($order['status'] == 'DR') { ?>
                                                                     <?= $this->Html->link('ดำเนินการต่อ', ['controller' => 'cart', 'action' => 'checkout', 'order' => $order['id']]) ?> | 
                                                                     <?= $this->Html->link('ยกเลิก', ['controller' => 'cart', 'action' => 'void', 'order' => $order['id']]) ?>
                                                                 <?php } ?>
+
                                                             </td>
                                                         </tr>
 

@@ -21,16 +21,18 @@ class LoginController extends AppController {
         if (!is_null($userId) && $userId != '' && $userId != 'null') {
             $user = $this->Httprequest->get(SITE_API . 'sv-users/get-user/' . $userId);
             if ($user['data'] != '') {
-                $this->request->getSession()->write('User', $user['data']);
+                $this->Cookie->write('User', $user['data']);
+                //$this->request->getSession()->write('User', $user['data']);
                 
             } else {
                 $this->request->getSession()->destroy();
-                
+                $this->Cookie->delete('User');
             }
 
             //$this->log($user,'debug');
         } else {
             $this->request->getSession()->destroy();
+            $this->Cookie->delete('User');
            
         }
 

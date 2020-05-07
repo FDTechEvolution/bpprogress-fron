@@ -29,7 +29,7 @@
                 </div>
             </div>
             <!--coupon code area start-->
-            <div class="coupon_area">
+            <div class="coupon_area" id="box-sumary">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="coupon_code left">
@@ -79,7 +79,19 @@
         console.log(localStorage.getItem('_u_ss_isset'));
         var user = JSON.parse(localStorage.getItem('_u_ss_isset'));
         var products = JSON.parse(localStorage.getItem('__u_set_pct'));
-
+        
+        if(products ==null){
+            console.log('cart is null.');
+            $('#box-sumary').hide();
+            var html = '';
+            html += '<tr>';
+            html += '<td colspan="6">';
+            html += '<h3>ยังไม่มีสินค้าในตะกร้า</h3>';
+            html += '<p>เลือกซื้อสินค้าหลากหลายได้ที่ <a href="'+siteUrl+'products">สินค้าทั้งหมด</a></p>';
+            html += '</td>';
+            html += '</tr>';
+             $('#tb-list-product tbody').append(html);
+        }
         var totalamt = 0;
         $.each(products, function (index, product) {
             var product_id = product.pr;
