@@ -51,7 +51,7 @@ const actions = {
                 if(response.data.status === 200) {
                     if(response.data.data.type == 'NORMAL') { // ถ้าเป็น user
                         // let setExp = (new Date(Date.now() + 1*24*3600*1000)).getTime() // 1 day
-                        let setExp = (new Date(Date.now() + 1*6*3600*1000)).getTime() // 6 hour
+                        let setExp = (new Date(Date.now() + 1*48*3600*1000)).getTime() // 6 hour
                         let usetArray = {
                             data: response.data.data.id,
                             exp: setExp

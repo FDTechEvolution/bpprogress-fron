@@ -6,7 +6,7 @@
 
         localStorage.removeItem('__u_set_pct');
         
-        window.location = siteurl+'cart/checkout?order='+order_id;
+        window.location.href = siteUrl+'cart/checkout?order='+order_id;
 
     });
 </script>
