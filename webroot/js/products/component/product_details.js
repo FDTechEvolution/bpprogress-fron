@@ -7,7 +7,7 @@ export const product_details = {
     },
     data () {
         return {
-            qty: 1
+            qty: null
         }
     },
     created () {
@@ -129,6 +129,14 @@ export const product_details = {
                     return parseInt(product_detail.price)
                 }
             }
+        },
+        checkWholesale () {
+            let product_detail = this.$store.getters.product_detail
+            if(product_detail.iswholesale === 'Y') {
+                this.qty = product_detail.wholesale_rate[0].startqty
+            }else{
+                this.qty = 1
+            }
         }
     },
     template: `<div class="product_details">
@@ -183,12 +191,14 @@ export const product_details = {
                                     
                                     <h3>{{product_detail.name}}</h3>
 
-                                    <div v-if="product_detail.special_price !== 0" class="price_box">
-                                        <span class="old_price">{{formatNumber(product_detail.price)}} ฿</span>
-                                        <span class="current_price">{{formatNumber(product_detail.special_price)}} ฿</span>
-                                    </div>
-                                    <div v-else class="price_box">
-                                        <span class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
+                                    <div v-if="product_detail.iswholesale !== 'Y'">
+                                        <div v-if="product_detail.special_price !== 0" class="price_box">
+                                            <span class="old_price">{{formatNumber(product_detail.price)}} ฿</span>
+                                            <span class="current_price">{{formatNumber(product_detail.special_price)}} ฿</span>
+                                        </div>
+                                        <div v-else class="price_box">
+                                            <span class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
+                                        </div>
                                     </div>
                                     <div v-if="product_detail.iswholesale === 'Y'" class="mb-3">
                                         <div class="w-75" id="">
@@ -219,7 +229,9 @@ export const product_details = {
                                     </div>
                                     <div v-if="product_detail.qty > 0" class="product_variant quantity mb-1">
                                         <label>จำนวน</label>
-                                        <input v-model="qty" min="1" :max="product_detail.qty" type="number">
+                                        {{checkWholesale}}
+                                        <input v-if="product_detail.iswholesale === 'Y'" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number">
+                                        <input v-else v-model="qty" min="1" :max="product_detail.qty" type="number">
                                         <add-to-cart
                                             :id = 'product_detail.id'
                                             :name = 'product_detail.name'
