@@ -7,7 +7,8 @@ export const product_details = {
     },
     data () {
         return {
-            qty: null
+            qty: null,
+            minqty: null
         }
     },
     created () {
@@ -134,8 +135,10 @@ export const product_details = {
             let product_detail = this.$store.getters.product_detail
             if(product_detail.iswholesale === 'Y') {
                 this.qty = product_detail.wholesale_rate[0].startqty
+                this.minqty = product_detail.wholesale_rate[0].startqty
             }else{
                 this.qty = 1
+                this.minqty = 1
             }
         }
     },
@@ -161,24 +164,9 @@ export const product_details = {
                                 </div>
                                 <div class="single-zoom-thumb">
                                     <ul class="s-tab-zoom owl-carousel single-product-active" id="gallery_01">
-                                        <li>
+                                        <li v-for="(gallery, index) in product_detail.gallery">
                                             <a href="#" class="elevatezoom-gallery active" data-update="" data-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" data-zoom-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg">
-                                                <img src="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" alt="zo-th-1" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" data-zoom-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg">
-                                                <img src="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" alt="zo-th-1" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" data-zoom-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg">
-                                                <img src="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" alt="zo-th-1" />
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="elevatezoom-gallery active" data-update="" data-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" data-zoom-image="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg">
-                                                <img src="http://localhost/git/bpprogress-fron/webroot/img/products/product-01.jpg" alt="zo-th-1" />
+                                                <img :src="gallery.image.fullpath" alt="zo-th-1" />
                                             </a>
                                         </li>
                                     </ul>
@@ -232,7 +220,7 @@ export const product_details = {
                                         {{checkWholesale}}
                                         <input v-if="product_detail.iswholesale === 'Y'" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number">
                                         <input v-else v-model="qty" min="1" :max="product_detail.qty" type="number">
-                                        <add-to-cart
+                                        <add-to-cart v-if="qty >= minqty"
                                             :id = 'product_detail.id'
                                             :name = 'product_detail.name'
                                             :price = 'pricePerProduct'
@@ -240,6 +228,7 @@ export const product_details = {
                                             :img = 'product_detail.images'
                                             :wholesale = 'product_detail.wholesale_rate'
                                         ></add-to-cart>
+                                        <div v-else class="ml-3 text-danger">จำนวนต่ำกว่าที่กำหนด (ขั้นต่ำ {{minqty}} ชิ้น)</div>
                                     </div>
                                     <div v-if="product_detail.qty === 0" class="mb-2">
                                         <label class="text-danger">สินค้าหมด</label>

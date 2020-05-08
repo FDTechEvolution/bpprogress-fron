@@ -28,8 +28,8 @@
     }
 </style>
 
-<!-- <?= $this->Html->script('libs/plugins.js') ?>
-<?= $this->Html->script('libs/main.js') ?> -->
+<!-- <?= $this->Html->script('product_gallery/plugins.js') ?> -->
+<!-- <?= $this->Html->script('product_gallery/main.js') ?> -->
 
 <?= $this->Html->script('products/main.js', ['type' => 'module']) ?>
 
