@@ -22,11 +22,11 @@
                                     <li>
                                         <?= $this->Html->link('สินค้าทั้งหมด', ['controller' => 'products']) ?>
                                     </li>
-                                    <?php if(!$isLogged){?>
-                                    <li>
-                                        <?= $this->Html->link('สมัครสมาชิก', ['controller' => 'register', 'action' => 'index']) ?>
-                                    </li>
-                                    <?php }?>
+                                    <?php if (!$isLogged) { ?>
+                                        <li>
+                                            <?= $this->Html->link('สมัครสมาชิก', ['controller' => 'register', 'action' => 'index']) ?>
+                                        </li>
+                                    <?php } ?>
 
                                     <login/>
 
@@ -57,7 +57,7 @@
                                     <?php foreach ($productCategories as $index => $productCategory): ?>
                                         <?php if ($index < 10) { ?>
                                             <li>
-                                                <?= $this->Html->link($productCategory['name'], ['controller'=>'products','action'=>'category','title'=>$productCategory['name'],'id'=>$productCategory['id']]) ?>
+                                                <?= $this->Html->link($productCategory['name'], ['controller' => 'products', 'action' => 'category', 'title' => $productCategory['name'], 'id' => $productCategory['id']]) ?>
                                             </li>
                                         <?php } else { ?>
                                             <?php array_push($mores, $productCategory) ?>
@@ -68,7 +68,7 @@
                                         <ul class="categorie_sub">
                                             <?php foreach ($mores as $index => $productCategory): ?>
                                                 <li>
-                                                    <?= $this->Html->link($productCategory['name'], ['controller'=>'products','action'=>'category','title'=>$productCategory['name'],'id'=>$productCategory['id']]) ?>
+                                                    <?= $this->Html->link($productCategory['name'], ['controller' => 'products', 'action' => 'category', 'title' => $productCategory['name'], 'id' => $productCategory['id']]) ?>
                                                 </li>
                                             <?php endforeach; ?>
                                         </ul>
@@ -80,36 +80,25 @@
                     </div>
                     <div class=" col-lg-9">
                         <div class="search_container">
-                            <form action="#">
-                                <div class="hover_category">
-                                    <select class="select_option" name="select" id="categori2">
-                                        <option selected value="1">ทุกประเภทสินค้า</option>
-                                        <option value="2">Accessories</option>
-                                        <option value="3">Accessories & More</option>
-                                        <option value="4">Butters & Eggs</option>
-                                        <option value="5">Camera & Video </option>
-                                        <option value="6">Mornitors</option>
-                                        <option value="7">Tablets</option>
-                                        <option value="8">Laptops</option>
-                                        <option value="9">Handbags</option>
-                                        <option value="10">Headphone & Speaker</option>
-                                        <option value="11">Herbs & botanicals</option>
-                                        <option value="12">Vegetables</option>
-                                        <option value="13">Shop</option>
-                                        <option value="14">Laptops & Desktops</option>
-                                        <option value="15">Watchs</option>
-                                        <option value="16">Electronic</option>
-                                    </select>
-                                </div>
-                                <div class="search_box">
-                                    <input placeholder="ค้นหาสินค้า..." type="text">
-                                    <button type="submit">ค้นหา</button>
-                                </div>
-                            </form>
+                            <?= $this->Form->create('search', ['url' => ['controller' => 'search', 'action' => ''],'id'=>'frm-search']) ?>
+                            <div class="hover_category">
+                                <select class="select_option" name="select" id="categori2">
+                                    <option selected value="1">ทุกประเภทสินค้า</option>
+                                    <?php foreach ($productCategories as $index => $productCategory): ?>
+                                        <option value="<?= $productCategory['id'] ?>"><?= $productCategory['name'] ?></option>
+                                    <?php endforeach; ?>
+
+                                </select>
+                            </div>
+                            <div class="search_box">
+                                <input placeholder="ค้นหาสินค้า..." type="text">
+                                <button type="submit">ค้นหา</button>
+                            </div>
+                            <?= $this->Form - end() ?>
                         </div>
 
                     </div>
-                    
+
                 </div>
             </div>
             <!--header bottom end-->

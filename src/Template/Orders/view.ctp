@@ -15,7 +15,7 @@
                             $step = 1;
                             if ($order['status'] == 'WT') {
                                 $step = 2;
-                            } elseif ($order['status'] == 'ST') {
+                            } elseif ($order['status'] == 'SENT') {
                                 $step = 3;
                             } elseif ($order['status'] == 'RECEIPT') {
                                 $step = 4;
@@ -39,8 +39,9 @@
                                 <div class="alert alert-<?= $step > 2 ? 'success' : 'light' ?>" role="alert">
                                     <h1><i class="fas fa-truck"></i></h1>
                                     <h4 class="alert-heading">กำลังจัดส่ง</h4>
-                                    <p>บริษัทขนส่งกำลังนำส่ง</p>
+                                    <p>บริษัทขนส่งกำลังนำส่ง </p>
                                 </div>
+                                <?=$order['status']=='SENT'?'หมายเลขพัสดุ '.$order['trackingno']:''?>
                             </div>
                             <div class="col-3 text-center">
                                 <div class="alert alert-<?= $step > 3 ? 'success' : 'light' ?>" role="alert">
@@ -106,6 +107,7 @@
                         </div>
                     </div>
                 </div>
+               
             </div>
 
         </div>

@@ -33,5 +33,11 @@ class ProductsController extends AppController {
     public function category () {
 
     }
+    
+    public function search(){
+        $productCategory = $this->request->getQuery('type');
+        $searchTxt = $this->request->getQuery('search');
+        
+    }
 
 }

@@ -101,10 +101,12 @@ class ServicesController extends AppController {
     public function api() {
         $data = [];
         $url = $this->request->getQuery('url');
-        //$this->log($url, 'debug');
+        
+
         $this->responData['method'] = $this->request->getMethod();
         if ($this->request->is(['GET'])) {
             $result = $this->Httprequest->get($url);
+            //$this->log($result,'debug');
             $data = $result['data'];
             $this->responData['status'] = 200;
             $this->responData['data'] = $data;

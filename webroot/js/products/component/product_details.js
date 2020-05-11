@@ -3,15 +3,15 @@ import {add_to_cart} from './add_to_cart.js'
 export const product_details = {
     props: ['product_detail', 'product_category'],
     components: {
-        'add-to-cart' : add_to_cart
+        'add-to-cart': add_to_cart
     },
-    data () {
+    data() {
         return {
             qty: null,
             minqty: null
         }
     },
-    created () {
+    created() {
         const queryString = window.location.search
         const urlParams = new URLSearchParams(queryString)
         const product = urlParams.get('product')
@@ -20,123 +20,131 @@ export const product_details = {
     methods: {
         formatNumber(num) {
             return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        },
+        filterNumber(e) {
+            //console.log('log')
+            let newvalue = e.target.value.replace(/[^0-9]+/g, '');
+            e.target.value = 0;
+            e.target.value = newvalue;
+            //e.target.value = 0;
+            console.log(newvalue);
         }
     },
     computed: {
         calculatePrice() {
             let product_detail = this.$store.getters.product_detail
-            if(product_detail.special_price !== 0) {
-                if(product_detail.iswholesale === 'Y'){
-                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+            if (product_detail.special_price !== 0) {
+                if (product_detail.iswholesale === 'Y') {
+                    if (this.qty < product_detail.wholesale_rate[0].startqty) {
                         return (parseInt(this.qty) * parseInt(product_detail.special_price))
-                    }else{
-                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                    } else {
+                        if (this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty) {
                             let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
                             return (parseInt(this.qty) * parseInt(wholesale_price.price))
-                        }else{
+                        } else {
                             let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
                             return (parseInt(this.qty) * parseInt(wholesale_price.price))
                         }
                     }
-                }else{
+                } else {
                     return (parseInt(this.qty) * parseInt(product_detail.special_price))
                 }
-            }else{
-                if(product_detail.iswholesale === 'Y'){
-                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+            } else {
+                if (product_detail.iswholesale === 'Y') {
+                    if (this.qty < product_detail.wholesale_rate[0].startqty) {
                         return (parseInt(this.qty) * parseInt(product_detail.price))
-                    }else{
-                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                    } else {
+                        if (this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty) {
                             let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
                             return (parseInt(this.qty) * parseInt(wholesale_price.price))
-                        }else{
+                        } else {
                             let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
                             return (parseInt(this.qty) * parseInt(wholesale_price.price))
                         }
                     }
-                }else{
+                } else {
                     return (parseInt(this.qty) * parseInt(product_detail.price))
                 }
             }
         },
         wholesalePrice() {
             let product_detail = this.$store.getters.product_detail
-            if(product_detail.special_price !== 0) {
-                if(product_detail.iswholesale === 'Y'){
-                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+            if (product_detail.special_price !== 0) {
+                if (product_detail.iswholesale === 'Y') {
+                    if (this.qty < product_detail.wholesale_rate[0].startqty) {
                         return parseInt(product_detail.special_price)
-                    }else{
-                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                    } else {
+                        if (this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty) {
                             let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
                             return parseInt(wholesale_price.price)
-                        }else{
+                        } else {
                             let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
                             return parseInt(wholesale_price.price)
                         }
                     }
-                }else{
+                } else {
                     return parseInt(product_detail.special_price)
                 }
-            }else{
-                if(product_detail.iswholesale === 'Y'){
-                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+            } else {
+                if (product_detail.iswholesale === 'Y') {
+                    if (this.qty < product_detail.wholesale_rate[0].startqty) {
                         return parseInt(product_detail.price)
-                    }else{
-                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                    } else {
+                        if (this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty) {
                             let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
                             return parseInt(wholesale_price.price)
-                        }else{
+                        } else {
                             let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
                             return parseInt(wholesale_price.price)
                         }
                     }
-                }else{
+                } else {
                     return parseInt(product_detail.price)
                 }
             }
         },
         pricePerProduct() {
             let product_detail = this.$store.getters.product_detail
-            if(product_detail.special_price !== 0) {
-                if(product_detail.iswholesale === 'Y'){
-                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+            if (product_detail.special_price !== 0) {
+                if (product_detail.iswholesale === 'Y') {
+                    if (this.qty < product_detail.wholesale_rate[0].startqty) {
                         return parseInt(product_detail.special_price)
-                    }else{
-                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                    } else {
+                        if (this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty) {
                             let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
                             return parseInt(wholesale_price.price)
-                        }else{
+                        } else {
                             let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
                             return parseInt(wholesale_price.price)
                         }
                     }
-                }else{
+                } else {
                     return parseInt(product_detail.special_price)
                 }
-            }else{
-                if(product_detail.iswholesale === 'Y'){
-                    if(this.qty < product_detail.wholesale_rate[0].startqty) {
+            } else {
+                if (product_detail.iswholesale === 'Y') {
+                    if (this.qty < product_detail.wholesale_rate[0].startqty) {
                         return parseInt(product_detail.price)
-                    }else{
-                        if(this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty){
+                    } else {
+                        if (this.qty <= product_detail.wholesale_rate.slice(-1)[0].endqty) {
                             let wholesale_price = product_detail.wholesale_rate.find(item => item.endqty >= (parseInt(this.qty)))
                             return parseInt(wholesale_price.price)
-                        }else{
+                        } else {
                             let wholesale_price = product_detail.wholesale_rate.slice(-1)[0]
                             return parseInt(wholesale_price.price)
                         }
                     }
-                }else{
+                } else {
                     return parseInt(product_detail.price)
                 }
             }
         },
-        checkWholesale () {
+        checkWholesale() {
             let product_detail = this.$store.getters.product_detail
-            if(product_detail.iswholesale === 'Y') {
+            if (product_detail.iswholesale === 'Y') {
                 this.qty = product_detail.wholesale_rate[0].startqty
                 this.minqty = product_detail.wholesale_rate[0].startqty
-            }else{
+            } else {
                 this.qty = 1
                 this.minqty = 1
             }
@@ -218,9 +226,9 @@ export const product_details = {
                                     <div v-if="product_detail.qty > 0" class="product_variant quantity mb-1">
                                         <label>จำนวน</label>
                                         {{checkWholesale}}
-                                        <input v-if="product_detail.iswholesale === 'Y'" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number">
-                                        <input v-else v-model="qty" min="1" :max="product_detail.qty" type="number">
-                                        <add-to-cart v-if="qty >= minqty"
+                                        <input v-if="product_detail.iswholesale === 'Y'" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                        <input v-else v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                        <add-to-cart v-if="qty >= minqty && qty<=product_detail.qty"
                                             :id = 'product_detail.id'
                                             :name = 'product_detail.name'
                                             :price = 'pricePerProduct'
@@ -228,7 +236,7 @@ export const product_details = {
                                             :img = 'product_detail.images'
                                             :wholesale = 'product_detail.wholesale_rate'
                                         ></add-to-cart>
-                                        <div v-else class="ml-3 text-danger">จำนวนต่ำกว่าที่กำหนด (ขั้นต่ำ {{minqty}} ชิ้น)</div>
+                                        <div v-else class="ml-3 text-danger">จำนวนขั้นต่ำ {{minqty}} และไม่เกิน {{product_detail.qty}} ชั้น</div>
                                     </div>
                                     <div v-if="product_detail.qty === 0" class="mb-2">
                                         <label class="text-danger">สินค้าหมด</label>

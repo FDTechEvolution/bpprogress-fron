@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 
-function tmp_product(id, name, price, spacial_price, imgPath) {
-    var view_product_url = siteUrl + 'products/product-details?product=' + id;
+function tmp_product(product) {
+    var view_product_url = siteUrl + 'products/product-details?product=' + product.id;
     var html = '';
     html += '<article class="recent_product_list">';
     html += '   <figure>';
     html += '       <div class="product_thumb">';
-    html += '            <a class="primary_img" href="' + view_product_url + '"><img src="' + imgPath + '" alt="' + name + '"></a>';
+    html += '            <a class="primary_img" href="' + view_product_url + '"><img src="' + product.image + '" alt="' + product.name + '"></a>';
     html += '       </div>';
     html += '       <div class="product_content">';
-    html += '           <h4><a href="' + view_product_url + '">' + name + '</a></h4>';
+    html += '           <h4><a href="' + view_product_url + '">' + product.name + '</a></h4>';
     html += '           <div class="product_rating">';
     html += '               <ul>';
     html += '                   <li><a href="#"><i class="ion-android-star"></i></a></li>';
@@ -24,8 +24,13 @@ function tmp_product(id, name, price, spacial_price, imgPath) {
     html += '               </ul>';
     html += '           </div>';
     html += '           <div class="price_box">';
-    html += '               <span class="old_price">' + price + '</span>';
-    html += '               <span class="current_price">' + spacial_price + '</span>';
+    if (product.iswholesale === 'N') {
+        html += '               <span class="old_price">' + product.price + '</span>';
+        html += '               <span class="current_price">' + product.special_price + '</span>';
+    } else {
+        html += '               <span class="current_price">' + product.wholesale_price + '</span>';
+    }
+
     html += '           </div>';
     html += '       </div>';
     html += '   </figure>';
@@ -41,8 +46,8 @@ $(document).ready(function () {
         $.get(fullServiceUrl + 'sv-products/get-top-view-product?limit=10', {})
                 .done(function (data) {
                     console.log(data);
-                    $.each(data.data,function(index,product){
-                        let productHtml = tmp_product(product.id,product.name,product.price,product.special_price,product.fullpath);
+                    $.each(data.data, function (index, product) {
+                        let productHtml = tmp_product(product);
                         box_top_product.append(productHtml);
                     });
 
