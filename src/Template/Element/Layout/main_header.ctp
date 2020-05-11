@@ -80,10 +80,10 @@
                     </div>
                     <div class=" col-lg-9">
                         <div class="search_container">
-                            <?= $this->Form->create('search', ['url' => ['controller' => 'search', 'action' => ''],'id'=>'frm-search']) ?>
+                            <?= $this->Form->create('search', ['url' => ['controller' => 'products', 'action' => 'search'],'type'=>'GET','id'=>'frm-search']) ?>
                             <div class="hover_category">
-                                <select class="select_option" name="select" id="categori2">
-                                    <option selected value="1">ทุกประเภทสินค้า</option>
+                                <select class="select_option" name="type" id="categori2">
+                                    <option selected value="all">ทุกประเภทสินค้า</option>
                                     <?php foreach ($productCategories as $index => $productCategory): ?>
                                         <option value="<?= $productCategory['id'] ?>"><?= $productCategory['name'] ?></option>
                                     <?php endforeach; ?>
@@ -91,10 +91,10 @@
                                 </select>
                             </div>
                             <div class="search_box">
-                                <input placeholder="ค้นหาสินค้า..." type="text">
+                                <input placeholder="ค้นหาสินค้า..." type="text" name="search">
                                 <button type="submit">ค้นหา</button>
                             </div>
-                            <?= $this->Form - end() ?>
+                            <?= $this->Form->end() ?>
                         </div>
 
                     </div>

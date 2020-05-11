@@ -35,8 +35,14 @@ class ProductsController extends AppController {
     }
     
     public function search(){
+        $this->viewBuilder()->setLayout('product');
+        
         $productCategory = $this->request->getQuery('type');
-        $searchTxt = $this->request->getQuery('search');
+        $searchTxt = $this->request->getQuery('search'); 
+        
+        $products = $this->Httprequest->get(SITE_API . 'sv-products/search?type=' .$productCategory.'&search='.$searchTxt);
+        $products = $products['data'];
+        $this->set(compact('products'));
         
     }
 
