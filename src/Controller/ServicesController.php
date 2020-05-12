@@ -71,6 +71,48 @@ class ServicesController extends AppController {
         return $this->response;
     }
 
+    public function changePassword() {
+        if ($this->request->is(['POST', 'AJAX', 'PUT'])) {
+            $postData = $this->request->getData();
+            $result = $this->Httprequest->post(SITE_API . 'sv-users/change-password', $postData);
+            $passwordRes = $result;
+            if($passwordRes['status'] == 200) {
+                $this->responData = ['status' => 200, 'msg' => '', 'data' => $passwordRes['data']];
+            }else{
+                $this->responData = ['status' => 404, 'msg' => $passwordRes['msg']];
+            }
+        }
+
+        $this->modifyHeader();
+        $this->RequestHandler->respondAs('json');
+        $json = json_encode($this->responData, JSON_UNESCAPED_UNICODE);
+        $this->response = $this->response->withStringBody($json);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
+    }
+
+    public function updateUser() {
+        if ($this->request->is(['POST', 'AJAX', 'PUT'])) {
+            $postData = $this->request->getData();
+            $result = $this->Httprequest->post(SITE_API . 'sv-users/update-user', $postData);
+            $userRes = $result;
+            if($userRes['status'] == 200) {
+                $this->responData = ['status' => 200, 'msg' => '', 'data' => $userRes];
+            }else{
+                $this->responData = ['status' => 404];
+            }
+        }
+
+        $this->modifyHeader();
+        $this->RequestHandler->respondAs('json');
+        $json = json_encode($this->responData, JSON_UNESCAPED_UNICODE);
+        $this->response = $this->response->withStringBody($json);
+        $this->response = $this->response->withType('json');
+
+        return $this->response;
+    }
+
     public function session($userId = null) {
         $this->modifyHeader();
         $this->RequestHandler->respondAs('json');

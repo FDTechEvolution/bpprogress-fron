@@ -26,17 +26,22 @@
                                         <div class="login">
                                             <div class="login_form_container">
                                                 <div class="account_login_form">
-                                                    <form action="#">
-
-                                                        <label>ชื่อ - นามสกุล</label>
-                                                        <input type="text" name="fullname" id='fullname' value="<?= $user['fullname'] ?>">
-
-                                                        <label>อีเมล</label>
-                                                        <input type="text" name="email-name">
-                                                        <label>หมายเลขโทรศัพท์</label>
-                                                        <input type="number" name="mobile" id="mobile" value="<?= $user['mobile'] ?>">
+                                                    <form id="frm-edit-user">
+                                                        <div class="form-group">
+                                                            <label>ชื่อ - นามสกุล</label>
+                                                            <input type="text" class="form-control" name="fullname" id='fullname' value="<?= $user['fullname'] ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>อีเมล</label>
+                                                            <input type="text" class="form-control" name="email-name" value="<?= $user['email'] ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>หมายเลขโทรศัพท์</label>
+                                                            <input type="number" class="form-control" name="mobile" id="mobile" value="<?= $user['mobile'] ?>">
+                                                        </div>
+                                                        <input type="hidden" name="user_id" id="user_id" value="<?= $user['id'] ?>" />
                                                         <div class="save_button primary_btn default_button">
-                                                            <button type="button">บันทึก</button>
+                                                            <button type="button" id="bt-edit-user">บันทึก</button>
                                                         </div>
                                                         <p>ต้องการ เปลี่บนรหัสผ่าน? <a href="javascript:void(0);" class="link" data-toggle="modal" data-target="#modal-change-password">เปลี่ยน</a></p>
                                                     </form>
@@ -143,7 +148,19 @@
             </div>
             <div class="modal-body">
                 <form id="frm-change-password">
-
+                    <div class="form-group">
+                        <label>รหัสผ่านเดิม</label>
+                        <input class="form-control" type="password" name="old_password" id="old_password">
+                    </div>
+                    <div class="form-group">
+                        <label>รหัสผ่านใหม่</label>
+                        <input class="form-control" type="password" name="new_password" id="new_password">
+                    </div>
+                    <div class="form-group">
+                        <label>ยืนยันรหัสผ่านใหม่</label>
+                        <input class="form-control" type="password" name="confirm_password" id="confirm_password">
+                    </div>
+                    <input type="hidden" name="user_id" id="user_id" value="<?= $user['id'] ?>" />
                 </form>
             </div>
             <div class="modal-footer">
@@ -211,6 +228,36 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="modal-success" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content w-50 mx-auto">
+            <div class="modal-body text-center">
+                <i style="font-size: 60px;" class="fa fa-check-circle text-success"></i>
+                <h4 class="mt-3">บันทึกเรียบร้อยแล้ว</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">ปิด</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-fail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content w-50 mx-auto">
+            <div class="modal-body text-center">
+                <i style="font-size: 60px;" class="fa fa-exclamation-circle text-danger"></i>
+                <h4 class="mt-3">เกิดข้อผิดพลาด</h4>
+                <p id="error_msg"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary px-4" data-dismiss="modal">ปิด</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 
 
@@ -226,6 +273,56 @@
             // Messages for form validation
             messages: {
 
+            },
+
+            // Do not change code below
+            errorPlacement: function (error, element)
+            {
+                error.insertAfter(element);
+            }
+        });
+
+        $("#frm-edit-user").validate({
+            rules: {
+                fullname: {
+                    required: true
+                },
+                mobile: {
+                    required: true
+                }
+            },
+
+            // Messages for form validation
+            messages: {
+                fullname: 'กรุณาใส่ชื่อ',
+                mobile: 'กรุณาระบุหมายเลขโทรศัพท์'
+            },
+
+            // Do not change code below
+            errorPlacement: function (error, element)
+            {
+                error.insertAfter(element);
+            }
+        });
+
+        $("#frm-change-password").validate({
+            rules: {
+                old_password: {
+                    required: true
+                },
+                new_password: {
+                    required: true
+                },
+                confirm_password: {
+                    required: true
+                }
+            },
+
+            // Messages for form validation
+            messages: {
+                old_password: 'กรุณาระบุรหัสผ่านปัจจุบัน',
+                new_password: 'กรุณาระบุรหัสผ่านใหม่',
+                confirm_password: 'กรุณายืนยันรหัสผ่าน'
             },
 
             // Do not change code below
@@ -284,6 +381,39 @@
                     removeElementById(address.id);
                 }
             });
+        });
+
+        $('#bt-save-password').on('click', function () {
+            if ($("#frm-change-password").valid()) {
+                $.post(siteUrl + 'services/change-password', $('#frm-change-password').serialize(), function (data) {
+                    // console.log(data);
+                    if (data.status === 200) {
+                        $('#modal-change-password').modal('hide');
+                        document.getElementById('old_password').value = ''
+                        document.getElementById('new_password').value = ''
+                        document.getElementById('confirm_password').value = ''
+                        $('#modal-success').modal('show');
+                    }else{
+                        document.getElementById('error_msg').innerHTML = data.msg
+                        $('#modal-fail').modal('show');
+                    }
+                });
+            }
+
+        });
+
+        $('#bt-edit-user').on('click', function () {
+            if ($("#frm-edit-user").valid()) {
+                $.post(siteUrl + 'services/update-user', $('#frm-edit-user').serialize(), function (data) {
+                    // console.log(data);
+                    if (data.status === 200) {
+                        $('#modal-success').modal('show');
+                    }else{
+                        $('#modal-fail').modal('show');
+                    }
+                });
+            }
+
         });
 
     });
