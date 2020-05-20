@@ -42,13 +42,9 @@ const actions = {
                 if(response.data.status === 403) {
                     commit('LOGIN_MSG', response.data.msg)
                     commit('LOGIN_SUCCESS', false)
-                }
-
-                if(response.data.status === 404) {
+                }else if(response.data.status === 404) {
                     commit('CONFIRM_OTP', response.data.data)
-                }
-
-                if(response.data.status === 200) {
+                }else if(response.data.status === 200) {
                     if(response.data.data.type == 'NORMAL') { // ถ้าเป็น user
                         // let setExp = (new Date(Date.now() + 1*24*3600*1000)).getTime() // 1 day
                         let setExp = (new Date(Date.now() + 1*48*3600*1000)).getTime() // 6 hour

@@ -12,7 +12,7 @@ $(document).ready(function () {
         console.log(productId);
         $.get(fullServiceUrl+'sv-products/update-view?product='+productId, {})
                 .done(function (data) {
-                    console.log(data);
+                    // console.log(data);
 
 
                 });

@@ -197,6 +197,13 @@ export const product_details = {
                                         </div>
                                     </div>
                                     <div v-if="product_detail.iswholesale === 'Y'" class="mb-3">
+                                        <div v-if="product_detail.special_price !== 0" class="price_box">
+                                            <span class="old_price">{{formatNumber(product_detail.price)}} ฿</span>
+                                            <span class="current_price">{{formatNumber(product_detail.special_price)}} ฿</span>
+                                        </div>
+                                        <div v-else class="price_box">
+                                            <span class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
+                                        </div>
                                         <div class="w-75" id="">
                                             <div class="card card-body">
                                                 <table class="table table-striped">
