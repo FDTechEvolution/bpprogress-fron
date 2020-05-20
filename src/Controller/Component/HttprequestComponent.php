@@ -20,6 +20,7 @@ class HttprequestComponent extends Component {
     ];
 
     public function get($url = '') {
+        //$this->log($url,'debug');
         //$apiUrl = $this->_defaultConfig['apiUrl'].$url;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -28,10 +29,16 @@ class HttprequestComponent extends Component {
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        //curl_setopt($ch, CURLOPT_TIMEOUT_MS, 200);
+
         $content = curl_exec($ch);
         //var_dump($postResult);
         $obj = json_decode($content, true);
+        //$obj = $content;
+        //$this->log($obj, 'debug');
         //var_dump($obj);
+         //$this->log(curl_error($ch), 'debug');
+
         curl_close($ch);
         return $obj;
     }
@@ -39,22 +46,22 @@ class HttprequestComponent extends Component {
     public function post($url = '', $data = null) {
         //$url = $this->_defaultConfig['apiUrl'].$url;
         //$this->log($url,'debug');
-        
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
-            curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        //curl_setopt($ch, CURLOPT_TIMEOUT_MS, 200);
+
         $content = curl_exec($ch);
         //var_dump($postResult);
         $obj = json_decode($content, true);
         //var_dump($obj);
         curl_close($ch);
         return $obj;
-        
-       
     }
 
     function fetch($url, $z = null) {

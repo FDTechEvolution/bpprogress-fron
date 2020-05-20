@@ -143,7 +143,15 @@ class ServicesController extends AppController {
     public function api() {
         $data = [];
         $url = $this->request->getQuery('url');
-        
+        $params = $this->request->getQueryParams();
+        if(sizeof($params)>1){
+            foreach (array_keys($params) as $param){
+                if($param !='url'){
+                    $url .= '&'.$param.'='.$params[$param];
+                }
+                
+            }
+        }
 
         $this->responData['method'] = $this->request->getMethod();
         if ($this->request->is(['GET'])) {

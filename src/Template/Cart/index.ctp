@@ -2,7 +2,7 @@
 <div class="cart_page_bg">
     <div class="container">
         <div class="shopping_cart_area">
-            <?= $this->Form->create('cart',['id'=>'cart']) ?>
+            <?= $this->Form->create('cart', ['id' => 'cart']) ?>
             <div class="row">
                 <div class="col-12">
                     <div class="table_desc">
@@ -13,9 +13,9 @@
 
                                         <th class="product_thumb">รูปสินค้า</th>
                                         <th class="product_name">ชื่อสินค้า</th>
-                                        <th class="product-price">ราคา</th>
+                                        <th class="product-price text-right">ราคา</th>
                                         <th class="product_quantity">จำนวน</th>
-                                        <th class="product_total">ราคารวม</th>
+                                        <th class="product_total text-right">ราคารวม</th>
                                         <th class="product_remove">ลบ</th>
                                     </tr>
                                 </thead>
@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="coupon_code left">
-                            
+
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -55,7 +55,7 @@
                                     <p class="cart_amount" id="totalamt"></p>
                                 </div>
                                 <div class="checkout_btn">
-                                    <a href="#" id="bt-save">บันทึกและชำระเงิน</a>
+                                    <button id="bt-save" class="btn btn-primary btn-lg">บันทึกและชำระเงิน</button>
                                 </div>
                             </div>
                         </div>
@@ -70,27 +70,65 @@
     </div>
 </div>
 <!--shopping cart area end -->
-<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
 <script>
-    var apiUrl = '<?=SITE_API?>';
+
+    function recal() {
+
+        //console.log($('#tb-list-product tbody tr').length);
+        let totalamt = 0;
+        $('#bt-save').prop('disabled',false);
+        $.each($('#tb-list-product tbody tr'), function (index, row) {
+            $('#loader').show();
+            let product_id = $(row).attr('data-row');
+            let qty = $('#qty-' + product_id).val();
+            $.get(fullServiceUrl + 'sv-products/calculate-price?product=' + product_id + '&qty=' + qty, {})
+                    .done(function (data) {
+                        console.log(data);
+                        data = data.data;
+
+                        let amount = parseInt(qty) * parseInt(data.unit_price);
+                        totalamt += parseInt(amount);
+
+                        $('#price-' + product_id).text(Number(data.unit_price).toLocaleString('en'));
+                        $('#amt-' + product_id).text(Number(amount).toLocaleString('en'));
+
+                        $('#subtotal').text('฿' + Number(totalamt).toLocaleString('en'));
+                        $('#totalamt').text('฿' + Number(totalamt).toLocaleString('en'));
+
+                        //Check qty
+                        if (parseInt(qty) > parseInt(data.product.qty)) {
+                            $('#msg-' + product_id).text('เกินจำนวนสินค้าที่มี [' + data.product.qty + ']');
+                            $('#bt-save').prop('disabled', true);
+                        }else{
+                            $('#msg-' + product_id).text('');
+                        }
+                        $('#loader').hide();
+                    });
+        });
+
+
+
+    }
+
     $(document).ready(function () {
 
         console.log(localStorage.getItem('__u_set_pct'));
         console.log(localStorage.getItem('_u_ss_isset'));
         var user = JSON.parse(localStorage.getItem('_u_ss_isset'));
         var products = JSON.parse(localStorage.getItem('__u_set_pct'));
-        
-        if(products ==null){
+
+        if (products == null) {
             console.log('cart is null.');
             $('#box-sumary').hide();
             var html = '';
             html += '<tr>';
             html += '<td colspan="6">';
             html += '<h3>ยังไม่มีสินค้าในตะกร้า</h3>';
-            html += '<p>เลือกซื้อสินค้าหลากหลายได้ที่ <a href="'+siteUrl+'products">สินค้าทั้งหมด</a></p>';
+            html += '<p>เลือกซื้อสินค้าหลากหลายได้ที่ <a href="' + siteUrl + 'products">สินค้าทั้งหมด</a></p>';
             html += '</td>';
             html += '</tr>';
-             $('#tb-list-product tbody').append(html);
+            $('#tb-list-product tbody').append(html);
         }
         var totalamt = 0;
         $.each(products, function (index, product) {
@@ -100,38 +138,64 @@
             var amount = qty * price;
             totalamt += amount;
             var rowHtml = '';
-            rowHtml += '<tr id="'+product_id+'">';
+            rowHtml += '<tr data-row="' + product_id + '" id="' + product_id + '">';
             rowHtml += '<td class="product_thumb">';
             rowHtml += '<image src="' + product.im + '" width="70" />';
-            rowHtml += '<input type="hidden" name="order_lines[' + index + '][product_id]" value="' + product_id + '"/>';
-            rowHtml += '<input type="hidden" name="order_lines[' + index + '][qty]" value="' + qty + '"/>';
+            rowHtml += '<input type="hidden" name="order_lines[' + index + '][product_id]" value="' + product_id + '" data-type="product_line" data-id="' + product_id + '" data-qty="' + qty + '"/>';
+
             rowHtml += '</td>';
             rowHtml += '<td class="product_name">' + product.ne + '</td>';
-            rowHtml += '<td class="product-price">' + price + '</td>';
-            rowHtml += '<td class="product_quantity">' + qty + '</td>';
-            rowHtml += '<td class="product_total">' + amount + '</td>';
-            rowHtml += '<td class="product_remove"><a href="javascript:void(0);" onclick="removeElementById(\''+product_id+'\')"><i class="fa fa-trash-o"></i></a></td>';
+            rowHtml += '<td class="product-price" id="price-' + product_id + '">' + Number(price).toLocaleString('en') + '</td>';
+            rowHtml += '<td class="product_quantity text-left">';
+            rowHtml += '<span id="msg-' + product_id + '" class="text-danger"></span>';
+            rowHtml += '<input type="number" id="qty-' + product_id + '" class="form-control" name="order_lines[' + index + '][qty]" value="' + qty + '" onchange="recal();"/>';
+
+            rowHtml += '</td>';
+            rowHtml += '<td class="product_total text-right" id="amt-' + product_id + '">' + Number(amount).toLocaleString('en') + '</td>';
+            rowHtml += '<td class="product_remove"><a href="javascript:void(0);" onclick="removeElementById(\'' + product_id + '\')"><i class="fa fa-trash-o"></i></a></td>';
 
             rowHtml += '</tr>';
 
             $('#tb-list-product tbody').append(rowHtml);
+            recal();
         });
-        $('#subtotal').text(totalamt);
-        $('#totalamt').text(totalamt);
-        if(user !== null){
-             $('#user_id').val(user.data);
+        $('#subtotal').text('฿' + Number(totalamt).toLocaleString('en'));
+        $('#totalamt').text('฿' + Number(totalamt).toLocaleString('en'));
+        if (user !== null) {
+            $('#user_id').val(user.data);
         }
-       
 
+        $('#bt-save').on('click', function () {
+            /*
+             var product_line = $('[data-type="product_line"]');
+             var is_ok = true;
+             
+             $.each(product_line, function (index, product) {
+             let product_id = $(product).attr('data-id');
+             let qty = $(product).attr('data-qty');
+             
+             $.ajax({
+             url: fullServiceUrl + 'sv-orders/check-stock-by-product?se=1',
+             type: "get", //send it through get method
+             data: {
+             product: product_id,
+             qty: qty
+             },
+             success: function (response) {
+             console.log(response);
+             response = response.data;
+             if(response.status === false){
+             is_ok = false;
+             }
+             },
+             error: function (xhr) {
+             //Do Something to handle error
+             }
+             });
+             });
+             * 
+             */
 
-        $('#_bt-checkout').on('click', function () {
-            console.log('click');
-            $.post('https://cors-anywhere.herokuapp.com/'+apiUrl+'sv-orders/save', $('#cart').serialize(), function (data) {
-               console.log(data);
-            });
-        });
-        
-        $('#bt-save').on('click',function(){
             $('#cart').submit();
         });
 

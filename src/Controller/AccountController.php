@@ -17,7 +17,7 @@ class AccountController extends AppController {
         'NEW'=>'รอผู้ขายยืนยัน',
         'WT'=>'รอจัดส่ง',
         'SENT'=>'ส่งแล้ว',
-        'RECEIPT'=>'รับสินค้าแล้ว',
+        'RECEIVED'=>'รับสินค้าแล้ว',
         'VO'=>'ยกเลิก'
     ];
     

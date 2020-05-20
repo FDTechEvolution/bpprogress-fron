@@ -21,7 +21,7 @@ class HomeController extends AppController {
     public function index() {
         $result = $this->Httprequest->get(SITE_API.'sv-products/get-new-products');
         $lastProducts = $result['data'];
-        $this->log($lastProducts,'debug');
+       
         $this->set(compact('lastProducts'));
         
     }

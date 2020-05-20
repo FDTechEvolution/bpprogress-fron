@@ -7086,7 +7086,7 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   margin-right: 5px;
 }
 .table_desc .cart_page table tbody tr td.product_quantity input {
-  width: 60px;
+  width: 80px;
   height: 40px;
   padding: 0 5px 0 10px;
   background: none;

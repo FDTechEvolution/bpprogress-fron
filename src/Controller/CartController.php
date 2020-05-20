@@ -29,12 +29,30 @@ class CartController extends AppController {
 
         if ($this->request->is(['POST'])) {
             $postData = $this->request->getData();
-            //$this->log($postData,'debug');
-            $result = $this->Httprequest->post(SITE_API . 'sv-orders/save', $postData);
-            $this->log($result,'debug');
-            $order = $result['data'];
 
-            return $this->redirect(['action' => 'process', $order['id']]);
+            $this->log($postData, 'debug');
+            $orderLines = $postData['order_lines'];
+
+            $checkStock = true;
+            foreach ($orderLines as $index => $line) {
+                $url = sprintf('%ssv-orders/check-stock-by-product?product_id=%s&qty=%s', SITE_API, $line['product_id'], $line['qty']);
+                $result = $this->Httprequest->get($url);
+                $result = $result['data'];
+                //$this->log($result, 'debug');
+                if ($result['status'] == false) {
+                    $checkStock = false;
+                    $this->Flash->error('จำนวนสินค้าไม่เพียงพอ');
+                    //$this->Flash->error(__('The shop could not be deleted. Please, try again.'));
+                }
+            }
+
+            if ($checkStock) {
+                $result = $this->Httprequest->post(SITE_API . 'sv-orders/save', $postData);
+                //$this->log($result,'debug');
+                $order = $result['data'];
+
+                return $this->redirect(['action' => 'process', $order['id']]);
+            }
         }
     }
 
@@ -78,7 +96,7 @@ class CartController extends AppController {
         $postData['order_id'] = $orderId;
         //$this->log($postData,'debug');
         $result = $this->Httprequest->post(SITE_API . 'sv-orders/update-order', $postData);
-        return $this->redirect(['controller'=>'account','action' => 'index']);
+        return $this->redirect(['controller' => 'account', 'action' => 'index']);
     }
 
 }

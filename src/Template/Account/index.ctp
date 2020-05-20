@@ -4,7 +4,7 @@
         <section class="main_content_area">
             <div class="account_dashboard">
                 <div class="row">
-                    <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div class="col-sm-12 col-md-2 col-lg-2">
                         <!-- Nav tabs -->
                         <div class="dashboard_tab_button">
                             <ul role="tablist" class="nav flex-column dashboard-list">
@@ -16,7 +16,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-9 col-lg-9">
+                    <div class="col-sm-12 col-md-10 col-lg-10">
                         <div class="card">
                             <div class="card-body">
                                 <!-- Tab panes -->
@@ -52,52 +52,57 @@
 
                                     <div class="tab-pane fade" id="orders">
                                         <h3>รายการสั่งซื้อ</h3>
-                                        <div class="table-responsive">
-                                            <table class="table table-hover">
-                                                <thead>
+
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>วันที่สั่งซื้อ</th>
+                                                    <th>หมายเลขคำสั่งซื้อ</th>
+                                                    <th>สถานะ</th>
+                                                    <th>สถานะการชำระเงิน</th>
+                                                    <th>รูปบการชำระเงิน</th>
+                                                    <th class="text-right">จำนวนเงิน</th>
+                                                    <th></th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($orders as $index => $order): ?>
                                                     <tr>
 
-                                                        <th>วันที่สั่งซื้อ</th>
-                                                        <th>หมายเลขคำสั่งซื้อ</th>
-                                                        <th>สถานะ</th>
-                                                        <th>สถานะการชำระเงิน</th>
-                                                        <th>รูปบการชำระเงิน</th>
-                                                        <th class="text-right">จำนวนเงิน</th>
-                                                        <th></th>
+                                                        <td><?= $order['docdate'] ?></td>
+                                                        <td>
+                                                            <?php if ($order['status'] == 'DR') { ?>
+                                                                <?= $order['docno'] ?>
+                                                            <?php } else { ?>
+                                                                <?= $this->Html->link($order['docno'], ['controller' => 'orders', 'action' => 'view', 'order' => $order['id']], ['class' => 'link']) ?>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td>
+                                                            <?= $orderStatus[$order['status']] ?>
 
+                                                        </td>
+                                                        <td>
+                                                            <?= $paymentStatus[$order['payment_status']] ?> | 
+                                                            <?php if ($order['payment_status'] == 'NOTPAID' && $order['payment_method'] != 'cod') { ?>
+                                                                <?= $this->Html->link('ชำระตอนนี้', ['controller' => 'payments', 'action' => 'index', 'order' => $order['id']], ['class' => 'link']) ?> 
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td><?= $order['payment_method'] == null ? '' : $paymentMethod[$order['payment_method']] ?></td>
+                                                        <td class="text-right"><?= number_format($order['totalamt']) ?></td>
+                                                        <td>
+                                                            <?php if (in_array($order['status'], ['DR','NEW','WT'])) { ?>
+                                                                <?= $this->Html->link('ยกเลิก', ['controller' => 'cart', 'action' => 'void', 'order' => $order['id']]) ?>
+                                                            <?php } ?>
+
+                                                        </td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php foreach ($orders as $index => $order): ?>
-                                                        <tr>
 
-                                                            <td><?= $order['docdate'] ?></td>
-                                                            <td><?= $this->Html->link($order['docno'], ['controller' => 'orders', 'action' => 'view', 'order' => $order['id']], ['class' => 'link']) ?></td>
-                                                            <td>
-                                                                <?= $orderStatus[$order['status']] ?>
+                                                <?php endforeach; ?>
+                                            </tbody>
+                                        </table>
 
-                                                            </td>
-                                                            <td>
-                                                                <?= $paymentStatus[$order['payment_status']] ?> | 
-                                                                <?php if ($order['payment_status'] == 'NOTPAID' && $order['payment_method'] != 'cod') { ?>
-                                                                    <?= $this->Html->link('ชำระตอนนี้', ['controller' => 'payments', 'action' => 'index', 'order' => $order['id']], ['class' => 'link']) ?> 
-                                                                <?php } ?>
-                                                            </td>
-                                                            <td><?= $paymentMethod[$order['payment_method']] ?></td>
-                                                            <td class="text-right"><?= number_format($order['totalamt']) ?></td>
-                                                            <td>
-                                                                <?php if ($order['status'] == 'DR') { ?>
-                                                                    <?= $this->Html->link('ดำเนินการต่อ', ['controller' => 'cart', 'action' => 'checkout', 'order' => $order['id']]) ?> | 
-                                                                    <?= $this->Html->link('ยกเลิก', ['controller' => 'cart', 'action' => 'void', 'order' => $order['id']]) ?>
-                                                                <?php } ?>
-
-                                                            </td>
-                                                        </tr>
-
-                                                    <?php endforeach; ?>
-                                                </tbody>
-                                            </table>
-                                        </div>
                                     </div>
 
                                     <div class="tab-pane" id="address">
@@ -393,7 +398,7 @@
                         document.getElementById('new_password').value = ''
                         document.getElementById('confirm_password').value = ''
                         $('#modal-success').modal('show');
-                    }else{
+                    } else {
                         document.getElementById('error_msg').innerHTML = data.msg
                         $('#modal-fail').modal('show');
                     }
@@ -408,7 +413,7 @@
                     // console.log(data);
                     if (data.status === 200) {
                         $('#modal-success').modal('show');
-                    }else{
+                    } else {
                         $('#modal-fail').modal('show');
                     }
                 });

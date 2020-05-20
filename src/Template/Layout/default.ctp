@@ -5,7 +5,9 @@
         
     </head>
     <body>
+        <?= $this->element('inc_loading')?>
         <?= $this->element('Layout/main_header') ?>
+        <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
         <?= $this->element('Layout/footer') ?>
     </body>
@@ -14,5 +16,6 @@
 
     <!-- Main JS -->
     <?= $this->Html->script("/css/assets/js/main.js") ?>
+    
     
 </html>

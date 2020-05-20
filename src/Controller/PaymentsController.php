@@ -28,7 +28,7 @@ class PaymentsController extends AppController {
         } elseif ($order['payment_method'] == 'creditcard') {
             return $this->redirect(['action' => 'creditcard', 'order' => $order['id']]);
         } else {
-            return $this->redirect(['action' => 'success']);
+            return $this->redirect(['controller'=>'cart','action' => 'checkout','order'=>$orderId]);
         }
     }
 

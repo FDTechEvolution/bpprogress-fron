@@ -16,6 +16,7 @@
 <?= $this->Html->css("thai-font.css") ?>
 <?= $this->Html->css("assets/css/style.css") ?>
 <?= $this->Html->css("bpp_style.css") ?>
+<?= $this->Html->css("loading.css") ?>
 <script src="https://kit.fontawesome.com/4e1914be33.js" crossorigin="anonymous"></script>
 
 <!-- Vue.js & Axios -->
@@ -30,12 +31,12 @@
 <?= $this->Html->script("/css/assets/js/plugins_head.js") ?>
 <!--  validation script  -->
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
+<?= $this->Html->script("loading.js") ?>
 <?= $this->Html->script('utils.js') ?>
 <script>
    
         var siteUrl = '<?= SITE_URL ?>';
-        var apiUrl = 'https://bpprogress-back.wesales.online/';
+        var apiUrl = '<?=SITE_API?>';
         var fullServiceUrl = siteUrl+'services/api?url='+apiUrl;
 
 </script>
