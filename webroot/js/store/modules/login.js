@@ -38,7 +38,7 @@ const actions = {
         try {
             await loginService.logining(user_login.mobile, user_login.password)
             .then((response) => {
-                console.log(response)
+                // console.log(response)
                 if(response.data.status === 403) {
                     commit('LOGIN_MSG', response.data.msg)
                     commit('LOGIN_SUCCESS', false)
