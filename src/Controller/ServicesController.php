@@ -165,11 +165,9 @@ class ServicesController extends AppController {
             
             $result = $this->Httprequest->post($url, $postData);
            // $this->log($result, 'debug');
-            $data = $result['data'];
+            //$data = $result['data'];
 
-            $this->responData['status'] = 200;
-            $this->responData['data'] = $data;
-            $this->responData['result'] = $postData;
+            $this->responData = $result;
         }
 
 
