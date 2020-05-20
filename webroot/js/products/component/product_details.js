@@ -27,7 +27,7 @@ export const product_details = {
             e.target.value = 0;
             e.target.value = newvalue;
             //e.target.value = 0;
-            console.log(newvalue);
+            // console.log(newvalue);
         }
     },
     computed: {
@@ -142,8 +142,13 @@ export const product_details = {
         checkWholesale() {
             let product_detail = this.$store.getters.product_detail
             if (product_detail.iswholesale === 'Y') {
-                this.qty = product_detail.wholesale_rate[0].startqty
-                this.minqty = product_detail.wholesale_rate[0].startqty
+                if(product_detail.price !== 0) {
+                    this.qty = 1
+                    this.minqty = 1
+                }else{
+                    this.qty = product_detail.wholesale_rate[0].startqty
+                    this.minqty = product_detail.wholesale_rate[0].startqty
+                }
             } else {
                 this.qty = 1
                 this.minqty = 1
@@ -202,7 +207,7 @@ export const product_details = {
                                             <span class="current_price">{{formatNumber(product_detail.special_price)}} ฿</span>
                                         </div>
                                         <div v-else class="price_box">
-                                            <span class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
+                                            <span v-if="product_detail.price !== 0" class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
                                         </div>
                                         <div class="w-75" id="">
                                             <div class="card card-body">
@@ -233,8 +238,9 @@ export const product_details = {
                                     <div v-if="product_detail.qty > 0" class="product_variant quantity mb-1">
                                         <label>จำนวน</label>
                                         {{checkWholesale}}
-                                        <input v-if="product_detail.iswholesale === 'Y'" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
-                                        <input v-else v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                        <input v-if="product_detail.iswholesale === 'Y' && product_detail.price !== 0" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                        <input v-else-if="product_detail.iswholesale === 'Y' && product_detail.price === 0" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                        <input v-else-if="product_detail.iswholesale === 'N'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
                                         <add-to-cart v-if="qty >= minqty && qty<=product_detail.qty"
                                             :id = 'product_detail.id'
                                             :name = 'product_detail.name'
