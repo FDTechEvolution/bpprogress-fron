@@ -38,14 +38,14 @@ const actions = {
         try {
             await loginService.logining(user_login.mobile, user_login.password)
             .then((response) => {
-                // console.log(response)
+                console.log(response)
                 if(response.data.status === 403) {
                     commit('LOGIN_MSG', response.data.msg)
                     commit('LOGIN_SUCCESS', false)
                 }else if(response.data.status === 404) {
                     commit('CONFIRM_OTP', response.data.data)
                 }else if(response.data.status === 200) {
-                    if(response.data.data.type == 'NORMAL') { // ถ้าเป็น user
+                    if(response.data.data.type === 'NORMAL') { // ถ้าเป็น user
                         // let setExp = (new Date(Date.now() + 1*24*3600*1000)).getTime() // 1 day
                         let setExp = (new Date(Date.now() + 1*48*3600*1000)).getTime() // 6 hour
                         let usetArray = {
@@ -56,7 +56,7 @@ const actions = {
                         localStorage.setItem('_u_ss_ison_t', null)
                         Vue.prototype.$cookies.set('_u_ss_isprop', response.data.data.fullname)
                         commit('LOGIN_SUCCESS', true)
-                    }else{
+                    }else if(response.data.data.type === 'ADMIN' || response.data.data.type === 'SELLER'){
                         let api = new LoginProvider();
                         window.location.href = api.url + 'login/authen-code?authencode=' + response.data.data.authen_code
                     }
