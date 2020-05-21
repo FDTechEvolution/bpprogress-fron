@@ -94,3 +94,42 @@ ul.mega_menu_inner.user_account li a {
 .error{
     color: #c40316;
 }
+
+
+
+/* mini-cart Style */
+
+.cart_item {
+    padding: 11px 7px;
+}
+.mini_cart {
+    padding: 0 20px 0;
+}
+.mini_cart_wrapper:hover .mini_cart {
+    padding: 18px 20px 30px;
+}
+.mini_cart_inner {
+    max-height: 350px;
+    overflow-y: auto;
+}
+/* Width */
+.mini_cart_inner::-webkit-scrollbar {
+    width: 6px;
+}
+/* Track */
+.mini_cart_inner::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+   
+  /* Handle */
+.mini_cart_inner::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px;
+}
+  
+  /* Handle on hover */
+.mini_cart_inner::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+/* mini-cart END */
