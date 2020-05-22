@@ -142,7 +142,7 @@ export const product_details = {
         checkWholesale() {
             let product_detail = this.$store.getters.product_detail
             if (product_detail.iswholesale === 'Y') {
-                if(product_detail.price !== 0) {
+                if(product_detail.isretail === 'Y') {
                     this.qty = 1
                     this.minqty = 1
                 }else{
@@ -192,23 +192,29 @@ export const product_details = {
                                     
                                     <h3>{{product_detail.name}}</h3>
 
-                                    <div v-if="product_detail.iswholesale !== 'Y'">
+                                    <div v-if="product_detail.iswholesale === 'N'">
                                         <div v-if="product_detail.special_price !== 0" class="price_box">
                                             <span class="old_price">{{formatNumber(product_detail.price)}} ฿</span>
                                             <span class="current_price">{{formatNumber(product_detail.special_price)}} ฿</span>
                                         </div>
                                         <div v-else class="price_box">
-                                            <span class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
+                                            <span class="current_price">{{formatNumber(product_detail.price)}} ฿</span>
                                         </div>
                                     </div>
                                     <div v-if="product_detail.iswholesale === 'Y'" class="mb-3">
-                                        <div v-if="product_detail.special_price !== 0" class="price_box">
-                                            <span class="old_price">{{formatNumber(product_detail.price)}} ฿</span>
-                                            <span class="current_price">{{formatNumber(product_detail.special_price)}} ฿</span>
-                                        </div>
-                                        <div v-else class="price_box">
-                                            <span v-if="product_detail.price !== 0" class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
-                                        </div>
+                                        <slot v-if="product_detail.isretail === 'Y'">
+                                            <slot v-if="product_detail.special_price !== 0">
+                                                <div class="price_box">
+                                                    <span class="old_price">{{formatNumber(product_detail.price)}} ฿</span>
+                                                    <span class="current_price">{{formatNumber(product_detail.special_price)}} ฿</span>
+                                                </div>
+                                            </slot>
+                                            <slot v-else class="price_box">
+                                                <div class="price_box">
+                                                    <span v-if="product_detail.price !== 0" class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
+                                                </div>
+                                            </slot>
+                                        </slot>
                                         <div class="w-75" id="">
                                             <div class="card card-body">
                                                 <table class="table table-striped">
@@ -235,22 +241,24 @@ export const product_details = {
                                             {{product_detail.short_description}}
                                         </span>
                                     </div>
-                                    <div v-if="product_detail.qty > 0" class="product_variant quantity mb-1">
-                                        <label>จำนวน</label>
-                                        {{checkWholesale}}
-                                        <input v-if="product_detail.iswholesale === 'Y' && product_detail.price !== 0" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
-                                        <input v-else-if="product_detail.iswholesale === 'Y' && product_detail.price === 0" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
-                                        <input v-else-if="product_detail.iswholesale === 'N'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
-                                        <add-to-cart v-if="qty >= minqty && qty<=product_detail.qty"
-                                            :id = 'product_detail.id'
-                                            :name = 'product_detail.name'
-                                            :price = 'pricePerProduct'
-                                            :qty = 'qty'
-                                            :img = 'product_detail.images'
-                                            :wholesale = 'product_detail.wholesale_rate'
-                                        ></add-to-cart>
-                                        <div v-else class="ml-3 text-danger">จำนวนขั้นต่ำ {{minqty}} และไม่เกิน {{product_detail.qty}} ชั้น</div>
-                                    </div>
+                                    <slot v-if="product_detail.isretail !== 'N' && product_detail.iswholesale !== 'N' || product_detail.isretail !== 'N' && product_detail.iswholesale !== 'Y' || product_detail.isretail !== 'Y' && product_detail.iswholesale !== 'N'">
+                                        <div v-if="product_detail.qty > 0" class="product_variant quantity mb-1">
+                                            <label>จำนวน</label>
+                                            {{checkWholesale}}
+                                            <input v-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'Y'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                            <input v-else-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'N'" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                            <input v-else-if="product_detail.iswholesale === 'N'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                            <add-to-cart v-if="qty >= minqty && qty<=product_detail.qty"
+                                                :id = 'product_detail.id'
+                                                :name = 'product_detail.name'
+                                                :price = 'pricePerProduct'
+                                                :qty = 'qty'
+                                                :img = 'product_detail.images'
+                                                :wholesale = 'product_detail.wholesale_rate'
+                                            ></add-to-cart>
+                                            <div v-else class="ml-3 text-danger">จำนวนขั้นต่ำ {{minqty}} และไม่เกิน {{product_detail.qty}} ชั้น</div>
+                                        </div>
+                                    </slot>
                                     <div v-if="product_detail.qty === 0" class="mb-2">
                                         <label class="text-danger">สินค้าหมด</label>
                                     </div>
