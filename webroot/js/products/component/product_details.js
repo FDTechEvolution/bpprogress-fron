@@ -241,13 +241,13 @@ export const product_details = {
                                             {{product_detail.short_description}}
                                         </span>
                                     </div>
-                                    <slot v-if="product_detail.isretail !== 'N' && product_detail.iswholesale !== 'N' || product_detail.isretail !== 'N' && product_detail.iswholesale !== 'Y' || product_detail.isretail !== 'Y' && product_detail.iswholesale !== 'N'">
+                                    <slot v-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'Y' || product_detail.iswholesale === 'Y' && product_detail.isretail === 'N' || product_detail.iswholesale === 'N' && product_detail.isretail === 'Y'">
                                         <div v-if="product_detail.qty > 0" class="product_variant quantity mb-1">
                                             <label>จำนวน</label>
                                             {{checkWholesale}}
                                             <input v-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'Y'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
                                             <input v-else-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'N'" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
-                                            <input v-else-if="product_detail.iswholesale === 'N'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                            <input v-else-if="product_detail.iswholesale === 'N' && product_detail.isretail === 'Y'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
                                             <add-to-cart v-if="qty >= minqty && qty<=product_detail.qty"
                                                 :id = 'product_detail.id'
                                                 :name = 'product_detail.name'
