@@ -85,7 +85,7 @@
                                                         </td>
                                                         <td>
                                                             <?= $paymentStatus[$order['payment_status']] ?> | 
-                                                            <?php if ($order['payment_status'] == 'NOTPAID' && $order['payment_method'] != 'cod') { ?>
+                                                            <?php if ($order['payment_status'] == 'NOTPAID' && $order['payment_method'] != 'cod' && $order['status']!='VO') { ?>
                                                                 <?= $this->Html->link('ชำระตอนนี้', ['controller' => 'payments', 'action' => 'index', 'order' => $order['id']], ['class' => 'link']) ?> 
                                                             <?php } ?>
                                                         </td>

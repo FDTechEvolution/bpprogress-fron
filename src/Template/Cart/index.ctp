@@ -148,7 +148,7 @@
             rowHtml += '<td class="product-price" id="price-' + product_id + '">' + Number(price).toLocaleString('en') + '</td>';
             rowHtml += '<td class="product_quantity text-left">';
             rowHtml += '<span id="msg-' + product_id + '" class="text-danger"></span>';
-            rowHtml += '<input type="number" id="qty-' + product_id + '" class="form-control" name="order_lines[' + index + '][qty]" value="' + qty + '" onchange="recal();"/>';
+            rowHtml += '<input type="number" id="qty-' + product_id + '" class="form-control" name="order_lines[' + index + '][qty]" value="' + qty + '" onchange="recal();" onkeyup="recal();"/>';
 
             rowHtml += '</td>';
             rowHtml += '<td class="product_total text-right" id="amt-' + product_id + '">' + Number(amount).toLocaleString('en') + '</td>';

@@ -97,10 +97,7 @@ export const register_form = {
                                 <div class="col-md-6 offset-md-3 text-center align-self-center">
                                     <button class="btn btn-block ml-0" type="submit">ลงทะเบียน</button>
                                 </div>
-                                <div class="col-md-6 offset-md-3 text-center py-3 align-self-center">หรือลงทะเบียนทาง</div>
-                                <div class="col-md-6 offset-md-3 text-center align-self-center">
-                                    <button class="btn btn-block ml-0 bg-primary" type="submit">facebook</button>
-                                </div>
+                               
                             </div>
                         </form>
 
