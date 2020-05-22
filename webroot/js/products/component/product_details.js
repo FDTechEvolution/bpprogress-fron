@@ -142,10 +142,10 @@ export const product_details = {
         checkWholesale() {
             let product_detail = this.$store.getters.product_detail
             if (product_detail.iswholesale === 'Y') {
-                if(product_detail.isretail === 'Y') {
+                if (product_detail.isretail === 'Y') {
                     this.qty = 1
                     this.minqty = 1
-                }else{
+                } else {
                     this.qty = product_detail.wholesale_rate[0].startqty
                     this.minqty = product_detail.wholesale_rate[0].startqty
                 }
@@ -211,7 +211,7 @@ export const product_details = {
                                             </slot>
                                             <slot v-else class="price_box">
                                                 <div class="price_box">
-                                                    <span v-if="product_detail.price !== 0" class="current_price">{{formatNumber(product_detail.price)}} ฿ / ชิ้น</span>
+                                                    <span v-if="product_detail.price !== 0" class="current_price">{{formatNumber(product_detail.price)}} ฿</span>
                                                 </div>
                                             </slot>
                                         </slot>
@@ -245,9 +245,9 @@ export const product_details = {
                                         <div v-if="product_detail.qty > 0" class="product_variant quantity mb-1">
                                             <label>จำนวน</label>
                                             {{checkWholesale}}
-                                            <input v-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'Y'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
-                                            <input v-else-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'N'" v-model="qty" :min="product_detail.wholesale_rate[0].startqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
-                                            <input v-else-if="product_detail.iswholesale === 'N' && product_detail.isretail === 'Y'" v-model="qty" min="1" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                            <input v-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'Y'" v-model="qty" :min="minqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                            <input v-else-if="product_detail.iswholesale === 'Y' && product_detail.isretail === 'N'" v-model="qty" :min="minqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
+                                            <input v-else-if="product_detail.iswholesale === 'N' && product_detail.isretail === 'Y'" v-model="qty" :min="minqty" :max="product_detail.qty" type="number" @input="filterNumber" step="1">
                                             <add-to-cart v-if="qty >= minqty && qty<=product_detail.qty"
                                                 :id = 'product_detail.id'
                                                 :name = 'product_detail.name'
@@ -262,7 +262,7 @@ export const product_details = {
                                     <div v-if="product_detail.qty === 0" class="mb-2">
                                         <label class="text-danger">สินค้าหมด</label>
                                     </div>
-                                    <div class="product_meta mb-1">
+                                    <div v-if="product_detail.qty > 0" class="product_meta mb-1">
                                         <span>จำนวนสินค้าคงเหลือ : <span :class="{'text-success' : product_detail.qty >= 20, 'text-danger' : product_detail.qty <= 20}">{{formatNumber(product_detail.qty)}}</span> ชิ้น</span>
                                     </div>
                                     <div class="product_meta">
