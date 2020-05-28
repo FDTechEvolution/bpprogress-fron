@@ -95,7 +95,10 @@ class CartController extends AppController {
         $postData['status'] = 'VO';
         $postData['order_id'] = $orderId;
         //$this->log($postData,'debug');
-        $result = $this->Httprequest->post(SITE_API . 'sv-orders/update-order', $postData);
+        $result = $this->Httprequest->post(SITE_API . 'sv-orders/void', $postData);
+        if ($result['status'] != 200) {
+            $this->Flash->error($result['msg']);
+        }
         return $this->redirect(['controller' => 'account', 'action' => 'index']);
     }
 

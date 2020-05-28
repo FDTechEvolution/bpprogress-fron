@@ -77,18 +77,37 @@
 
         //console.log($('#tb-list-product tbody tr').length);
         let totalamt = 0;
-        $('#bt-save').prop('disabled',false);
+        $('#bt-save').prop('disabled', false);
         $.each($('#tb-list-product tbody tr'), function (index, row) {
             $('#loader').show();
             let product_id = $(row).attr('data-row');
             let qty = $('#qty-' + product_id).val();
+            if (qty < 1) {
+                qty = 1;
+                $('#qty-' + product_id).val(qty);
+            }
+
             $.get(fullServiceUrl + 'sv-products/calculate-price?product=' + product_id + '&qty=' + qty, {})
                     .done(function (data) {
-                        console.log(data);
+
                         data = data.data;
+                        //console.log(data);
+                        //verify qty
+                        if (data.product.iswholesale === 'Y' && data.product.isretail === 'N') {
+                            //console.log(data.min_wholesale.startqty);
+                            if (qty < data.min_wholesale.startqty) {
+                                // let old_qty = $('#_qty-' + product_id).val();
+                                qty = parseInt(data.min_wholesale.startqty);
+                                $('#qty-' + product_id).val(qty);
+                                $('#loader').hide();
+                                recal();
+                            }
+                        }
 
                         let amount = parseInt(qty) * parseInt(data.unit_price);
                         totalamt += parseInt(amount);
+
+
 
                         $('#price-' + product_id).text(Number(data.unit_price).toLocaleString('en'));
                         $('#amt-' + product_id).text(Number(amount).toLocaleString('en'));
@@ -100,7 +119,7 @@
                         if (parseInt(qty) > parseInt(data.product.qty)) {
                             $('#msg-' + product_id).text('เกินจำนวนสินค้าที่มี [' + data.product.qty + ']');
                             $('#bt-save').prop('disabled', true);
-                        }else{
+                        } else {
                             $('#msg-' + product_id).text('');
                         }
                         $('#loader').hide();
@@ -149,6 +168,7 @@
             rowHtml += '<td class="product_quantity text-left">';
             rowHtml += '<span id="msg-' + product_id + '" class="text-danger"></span>';
             rowHtml += '<input type="number" id="qty-' + product_id + '" class="form-control" name="order_lines[' + index + '][qty]" value="' + qty + '" onchange="recal();" onkeyup="recal();"/>';
+            rowHtml += '<input type="hidden" id="_qty-' + product_id + '" value="' + qty + '"/>';
 
             rowHtml += '</td>';
             rowHtml += '<td class="product_total text-right" id="amt-' + product_id + '">' + Number(amount).toLocaleString('en') + '</td>';
