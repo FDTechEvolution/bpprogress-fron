@@ -67,6 +67,16 @@ const actions = {
             console.log(e)
         }
     },
+    async fbLogin ({commit}, fb_login) {
+        try {
+            await loginService.fblogining(fb_login.id, fb_login.fullname, fb_login.isfacebook)
+            .then((response) => {
+                console.log(response)
+            })
+        }catch(e) {
+            console.log(e)
+        }
+    },
     async logout ({commit}) {
         localStorage.removeItem("_u_ss_isset")
         localStorage.removeItem("_u_ss_ison_t")

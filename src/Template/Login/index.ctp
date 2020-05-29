@@ -13,7 +13,7 @@
                         <div></div>
                     </div>
                 </div>
-
+                <span id="status"></span>
             </div>
         </div>
     </div>
@@ -80,3 +80,4 @@
 </style>
 
 <?= $this->Html->script('login/main.js', ['type' => 'module']) ?>
+<?= $this->Html->script('login/fb_login.js') ?>

@@ -106,8 +106,16 @@ export const login_form = {
                                     <button class="btn btn-block ml-0" type="submit">เข้าสู่ระบบ</button>
                                 </div>
                                 <div class="col-md-6 offset-md-3 text-center py-3 align-self-center">หรือเข้าสู่ระบบทาง</div>
-                                <div class="col-md-6 offset-md-3 text-center align-self-center">
-                                    <button class="btn btn-block ml-0 bg-primary" type="button">facebook</button>
+                                <div class="col-md-6 offset-md-3 text-center align-self-center">                                  
+                                    <fb:login-button 
+                                    scope="public_profile,email"
+                                    data-size="large"
+                                    data-button-type="continue_with"
+                                    data-layout="default"
+                                    data-auto-logout-link="false"
+                                    data-use-continue-as="true"
+                                    onlogin="checkLoginState();">
+                                    </fb:login-button>
                                 </div>
                             </div>
                         </form>

@@ -14,6 +14,15 @@ class LoginProvider extends HttpRequest {
         return data
     }
 
+    async fblogining (id, fullname, isfacebook) {
+        const data = await this.create('sv-login/login', {
+            id: id,
+            fullname: fullname,
+            isfacebook: isfacebook
+        })
+        return data
+    }
+
     async correctUser (uid) {
         const data = await this.get('sv-login/onlogged', {
             uid: uid
