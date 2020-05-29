@@ -16,7 +16,7 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
 
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '3262917347051862',
+      appId      : '256327788952099', // test 256327788952099
       cookie     : true,                     // Enable cookies to allow the server to access the session.
       xfbml      : true,                     // Parse social plugins on this webpage.
       version    : 'v7.0'           // Use this Graph API version for this call.
@@ -59,7 +59,7 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
           localStorage.setItem('_u_ss_isset', JSON.stringify(usetArray))
           localStorage.setItem('_u_ss_ison_t', true)
           document.cookie = "_u_ss_isprop=" + response.data.data.fullname;
-          setTimeout("window.location.href='/login';", 100)
+          setTimeout("window.location.href='/home';", 100)
         })
         .catch(e => {
           console.log(e)
