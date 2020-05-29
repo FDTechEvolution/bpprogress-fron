@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-9">
                                 <div class="form-group">
-                                    <input type="text" name="docdate" value="" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="th" class="form-control" readonly required>
+                                    <input type="text" name="docdate" value="" id="docdate" data-provide="datepicker" data-date-format="yyyy-mm-dd" data-date-language="th" class="form-control" readonly required>
                                 </div>
                             </div>
 
@@ -44,13 +44,21 @@
                         <div class="row">
                             <div class="col-3 text-right">
                                 <label>เวลาที่โอน *</label>
+                                <?= $this->Form->hidden('transfertime', ['id' => 'transfertime']) ?>
                             </div>
-                            <div class="col-3">
+                            <div class="col-2">
                                 <div class="form-group">
-                                    <input type="text" name="transfertime" id="transfertime" class="form-control" placeholder="12:00" required/>
+
+                                    <?= $this->Form->select('hour', $imeOpts['h'], ['class' => 'form-control', 'id' => 'hour']) ?>
                                 </div>
                             </div>
-                            
+                            <div class="col-2">
+                                <div class="form-group">
+
+                                    <?= $this->Form->select('min', $imeOpts['m'], ['class' => 'form-control', 'id' => 'min']) ?>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-3 text-right">
@@ -95,8 +103,25 @@
         $('#docdate').datepicker({
             autoClose: true,
             todayHighlight: true
+
+        });
+        $("#docdate").datepicker("setDate", new Date());
+        var dt = new Date();
+        // var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+        $('#hour').on('change', function () {
+          
+            $('#transfertime').val($('#hour').val()+':'+$('#min').val());
+        });
+         $('#min').on('change', function () {
+          
+            $('#transfertime').val($('#hour').val()+':'+$('#min').val());
         });
         
+        $('#hour').val(dt.getHours()).change().trigger('change');
+        $('#min').val(dt.getMinutes()).change().trigger('change');
+
+
+
         $("#frm-payment").validate({
             rules: {
                 email: {
@@ -116,7 +141,7 @@
                 error.insertAfter(element);
             }
         });
-        
+
         $('#bt-save').on('click', function () {
             if ($("#frm-payment").valid()) {
                 $("#frm-payment").submit();
