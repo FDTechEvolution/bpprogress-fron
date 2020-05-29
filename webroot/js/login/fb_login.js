@@ -59,7 +59,13 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
           localStorage.setItem('_u_ss_isset', JSON.stringify(usetArray))
           localStorage.setItem('_u_ss_ison_t', true)
           document.cookie = "_u_ss_isprop=" + response.data.data.fullname;
-          setTimeout("window.location.href='/home';", 100)
+
+          let logged_user = localStorage.getItem('_u_ss_isset');
+          logged_user = JSON.parse(logged_user);
+          if (logged_user !== null) {
+              logged_user = logged_user.data;
+          }
+          setTimeout("window.location.href='login/verify/"+logged_user+"';", 200)
         })
         .catch(e => {
           console.log(e)
