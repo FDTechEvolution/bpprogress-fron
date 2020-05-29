@@ -16,7 +16,7 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
 
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : '256327788952099', // test 256327788952099
+      appId      : '3262917347051862', // test 256327788952099
       cookie     : true,                     // Enable cookies to allow the server to access the session.
       xfbml      : true,                     // Parse social plugins on this webpage.
       version    : 'v7.0'           // Use this Graph API version for this call.
