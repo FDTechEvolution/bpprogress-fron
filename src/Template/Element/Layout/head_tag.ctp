@@ -4,22 +4,22 @@
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Favicon -->
-<link rel="apple-touch-icon" sizes="57x57" href="<?=SITE_URL?>img/fav.ico/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="<?=SITE_URL?>img/fav.ico/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="<?=SITE_URL?>img/fav.ico/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="<?=SITE_URL?>img/fav.ico/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="<?=SITE_URL?>img/fav.ico/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="<?=SITE_URL?>img/fav.ico/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="<?=SITE_URL?>img/fav.ico/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="<?=SITE_URL?>img/fav.ico/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="<?=SITE_URL?>img/fav.ico/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="<?=SITE_URL?>img/fav.ico/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="<?=SITE_URL?>img/fav.ico/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="<?=SITE_URL?>img/fav.ico/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="<?=SITE_URL?>img/fav.ico/favicon-16x16.png">
-<link rel="manifest" href="<?=SITE_URL?>img/fav.ico/manifest.json">
+<link rel="apple-touch-icon" sizes="57x57" href="<?= SITE_URL ?>img/fav.ico/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="<?= SITE_URL ?>img/fav.ico/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="<?= SITE_URL ?>img/fav.ico/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="<?= SITE_URL ?>img/fav.ico/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="<?= SITE_URL ?>img/fav.ico/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="<?= SITE_URL ?>img/fav.ico/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="<?= SITE_URL ?>img/fav.ico/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="<?= SITE_URL ?>img/fav.ico/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="<?= SITE_URL ?>img/fav.ico/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="<?= SITE_URL ?>img/fav.ico/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="<?= SITE_URL ?>img/fav.ico/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="<?= SITE_URL ?>img/fav.ico/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="<?= SITE_URL ?>img/fav.ico/favicon-16x16.png">
+<link rel="manifest" href="<?= SITE_URL ?>img/fav.ico/manifest.json">
 <meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="<?=SITE_URL?>img/fav.ico/ms-icon-144x144.png">
+<meta name="msapplication-TileImage" content="<?= SITE_URL ?>img/fav.ico/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 
 <!-- CSS 
@@ -49,10 +49,13 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <?= $this->Html->script("loading.js") ?>
 <?= $this->Html->script('utils.js') ?>
+
 <script>
-   
-        var siteUrl = '<?= SITE_URL ?>';
-        var apiUrl = '<?=SITE_API?>';
-        var fullServiceUrl = siteUrl+'services/api?url='+apiUrl;
+
+    var siteUrl = '<?= SITE_URL ?>';
+    var apiUrl = '<?= SITE_API ?>';
+    var fullServiceUrl = siteUrl + 'services/api?url=' + apiUrl;
+    
+
 
 </script>

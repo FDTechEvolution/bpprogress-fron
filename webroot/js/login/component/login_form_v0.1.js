@@ -12,6 +12,7 @@ export const login_form = {
     },
     computed: {
         chkLogin() {
+            console.log(localStorage.getItem('_u_ss_isset'));
             if (this.$store.getters.userLogin) { //เช็คการ login ใหม่
                 localStorage.setItem('_u_ss_ison_t', true) // ยืนยันการ login
                 let logged_user = localStorage.getItem('_u_ss_isset');
@@ -22,6 +23,7 @@ export const login_form = {
 
                 }
                 setTimeout("window.location.href='login/verify/"+logged_user+"';", 200)
+                
             } else {
                 this.submitted = false
             }
@@ -83,6 +85,9 @@ export const login_form = {
                                 <div class="col-md-10 offset-md-1">
                                     <label>รหัสผ่าน <small v-if="errors.has('password')" class="field-text is-danger">{{ errors.first('password') }}</small></label>
                                     <input data-vv-name="password" v-model="login.password" type="password" v-validate="'required'" :class="{ 'is-danger': errors.has('password'), 'is-danger': $store.getters.msgLog != '' }">
+                                </div>
+                                <div class="col-md-10 mt-2 offset-md-1">
+                                    <a :href="'/forgot'" class="link">ลืมรหัสผ่าน?</a>
                                 </div>
                             </div>
                             <div class="row py-1" v-if="$store.getters.msgLog != ''">

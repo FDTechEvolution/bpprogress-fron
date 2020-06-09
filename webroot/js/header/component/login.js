@@ -7,6 +7,7 @@ export const login = {
     },
     methods: {
         logOut () {
+            console.log('logout');
             this.$store.dispatch('logout')
         },
         logIn () {

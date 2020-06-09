@@ -473,4 +473,5 @@ return array(
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
     'SqlFormatter' => $vendorDir . '/jdorn/sql-formatter/lib/SqlFormatter.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'Verot\\Upload\\Upload' => $vendorDir . '/verot/class.upload.php/src/class.upload.php',
 );

@@ -1,4 +1,4 @@
 <?php
 
-define('SITE_URL', 'http://localhost/git/bpprogress-fron/');
-define('SITE_API', 'http://localhost/git/bpprogress-back/');
+define('SITE_URL', 'http://127.0.0.1:8888/Git/bpprogress-fron/');
+define('SITE_API', 'http://127.0.0.1:8888/Git/bpprogress-back/');

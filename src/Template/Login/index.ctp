@@ -6,6 +6,7 @@
                 <!--login area start-->
                 <login-form/>
                 <!--login area end-->
+                
                 <div class="loadingio-spinner-pulse-0xjpjhx0lbxl">
                     <div class="ldio-7znirwuftg4">
                         <div></div>
@@ -15,6 +16,7 @@
                 </div>
                 <span id="status"></span>
             </div>
+            
         </div>
     </div>
 </div>
@@ -79,5 +81,5 @@
     }
 </style>
 
-<?= $this->Html->script('login/main.js', ['type' => 'module']) ?>
+<?= $this->Html->script('login/main_v0.1.js', ['type' => 'module']) ?>
 <?= $this->Html->script('login/fb_login.js') ?>

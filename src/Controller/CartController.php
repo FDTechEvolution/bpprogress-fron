@@ -48,7 +48,7 @@ class CartController extends AppController {
 
             if ($checkStock) {
                 $result = $this->Httprequest->post(SITE_API . 'sv-orders/save', $postData);
-                //$this->log($result,'debug');
+                $this->log($result,'debug');
                 $order = $result['data'];
 
                 return $this->redirect(['action' => 'process', $order['id']]);

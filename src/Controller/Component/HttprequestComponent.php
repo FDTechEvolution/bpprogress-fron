@@ -37,7 +37,7 @@ class HttprequestComponent extends Component {
         //$obj = $content;
         //$this->log($obj, 'debug');
         //var_dump($obj);
-         //$this->log(curl_error($ch), 'debug');
+        //$this->log(curl_error($ch), 'debug');
 
         curl_close($ch);
         return $obj;
@@ -55,6 +55,36 @@ class HttprequestComponent extends Component {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         //curl_setopt($ch, CURLOPT_TIMEOUT_MS, 200);
+
+        $content = curl_exec($ch);
+        //var_dump($postResult);
+        $obj = json_decode($content, true);
+        //var_dump($obj);
+        curl_close($ch);
+        return $obj;
+    }
+
+    public function postFile($url = '', $data = null) {
+
+        
+        $file_name_with_full_path = realpath($data['image_file']['tmp_name']);
+        $handle = fopen($_FILES["image_file"]["tmp_name"], 'r');
+        //$this->log($file_name_with_full_path,'debug');
+        /* curl will accept an array here too.
+         * Many examples I found showed a url-encoded string instead.
+         * Take note that the 'key' in the array will be the key that shows up in the
+         * $_FILES array of the accept script. and the at sign '@' is required before the
+         * file name.
+         */
+        $post = array('image_file' => '@' . $handle);
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
         $content = curl_exec($ch);
         //var_dump($postResult);

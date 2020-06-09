@@ -157,9 +157,8 @@ class ServicesController extends AppController {
         if ($this->request->is(['GET'])) {
             $result = $this->Httprequest->get($url);
             //$this->log($result,'debug');
-            $data = $result['data'];
-            $this->responData['status'] = 200;
-            $this->responData['data'] = $data;
+            $this->responData = $result;
+            
         } else {
             $postData = $this->request->getData();
             

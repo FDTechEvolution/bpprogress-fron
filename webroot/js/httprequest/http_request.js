@@ -4,7 +4,7 @@ class HttpRequest {
         // http://localhost/git/bpprogress-back/
         // https://cors-anywhere.herokuapp.com
         // this.axios = axios
-        this.url = 'https://bpprogress-back.wesales.online/'
+        this.url = 'https://app.bpshoppingmall.com/'
         this.axiosInstance = axios.create({
             baseURL: 'http://127.0.0.1:8888/Git/bpprogress-fron/services/api?url='+this.url,
             timeout: 120000,

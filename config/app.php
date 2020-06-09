@@ -17,7 +17,7 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
 
     /*
      * Configure basic information about the application.
@@ -263,7 +263,7 @@ return [
             'className' => Connection::class,
             'driver' => Mysql::class,
             'persistent' => false,
-            'host' => 'localhost',
+            'host' => '61.19.246.240',
             /*
              * CakePHP will use the default DB port based on the driver selected
              * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
@@ -273,12 +273,9 @@ return [
             /*
              * It is recommended to set these options through your environment or app_local.php
              */
-            //'username' => 'my_app',
-            //'password' => 'secret',
-            //'database' => 'my_app',
-            /*
-             * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
-             */
+            'username' => 'bpshopping_DB',
+            'password' => 'Bp#2020',
+            'database' => 'bpshopping_DB',
             //'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'flags' => [],
@@ -400,5 +397,6 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'timeout'=>0
     ],
 ];
