@@ -1,7 +1,6 @@
 <div id="app-product" class="product_page_bg">
     <div class="container">
         <div class="product_details_wrapper mb-55">
-
             <!--product details start-->
             <product-details
                 :product_detail = '$store.getters.product_detail'
@@ -14,6 +13,13 @@
             <!--product info end-->
         </div>
     </div>
+
+    <modal
+        :header = '$store.getters.header'
+        :body = '$store.getters.body'
+        :footer = '$store.getters.footer'
+    ></modal>
+
 </div>
 
 <style>
@@ -25,6 +31,9 @@
     }
     .font-size-7 {
         font-size: .7rem !important;
+    }
+    .font-size-8 {
+        font-size: .8rem !important;
     }
     label.preorder_check {
         cursor: pointer;
@@ -45,8 +54,28 @@
         transform: scale(1.5);
         padding: 10px;
     }
-    .line-height_14 {
-        line-height: 14.2px;
+    .line-height_16 {
+        line-height: 16px;
+    }
+    .modal-mask {
+        position: fixed;
+        z-index: 9998;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        display: table;
+        transition: opacity .3s ease;
+    }
+    .modal-wrapper {
+        display: table-cell;
+        vertical-align: middle;
+    }
+    i.fa.fa-times-circle.text-right.text-danger {
+        cursor: pointer;
+        font-size: 1rem;
+        float: right;
     }
 </style>
 

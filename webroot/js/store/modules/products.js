@@ -10,7 +10,13 @@ const state = {
     category_product_check: true,
     product_push_cart: false,
     loading: true,
-    loading_detail: true
+    loading_detail: true,
+    modal: {
+        show: false,
+        header: null,
+        body: null,
+        footer: null
+    }
 }
 
 const getters = {
@@ -22,7 +28,11 @@ const getters = {
     category_product_check: state => state.category_product_check,
     product_push_cart: state => state.product_push_cart,
     loading: state => state.loading,
-    loading_detail: state => state.loading_detail
+    loading_detail: state => state.loading_detail,
+    modal: state => state.modal.show,
+    header: state => state.modal.header,
+    body: state => state.modal.body,
+    footer: state => state.modal.footer
 }
 
 const mutations = {
@@ -59,6 +69,12 @@ const mutations = {
     },
     CART_PUSHED (state, status) {
         state.product_push_cart = status
+    },
+    OVER_STOCK (state, modal) {
+        state.modal.show = modal.modal_show
+        state.modal.header = modal.modal_header
+        state.modal.body = modal.modal_body
+        state.modal.footer = modal.modal_footer
     }
 }
 
@@ -143,7 +159,14 @@ const actions = {
             }else{
                 let newQty = parseInt(itemIndex[0].qt) + parseInt(itemToAdd.d4)
                 if(newQty > maxQty) {
-                    alert("จำนวนสินค้าในรายการที่คุณสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...")
+                    let modal_show = true
+                    let modal_header = 'ไม่สามารถเพิ่มสินค้าลงตะกร้าได้'
+                    let modal_body = 'จำนวนสินค้าในรายการที่คุณสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...'
+                    let modal_footer = null
+                    let modal_payload = {modal_show, modal_header, modal_body, modal_footer}
+                    // console.log(modal_payload)
+                    commit('OVER_STOCK', modal_payload)
+                    // alert("จำนวนสินค้าในรายการที่คุณสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...")
                 }else{
                     if(itemToAdd.d6){
                         if(newQty < itemToAdd.d6[0].startqty) {
@@ -234,16 +257,9 @@ const actions = {
                 }
             }
         })
-        // if(isItemInCart === true) {
-        //     if(itemInCart.length === 1){
-        //         localStorage.removeItem('__u_set_pct')
-        //         commit('PUSH_TO_CART', true)
-        //     }else{
-        //         itemInCart.splice(0,1)
-        //         localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
-        //         commit('PUSH_TO_CART', true)
-        //     }
-        // }
+    },
+    closeModal ({commit}) {
+        commit('OVER_STOCK', false, null, null)
     }
 }
 

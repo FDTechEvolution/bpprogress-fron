@@ -100,9 +100,6 @@ export const product_details = {
                     this.minqty = 1
                 }
             }
-        },
-        checkMaxqtyInCart() {
-            
         }
     },
     template: `<div class="product_details">
@@ -160,7 +157,7 @@ export const product_details = {
                                         <slot v-if="product_detail.iswholesale === 'Y'">
                                             <div :class="(product_detail.ispreorder === 'N')? 'mb-3 col-md-9' : 'mb-3 col-md-6'" id="">
                                                 <div class="card card-body">
-                                                    <h4>ราคาขายส่ง</h4>
+                                                    <h4>ราคาขายส่ง <i class="fa fa-boxes ml-1 text-danger" title="สินค้าราคาขายส่ง"></i></h4>
                                                     <table class="table table-striped">
                                                         <thead>
                                                             <tr>
@@ -184,7 +181,7 @@ export const product_details = {
                                         <slot v-if="product_detail.ispreorder === 'Y'">
                                             <div :class="(product_detail.iswholesale === 'N')? 'mb-3 col-md-9' : 'mb-3 col-md-6'" id="">
                                                 <div class="card card-body">
-                                                    <h4>ราคาพรีออเดอร์</h4>
+                                                    <h4>ราคาพรีออเดอร์ <i class="fa fa-product-hunt ml-1 text-danger" title="สินค้ารายการพรีออเดอร์"></i></h4>
                                                     <table class="table table-striped">
                                                         <thead>
                                                             <tr>
@@ -211,15 +208,14 @@ export const product_details = {
                                         <span v-html="product_detail.short_description"></span>
                                     </div>
                                     <div class="product_add_to_cart">
-                                    {{checkWholesale}} {{checkMaxqtyInCart}}
+                                    {{checkWholesale}}
                                         <div v-if="product_detail.ispreorder === 'Y'" class="row mb-3">
                                             <div class="col-md-3 ispreorder">
                                                 <label for="preorder_true" class="preorder_check"><i class="fa fa-product-hunt text-danger" title="สัญลักษณ์สินค้ารายการพรีออเดอร์"></i> พรีออเดอร์</label><input type="checkbox" v-model="preorder" class="form-check-input ml-3" name="preorder_true" id="preorder_true">
                                             </div>
-                                            <div class="col-md-9 line-height_14">
-                                                <small class="text-danger">- หากต้องการสั่งซื้อแบบพรีออเดอร์ ให้ติ๊กเครื่องหมายถูกในช่อง <i class="fa fa-product-hunt text-danger" title="สัญลักษณ์สินค้ารายการพรีออเดอร์"></i> พรีออเดอร์</small><br>
-                                                <small class="text-danger">- รายการพรีออเดอร์จะต้องใช้เวลาในการสั่งสินค้า ขึ้นอยู่กับผู้ขายสินค้าเอง</small><br>
-                                                <small class="text-danger">- การเพิ่มสินค้าลงตะกร้าจะต้องเลือกอย่างใดอย่างหนึ่ง ระหว่างราคาปกติ กับ พรีออเดอร์</small>
+                                            <div class="col-md-9 line-height_16">
+                                                <span class="text-danger font-size-8">- หากต้องการสั่งซื้อแบบพรีออเดอร์ ให้ติ๊กเครื่องหมายถูกในช่อง <i class="fa fa-product-hunt text-danger" title="สัญลักษณ์สินค้ารายการพรีออเดอร์"></i> พรีออเดอร์</span><br>
+                                                <span class="text-danger font-size-8">- การเพิ่มสินค้าลงตะกร้าจะต้องเลือกอย่างใดอย่างหนึ่ง ระหว่างราคาปกติ กับ พรีออเดอร์</span>
                                             </div>
                                         </div>
                                         <div v-if="preorder === true">
