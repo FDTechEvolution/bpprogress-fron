@@ -26,6 +26,28 @@
     .font-size-7 {
         font-size: .7rem !important;
     }
+    label.preorder_check {
+        cursor: pointer;
+        margin: 0;
+    }
+    .ispreorder {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background-color: #c5e1ff;
+        border-radius: 5px;
+    }
+    input[type=checkbox] {
+        /* Double-sized Checkboxes */
+        -ms-transform: scale(1.5); /* IE */
+        -moz-transform: scale(1.5); /* FF */
+        -webkit-transform: scale(1.5); /* Safari and Chrome */
+        -o-transform: scale(1.5); /* Opera */
+        transform: scale(1.5);
+        padding: 10px;
+    }
+    .line-height_14 {
+        line-height: 14.2px;
+    }
 </style>
 
 <!-- <?= $this->Html->script('product_gallery/plugins.js') ?> -->

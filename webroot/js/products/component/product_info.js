@@ -15,9 +15,7 @@ export const product_info = {
                                 <div class="tab-content">
                                     <div class="tab-pane fade show active" id="info" role="tabpanel">
                                         <div class="product_info_content">
-                                            <span v-html="this.$store.getters.product_detail.description">
-                                                {{this.$store.getters.product_detail.description}}
-                                            </span>
+                                            <span v-html="this.$store.getters.product_detail.description"></span>
                                         </div>
                                     </div>
                                     

@@ -61,7 +61,7 @@ export const mini_cart = {
                                     <a :href="'products/product-details?product=' + product.d1"><img :src="product.im" alt=""></a>
                                 </div>
                                 <div class="cart_info">
-                                    <a :href="'products/product-details?product=' + product.pr">{{product.ne}}</a>
+                                    <a :href="'products/product-details?product=' + product.pr">{{product.ne}} <i v-if="product.po === 1" class="fa fa-product-hunt ml-1 text-danger" title="สินค้ารายการพรีออเดอร์"></i></a>
                                     <p>จำนวน : <span>{{product.qt}}</span> x <span> {{product.pi}} ฿</span> - <span>{{totalPerProduct(product.qt, product.pi)}} ฿</span></p>
                                 </div>
                                 <div class="cart_remove">
