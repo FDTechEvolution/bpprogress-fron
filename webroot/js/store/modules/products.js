@@ -143,7 +143,7 @@ const actions = {
             }else{
                 let newQty = parseInt(itemIndex[0].qt) + parseInt(itemToAdd.d4)
                 if(newQty > maxQty) {
-                    alert("จำนวนสินค้าในรายการสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...")
+                    alert("จำนวนสินค้าในรายการที่คุณสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...")
                 }else{
                     if(itemToAdd.d6){
                         if(newQty < itemToAdd.d6[0].startqty) {
