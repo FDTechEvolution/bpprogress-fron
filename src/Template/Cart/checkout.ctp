@@ -194,7 +194,7 @@
 
         $('#bt-save-address').on('click', function () {
             if ($("#frm-address").valid()) {
-                $.post(fullServiceUrl + 'services/save-address', $('#frm-address').serialize(), function (data) {
+                $.post(fullServiceUrl + 'sv-users/save-address', $('#frm-address').serialize(), function (data) {
                     console.log(data);
                     if (data.status === 200) {
                         location.reload();
