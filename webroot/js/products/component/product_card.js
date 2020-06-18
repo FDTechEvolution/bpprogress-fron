@@ -19,8 +19,8 @@ export const product_card = {
                     <article class="single_product">
                         <figure>
                             <div class="product_thumb">
-                                <a class="primary_img" :href="'products/product-details?product=' + product.id"><img :src="product.image" alt=""></a>
-                                <a class="secondary_img" :href="'products/product-details?product=' + product.id"><img :src="product.image" alt=""></a>
+                                <a class="primary_img" :href="'/products/product-details?product=' + product.id"><img :src="product.image" alt=""></a>
+                                <a class="secondary_img" :href="'/products/product-details?product=' + product.id"><img :src="product.image" alt=""></a>
                                 <div v-if="product.isretail === 'Y'" class="label_product">
                                     <span v-if="product.special_price !== 0" class="label_sale">Sale</span>
                                 </div>
@@ -29,7 +29,7 @@ export const product_card = {
                             <div class="product_content">
                                 <div class="product_content_inner">
                                     <h4 class="product_name">
-                                        <a :href="'products/product-details?product=' + product.id" :title="product.name" :alt="product.name">{{product.name}}</a> 
+                                        <a :href="'/products/product-details?product=' + product.id" :title="product.name" :alt="product.name">{{product.name}}</a> 
                                         <i v-if="product.iswholesale === 'Y'" class="fa fa-boxes ml-1 text-danger" title="สินค้ามีราคาขายส่ง"></i> 
                                         <i v-if="product.ispreorder === 'Y'" class="fa fa-product-hunt ml-1 text-danger" title="สินค้ามีรายการพรีออเดอร์"></i>
                                     </h4>
