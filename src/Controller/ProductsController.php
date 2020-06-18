@@ -31,7 +31,7 @@ class ProductsController extends AppController {
     }
 
     public function category () {
-
+        $this->viewBuilder()->setLayout('product');
     }
     
     public function search(){

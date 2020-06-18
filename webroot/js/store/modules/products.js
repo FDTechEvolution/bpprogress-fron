@@ -125,12 +125,22 @@ const actions = {
                 }else if(response.status === 200) {
                     commit('GET_PRODUCT_CATEGORY', response.data)
                 }
-                
             })
             .finally(() => commit('LOADING', false))
         }catch(e){
             console.log(e)
         }
+    },
+    checkProductInCart ({commit}, products) {
+        // products.forEach(item => {
+        //         productService.checkStatProduct(item.pr)
+        //         .then((response) => {
+        //             console.log(response)
+        //         })
+        //         .catch(e => {
+        //             console.log(e)
+        //         })
+        // })
     },
     addToCart ({commit}, itemToAdd) {
         // console.log(itemToAdd)
@@ -163,9 +173,9 @@ const actions = {
                     let modal_header = 'ไม่สามารถเพิ่มสินค้าลงตะกร้าได้'
                     let modal_body = 'จำนวนสินค้าในรายการที่คุณสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...'
                     let modal_footer = null
-                    let modal_payload = {modal_show, modal_header, modal_body, modal_footer}
+                    let modal_overstock_payload = {modal_show, modal_header, modal_body, modal_footer}
                     // console.log(modal_payload)
-                    commit('OVER_STOCK', modal_payload)
+                    commit('OVER_STOCK', modal_overstock_payload)
                     // alert("จำนวนสินค้าในรายการที่คุณสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...")
                 }else{
                     if(itemToAdd.d6){

@@ -41,10 +41,14 @@ export const mini_cart = {
                 }
                 return totalPrice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
             }
+        },
+        checkProductInCart () {
+            let itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
+            this.$store.dispatch('checkProductInCart', itemInCart)
         }
     },
     template: `<div class="mini_cart_wrapper">
-                    {{pushCart}}
+                    {{pushCart}} {{checkProductInCart}}
                     <a href="javascript:void(0)">
                         <i class="fa fa-shopping-bag"></i>
                         <span v-if="localStorage.getItem('__u_set_pct')" class="cart_price">{{totalPriceInCart}} ฿<i class="ion-ios-arrow-down"></i></span>

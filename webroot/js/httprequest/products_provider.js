@@ -28,6 +28,11 @@ class ProductsProvider extends HttpRequest {
         return data
     }
 
+    async checkStatProduct (id) {
+        const {data} = await this.get('sv-products/check-product?id=' + id)
+        return data
+    }
+
 }
 
 export default ProductsProvider
