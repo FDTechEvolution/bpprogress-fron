@@ -21,8 +21,11 @@ class HomeController extends AppController {
     public function index() {
         $result = $this->Httprequest->get(SITE_API.'sv-products/get-new-products');
         $lastProducts = $result['data'];
+        
+        $result = $this->Httprequest->get(SITE_API.'sv-products/get-top-view-product?limit=10');
+        $topProducts = $result['data'];
        
-        $this->set(compact('lastProducts'));
+        $this->set(compact('lastProducts','topProducts'));
         
     }
 

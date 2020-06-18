@@ -32,7 +32,7 @@
         <div class="tab-content">
             <div class="tab-pane fade show active" id="" role="tabpanel">
                 <div class="product_carousel product_style product_column5 owl-carousel"  id="app-product">
-                    <?php foreach ($lastProducts as $product):?>
+                    <?php foreach ($topProducts as $product):?>
                     <?=$this->element('Product/item',['product'=>$product])?>
                     <?php endforeach; ?>
                 </div>
