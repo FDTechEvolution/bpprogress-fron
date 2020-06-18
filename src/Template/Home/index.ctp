@@ -41,4 +41,4 @@
     </div>
 </div>
 <!--product area end-->
-<?= $this->Html->script('products/main.js', ['type' => 'module']) ?>
+<?=''// $this->Html->script('products/main.js', ['type' => 'module']) ?>
