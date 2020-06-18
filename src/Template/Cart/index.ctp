@@ -65,6 +65,7 @@
             <!--coupon code area end-->
             <?= $this->Form->hidden('user_id', ['value' => '', 'id' => 'user_id']) ?>
             <?= $this->Form->hidden('shop_id', ['value' => '0']) ?>
+            <?= $this->Form->hidden('ispreorder', ['value' => '', 'id' => 'ispreorder']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
@@ -73,8 +74,12 @@
 
 <script>
 
-    function recal() {
+    let ispreorder = false;
 
+    function recal() {
+        if(ispreorder == true) {
+            return
+        }
         //console.log($('#tb-list-product tbody tr').length);
         let totalamt = 0;
         $('#bt-save').prop('disabled', false);
@@ -87,7 +92,7 @@
                 $('#qty-' + product_id).val(qty);
             }
 
-            $.get(fullServiceUrl + 'sv-products/calculate-price?product=' + product_id + '&qty=' + qty, {})
+            $.get(fullServiceUrl + 'sv-products/calculate-price?product=' + product_id + '&qty=' + qty + '&ispreorder=N', {})
                     .done(function (data) {
 
                         data = data.data;
@@ -132,8 +137,8 @@
 
     $(document).ready(function () {
 
-        console.log(localStorage.getItem('__u_set_pct'));
-        console.log(localStorage.getItem('_u_ss_isset'));
+        // console.log(localStorage.getItem('__u_set_pct'));
+        // console.log(localStorage.getItem('_u_ss_isset'));
         var user = JSON.parse(localStorage.getItem('_u_ss_isset'));
         var products = JSON.parse(localStorage.getItem('__u_set_pct'));
 
@@ -155,6 +160,12 @@
             var qty = parseInt(product.qt);
             var price = parseInt(product.pi);
             var amount = qty * price;
+            let preorder = '';
+            if(product.po === 1){
+                ispreorder = true
+                $('#ispreorder').val('Y');
+                preorder = '<i class="fa fa-product-hunt ml-1 text-danger" title="สินค้ารายการพรีออเดอร์"></i>';
+            }
             totalamt += amount;
             var rowHtml = '';
             rowHtml += '<tr data-row="' + product_id + '" id="' + product_id + '">';
@@ -163,7 +174,7 @@
             rowHtml += '<input type="hidden" name="order_lines[' + index + '][product_id]" value="' + product_id + '" data-type="product_line" data-id="' + product_id + '" data-qty="' + qty + '"/>';
 
             rowHtml += '</td>';
-            rowHtml += '<td class="product_name">' + product.ne + '</td>';
+            rowHtml += '<td class="product_name">' + product.ne + '' + preorder + '</td>';
             rowHtml += '<td class="product-price" id="price-' + product_id + '">' + Number(price).toLocaleString('en') + '</td>';
             rowHtml += '<td class="product_quantity text-left">';
             rowHtml += '<span id="msg-' + product_id + '" class="text-danger"></span>';

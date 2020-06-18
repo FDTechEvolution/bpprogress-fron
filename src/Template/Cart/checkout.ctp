@@ -81,15 +81,17 @@
                     <p class="text-danger">กรุณาเลือกรูปแบบการชำระเงินสำหรับการส่งของหมายเลขคำสั่งซื้อนี้</p>
                     <hr/>
                     <div class="row text-center">
-                        <div class="col-4 border border-light p-3 mouse" data-type="box-payment-method" data-value="transfer">
+                        <div class="<?php if($order['ispreorder'] == 'Y') { ?> col-12 <?php }else{ ?> col-4 <?php } ?> border border-light p-3 mouse" data-type="box-payment-method" data-value="transfer">
                             <h4>โอนเงิน</h4>
                         </div>
-                        <div class="col-4 border border-light p-3 mouse" data-type="box-payment-method" data-value="creditcard">
-                            <h4>บัตรเครดิต</h4>
-                        </div>
-                        <div class="col-4 border border-light p-3 mouse" data-type="box-payment-method" data-value="cod">
-                            <h4>เก็บเงินปลายทาง</h4>
-                        </div>
+                        <?php if($order['ispreorder'] == 'N') { ?>
+                            <div class="col-4 border border-light p-3 mouse" data-type="box-payment-method" data-value="creditcard">
+                                <h4>บัตรเครดิต</h4>
+                            </div>
+                            <div class="col-4 border border-light p-3 mouse" data-type="box-payment-method" data-value="cod">
+                                <h4>เก็บเงินปลายทาง</h4>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="col-12 text-right">
