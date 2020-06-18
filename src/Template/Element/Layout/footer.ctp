@@ -11,19 +11,21 @@
                                     <?= $this->Html->image('/css/assets/img/icon/icon-phone.png')?>
                                 </div>
                                 <div class="contact_text">
-                                    <p>สายด่วน ติดต่อเรา: <br> <strong>083 816 8636</strong></p>
+                                    <p>สายด่วน ติดต่อเรา: <br> <strong><a href="tel:+66642329429">064 232 9429</a></strong></p>
                                 </div>
                             </div>
+                            <div class="footer_social">
+                            <ul>
+                                <li><a class="facebook" href="https://www.facebook.com/bpshoppingmallthai/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                 <li><a class="line" href="https://lin.ee/ZD8Imrda" target="_blank"><i class="fab fa-line"></i></a></li>
+                            </ul>
+                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-7 col-sm-12">
                     <div class="widgets_container">
-                        <div class="footer_social">
-                            <ul>
-                                <li><a class="facebook" href="https://www.facebook.com/bpshoppingmallthai/" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                            </ul>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
