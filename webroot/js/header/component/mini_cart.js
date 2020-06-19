@@ -44,7 +44,9 @@ export const mini_cart = {
         },
         checkProductInCart () {
             let itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
-            this.$store.dispatch('checkProductInCart', itemInCart)
+            if(itemInCart) {
+                this.$store.dispatch('checkProductInCart', itemInCart)
+            }
         }
     },
     template: `<div class="mini_cart_wrapper">

@@ -70,7 +70,7 @@ const mutations = {
     CART_PUSHED (state, status) {
         state.product_push_cart = status
     },
-    OVER_STOCK (state, modal) {
+    PRODUCT_MODAL (state, modal) {
         state.modal.show = modal.modal_show
         state.modal.header = modal.modal_header
         state.modal.body = modal.modal_body
@@ -131,16 +131,71 @@ const actions = {
             console.log(e)
         }
     },
-    checkProductInCart ({commit}, products) {
-        // products.forEach(item => {
-        //         productService.checkStatProduct(item.pr)
-        //         .then((response) => {
-        //             console.log(response)
-        //         })
-        //         .catch(e => {
-        //             console.log(e)
-        //         })
-        // })
+    async checkProductInCart ({commit}, products) {
+        try {
+            await products.forEach((item,index) => {
+                productService.checkStatProduct(item.pr)
+                .then((response) => {
+                    // console.log(response)
+                    if(item.po === 1) {
+                        if(response.data.ispreorder === 'Y'){
+                            return
+                        }else{
+                            if(products.length === 1){
+                                localStorage.removeItem('__u_set_pct')
+                                commit('PUSH_TO_CART', true)
+                            }else{
+                                products.splice(index,1)
+                                localStorage.setItem('__u_set_pct', JSON.stringify(products))
+                                commit('PUSH_TO_CART', true)
+                            }
+                            let modal_show = true
+                            let modal_header = 'รายการสินค้าในตะกร้าถูกลบแล้ว'
+                            let modal_body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายปิดการ พรีออเดอร์ แล้ว...'
+                            let modal_footer = null
+                            let modal_preorder_payload = {modal_show, modal_header, modal_body, modal_footer}
+                            commit('PRODUCT_MODAL', modal_preorder_payload)
+                        }
+                    }else if(item.po === 0){
+                        let priceInCart = item.pi
+                        if(response.data.iswholesale === 'Y'){
+                            response.data.wholesale_rates.forEach(wholesale => {
+                                if(item.qt > wholesale.startqty && item.qt < wholesale.endqty) {
+                                    if(item.pi !== wholesale.price) {
+                                        let modal_show = true
+                                        let modal_header = 'รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
+                                        let modal_body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + wholesale.price + ' \nเนื่องจากผู้ขายเปิดการสั่งแบบ ราคาส่ง...'
+                                        let modal_footer = null
+                                        let modal_enable_wholesale_payload = {modal_show, modal_header, modal_body, modal_footer}
+                                        commit('PRODUCT_MODAL', modal_enable_wholesale_payload)
+                                    }
+
+                                    item.pi = wholesale.price
+                                    localStorage.setItem('__u_set_pct', JSON.stringify(products))
+                                    commit('PUSH_TO_CART', true)
+                                }
+                            })
+                        }else{
+                            let inPrice = (response.data.special_price === 0) ? response.data.price : response.data.special_price
+                            if(item.pi < inPrice) {
+                                item.pi = inPrice
+                                localStorage.setItem('__u_set_pct', JSON.stringify(products))
+                                commit('PUSH_TO_CART', true)
+
+                                let modal_show = true
+                                let modal_header = 'รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
+                                let modal_body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + inPrice + ' \nเนื่องจากผู้ขายปิดการสั่งแบบ ราคาส่ง...'
+                                let modal_footer = null
+                                let modal_disable_wholesale_payload = {modal_show, modal_header, modal_body, modal_footer}
+                                commit('PRODUCT_MODAL', modal_disable_wholesale_payload)
+                            }
+                        }
+                    }
+                })
+            })
+        }catch(e){
+            console.log(e)
+        }
     },
     addToCart ({commit}, itemToAdd) {
         // console.log(itemToAdd)
@@ -175,7 +230,7 @@ const actions = {
                     let modal_footer = null
                     let modal_overstock_payload = {modal_show, modal_header, modal_body, modal_footer}
                     // console.log(modal_payload)
-                    commit('OVER_STOCK', modal_overstock_payload)
+                    commit('PRODUCT_MODAL', modal_overstock_payload)
                     // alert("จำนวนสินค้าในรายการที่คุณสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...")
                 }else{
                     if(itemToAdd.d6){
@@ -250,7 +305,7 @@ const actions = {
     },
     deleteFromCart ({commit}, id) {
         let itemInCart = []
-        let itemIndex = []
+        // let itemIndex = []
         itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
         // itemIndex = itemInCart.filter(item => item.pr===id)
         // let isItemInCart = itemIndex.length > 0;
@@ -269,7 +324,7 @@ const actions = {
         })
     },
     closeModal ({commit}) {
-        commit('OVER_STOCK', false, null, null)
+        commit('PRODUCT_MODAL', false, null, null)
     }
 }
 
