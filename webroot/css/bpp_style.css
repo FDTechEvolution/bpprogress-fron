@@ -133,3 +133,27 @@ ul.mega_menu_inner.user_account li a {
 }
 
 /* mini-cart END */
+
+
+/* modal style */
+.modal-mask {
+    position: fixed;
+    z-index: 9998;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    display: table;
+    transition: opacity .3s ease;
+}
+.modal-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+i.fa.fa-times-circle.text-right.text-danger {
+    cursor: pointer;
+    font-size: 1rem;
+    float: right;
+}
+/* modal end */

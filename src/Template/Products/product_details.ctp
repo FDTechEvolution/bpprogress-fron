@@ -14,12 +14,6 @@
         </div>
     </div>
 
-    <modal
-        :header = '$store.getters.header'
-        :body = '$store.getters.body'
-        :footer = '$store.getters.footer'
-    ></modal>
-
 </div>
 
 <style>
@@ -56,26 +50,6 @@
     }
     .line-height_16 {
         line-height: 16px;
-    }
-    .modal-mask {
-        position: fixed;
-        z-index: 9998;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, .5);
-        display: table;
-        transition: opacity .3s ease;
-    }
-    .modal-wrapper {
-        display: table-cell;
-        vertical-align: middle;
-    }
-    i.fa.fa-times-circle.text-right.text-danger {
-        cursor: pointer;
-        font-size: 1rem;
-        float: right;
     }
 </style>
 

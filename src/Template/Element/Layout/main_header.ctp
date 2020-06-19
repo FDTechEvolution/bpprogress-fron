@@ -37,6 +37,11 @@
                     <div class="col-lg-2">
                         <div class="header_configure_area">
                             <mini-cart></mini-cart>
+                            <modal
+                                :header = '$store.getters.header'
+                                :body = '$store.getters.body'
+                                :footer = '$store.getters.footer'
+                            ></modal>
                         </div>
                     </div>
                 </div>
