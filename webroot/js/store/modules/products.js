@@ -320,7 +320,7 @@ const actions = {
         }
         let modal_show = true
         let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> ไม่สามารถเพิ่มสินค้าลงตะกร้าได้'
-        let modal_body = 'ประเภทรายการสินค้าไม่ถูกต้อง เนื่องจาก...<br>สินค้าในตะกร้าสินค้าเป็น <u><strong>' + typeInCart + '</strong></u> และสินค้าที่เพิ่มเข้ามาเป็น <u><strong>' + typeToAdd + '</strong></u><br>กรุณาเลือกการสั่งซื้อแบบใดแบบหนึ่ง หรือกดปุ่ม ' + btntxt + ' เพื่อแทนที่ประเภทสินค้า<br><small class="text-danger">( โปรดระวัง!!...การแทนที่สินค้ารายการในตะกร้าจะถูกลบทั้งหมดและเพิ่มสินค้าตัวนี้แทน... )</small>'
+        let modal_body = 'ประเภทรายการสินค้าไม่ถูกต้อง เนื่องจาก...<br>สินค้าในตะกร้าสินค้าเป็น <u><strong>' + typeInCart + '</strong></u> และสินค้าที่เพิ่มเข้ามาเป็น <u><strong>' + typeToAdd + '</strong></u><br>กรุณาเลือกการสั่งซื้อแบบใดแบบหนึ่ง หรือกดปุ่ม <u>' + btntxt + '</u> เพื่อแทนที่ประเภทสินค้า<br><small class="text-danger">( โปรดระวัง!!...การแทนที่สินค้ารายการในตะกร้าจะถูกลบทั้งหมดและเพิ่มสินค้าตัวนี้แทน... )</small>'
         let modal_footer = {
             iscall : 'replaceType',
             istext : btntxt
@@ -338,10 +338,7 @@ const actions = {
     },
     deleteFromCart ({commit}, id) {
         let itemInCart = []
-        // let itemIndex = []
         itemInCart = JSON.parse(localStorage.getItem('__u_set_pct'))
-        // itemIndex = itemInCart.filter(item => item.pr===id)
-        // let isItemInCart = itemIndex.length > 0;
 
         itemInCart.forEach((item,index) => {
             if(item.pr === id) {
