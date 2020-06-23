@@ -6,6 +6,9 @@ export const modal = {
         },
         activeMoal() {
             this.$store.dispatch('activeModal')
+        },
+        tocallback(iscall) {
+            this.$store.dispatch(iscall)
         }
     },
     template: `<div id="exampleModal">
@@ -15,14 +18,14 @@ export const modal = {
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 v-if="header !== null" class="modal-title">{{header}}</h4>
-                                    <i class="fa fa-times-circle text-right text-danger" @click="closeModal()"></i>
+                                    <h4 v-if="header !== null" class="modal-title" v-html="header"></h4>
+                                    <i class="fa fa-times-circle text-right text-danger" @click="closeModal()" title="ปิดหน้าต่าง"></i>
                                 </div>
                                 <div class="modal-body text-center py-3">
-                                    <p>{{body}}</p>
+                                    <p v-html="body"></p>
                                 </div>
                                 <div class="modal-footer">
-                                    {{footer}}
+                                    <button v-if="footer !== null" type="button" class="btn btn-sm btn-primary" @click="tocallback(footer.iscall)">{{footer.istext}}</button>
                                     <button type="button" class="btn btn-sm btn-secondary" @click="closeModal()">ปิดหน้าต่าง</button>
                                 </div>
                                 </div>

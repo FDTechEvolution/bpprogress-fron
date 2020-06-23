@@ -65,9 +65,6 @@ ul.mega_menu_inner.user_account li a {
     margin-bottom: 0;
 }
 
-.mouse{
-
-}
 .mouse:hover {
     cursor: pointer;
 }
@@ -136,6 +133,9 @@ ul.mega_menu_inner.user_account li a {
 
 
 /* modal style */
+.modal-dialog {
+    max-width: 700px !important;
+}
 .modal-mask {
     position: fixed;
     z-index: 9998;

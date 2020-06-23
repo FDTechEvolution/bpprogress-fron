@@ -18,7 +18,14 @@ export const add_to_cart = {
                 if(cartPreorder) {
                     this.payloadToStore(d1,d2,d3,d4,d5,d6,d7,d8)
                 }else{
-                    this.$store.dispatch('cartTypeNotMatch')
+                    let typeInCart = null
+                    if(itemInCart[0].po === 1) {
+                        typeInCart = 1
+                    }else if(itemInCart[0].po === 0) {
+                        typeInCart = 0
+                    }
+                    let cartnotmatch_payload = {typeInCart,d1,d2,d3,d4,d5,d6,d7,d8}
+                    this.$store.dispatch('cartTypeNotMatch',cartnotmatch_payload)
                 }
             }else{
                 this.payloadToStore(d1,d2,d3,d4,d5,d6,d7,d8)
