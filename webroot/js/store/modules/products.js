@@ -303,6 +303,15 @@ const actions = {
             commit('PUSH_TO_CART', true)
         }
     },
+    cartTypeNotMatch ({commit}, type) {
+        let modal_show = true
+        let modal_header = 'ไม่สามารถเพิ่มสินค้าลงตะกร้าได้'
+        let modal_body = 'ประเภทรายการสินค้าไม่ถูกต้อง'
+        let modal_footer = null
+
+        let modal_carttype_payload = {modal_show, modal_header, modal_body, modal_footer}
+        commit('PRODUCT_MODAL', modal_carttype_payload)
+    },
     deleteFromCart ({commit}, id) {
         let itemInCart = []
         // let itemIndex = []

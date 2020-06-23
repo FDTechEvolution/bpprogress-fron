@@ -22,7 +22,7 @@ export const modal = {
                                     <p>{{body}}</p>
                                 </div>
                                 <div class="modal-footer">
-                                    <button v-if="footer !== null" type="button" class="btn btn-sm btn-primary" @click="activeModal()">{{footer}}</button>
+                                    {{footer}}
                                     <button type="button" class="btn btn-sm btn-secondary" @click="closeModal()">ปิดหน้าต่าง</button>
                                 </div>
                                 </div>
