@@ -64,10 +64,10 @@ export const mini_cart = {
                         <div v-if="localStorage.getItem('__u_set_pct')" class="mini_cart_inner">
                             <div v-for="(product, index) in JSON.parse(localStorage.getItem('__u_set_pct'))" class="cart_item">
                                 <div class="cart_img">
-                                    <a :href="'products/product-details?product=' + product.d1"><img :src="product.im" alt=""></a>
+                                    <a :href="'/products/product-details?product=' + product.pr"><img :src="product.im" alt=""></a>
                                 </div>
                                 <div class="cart_info">
-                                    <a :href="'products/product-details?product=' + product.pr">{{product.ne}} <i v-if="product.po === 1" class="fa fa-product-hunt ml-1 text-danger" title="สินค้ารายการพรีออเดอร์"></i></a>
+                                    <a :href="'/products/product-details?product=' + product.pr">{{product.ne}} <i v-if="product.po === 2" class="fa fa-boxes ml-1 text-danger" title="สินค้าราคาขายส่ง"></i> <i v-if="product.po === 1" class="fa fa-product-hunt ml-1 text-danger" title="สินค้ารายการพรีออเดอร์"></i></a>
                                     <p>จำนวน : <span>{{product.qt}}</span> x <span> {{product.pi}} ฿</span> - <span>{{totalPerProduct(product.qt, product.pi)}} ฿</span></p>
                                 </div>
                                 <div class="cart_remove">

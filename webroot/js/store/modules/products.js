@@ -135,70 +135,95 @@ const actions = {
             console.log(e)
         }
     },
-    async checkProductInCart ({commit}, products) {
+    async checkProductInCart ({commit, dispatch}, products) {
         try {
             await products.forEach((item,index) => {
                 productService.checkStatProduct(item.pr)
                 .then((response) => {
                     // console.log(response)
-                    if(item.po === 1) {
-                        if(response.data.ispreorder === 'Y'){
-                            return
-                        }else{
-                            if(products.length === 1){
-                                localStorage.removeItem('__u_set_pct')
-                                commit('PUSH_TO_CART', true)
+                    if(response.status === 200 && response.data.isactive === 'Y') {
+                        if(item.po === 1) {
+                            if(response.data.ispreorder === 'Y'){
+                                return
                             }else{
-                                products.splice(index,1)
-                                localStorage.setItem('__u_set_pct', JSON.stringify(products))
-                                commit('PUSH_TO_CART', true)
+                                dispatch('removeFromCart', products)
+                                let modal_show = true
+                                let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
+                                let modal_body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายปิดการ พรีออเดอร์ แล้ว...'
+                                let modal_footer = null
+                                let modal_preorder_payload = {modal_show, modal_header, modal_body, modal_footer}
+                                commit('PRODUCT_MODAL', modal_preorder_payload)
                             }
-                            let modal_show = true
-                            let modal_header = 'รายการสินค้าในตะกร้าถูกลบแล้ว'
-                            let modal_body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายปิดการ พรีออเดอร์ แล้ว...'
-                            let modal_footer = null
-                            let modal_preorder_payload = {modal_show, modal_header, modal_body, modal_footer}
-                            commit('PRODUCT_MODAL', modal_preorder_payload)
-                        }
-                    }else if(item.po === 0){
-                        let priceInCart = item.pi
-                        if(response.data.iswholesale === 'Y'){
-                            response.data.wholesale_rates.forEach(wholesale => {
-                                if(item.qt > wholesale.startqty && item.qt < wholesale.endqty) {
-                                    if(item.pi !== wholesale.price) {
-                                        let modal_show = true
-                                        let modal_header = 'รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
-                                        let modal_body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + wholesale.price + ' \nเนื่องจากผู้ขายเปิดการสั่งแบบ ราคาส่ง...'
-                                        let modal_footer = null
-                                        let modal_enable_wholesale_payload = {modal_show, modal_header, modal_body, modal_footer}
-                                        commit('PRODUCT_MODAL', modal_enable_wholesale_payload)
-                                    }
+                        }else if(item.po === 0 || item.po === 2){
+                            let priceInCart = item.pi
+                            if(response.data.iswholesale === 'Y'){
+                                response.data.wholesale_rates.forEach(wholesale => {
+                                    if(item.qt > wholesale.startqty && item.qt < wholesale.endqty) {
+                                        if(item.pi !== wholesale.price) {
+                                            let modal_show = true
+                                            let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
+                                            let modal_body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + wholesale.price + ' <br>เนื่องจากผู้ขายเปิดการสั่งแบบ ราคาส่ง...'
+                                            let modal_footer = null
+                                            let modal_enable_wholesale_payload = {modal_show, modal_header, modal_body, modal_footer}
+                                            commit('PRODUCT_MODAL', modal_enable_wholesale_payload)
+                                        }
 
-                                    item.pi = wholesale.price
+                                        item.pi = wholesale.price
+                                        item.po = 2
+                                        localStorage.setItem('__u_set_pct', JSON.stringify(products))
+                                        commit('PUSH_TO_CART', true)
+                                    }
+                                })
+                            }else{
+                                let inPrice = (response.data.special_price === 0) ? response.data.price : response.data.special_price
+                                if(item.pi < inPrice) {
+                                    item.pi = inPrice
+                                    item.po = 0
                                     localStorage.setItem('__u_set_pct', JSON.stringify(products))
                                     commit('PUSH_TO_CART', true)
-                                }
-                            })
-                        }else{
-                            let inPrice = (response.data.special_price === 0) ? response.data.price : response.data.special_price
-                            if(item.pi < inPrice) {
-                                item.pi = inPrice
-                                localStorage.setItem('__u_set_pct', JSON.stringify(products))
-                                commit('PUSH_TO_CART', true)
 
-                                let modal_show = true
-                                let modal_header = 'รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
-                                let modal_body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + inPrice + ' \nเนื่องจากผู้ขายปิดการสั่งแบบ ราคาส่ง...'
-                                let modal_footer = null
-                                let modal_disable_wholesale_payload = {modal_show, modal_header, modal_body, modal_footer}
-                                commit('PRODUCT_MODAL', modal_disable_wholesale_payload)
+                                    let modal_show = true
+                                    let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
+                                    let modal_body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + inPrice + ' <br>เนื่องจากผู้ขายปิดการสั่งแบบ ราคาส่ง...'
+                                    let modal_footer = null
+                                    let modal_disable_wholesale_payload = {modal_show, modal_header, modal_body, modal_footer}
+                                    commit('PRODUCT_MODAL', modal_disable_wholesale_payload)
+                                }
                             }
+                        }
+                    }else{
+                        if(response.status === 404) {
+                            dispatch('removeFromCart', products)
+                            let modal_show = true
+                            let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
+                            let modal_body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายลบรายการสินค้าแล้ว...'
+                            let modal_footer = null
+                            let modal_product_delete_payload = {modal_show, modal_header, modal_body, modal_footer}
+                            commit('PRODUCT_MODAL', modal_product_delete_payload)
+                        }else if(response.data.isactive === 'N') {
+                            dispatch('removeFromCart', products)
+                            let modal_show = true
+                            let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
+                            let modal_body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายปิดการขายรายการสินค้านี้อยู่...'
+                            let modal_footer = null
+                            let modal_product_delete_payload = {modal_show, modal_header, modal_body, modal_footer}
+                            commit('PRODUCT_MODAL', modal_product_delete_payload)
                         }
                     }
                 })
             })
         }catch(e){
             console.log(e)
+        }
+    },
+    removeFromCart({commit}, products) {
+        if(products.length === 1){
+            localStorage.removeItem('__u_set_pct')
+            commit('PUSH_TO_CART', true)
+        }else{
+            products.splice(index,1)
+            localStorage.setItem('__u_set_pct', JSON.stringify(products))
+            commit('PUSH_TO_CART', true)
         }
     },
     addToCart ({commit}, itemToAdd) {
@@ -213,6 +238,7 @@ const actions = {
             if(isItemInCart === false) {
                 let ispo = 0
                 if(itemToAdd.d7){ ispo = 1 }
+                else if(itemToAdd.d6 && itemToAdd.d4 >= itemToAdd.d6[0].startqty) { ispo = 2}
                 let itemToCart = []
                 itemToCart = {
                     pr : itemToAdd.d1,
@@ -229,7 +255,7 @@ const actions = {
                 let newQty = parseInt(itemIndex[0].qt) + parseInt(itemToAdd.d4)
                 if(newQty > maxQty) {
                     let modal_show = true
-                    let modal_header = 'ไม่สามารถเพิ่มสินค้าลงตะกร้าได้'
+                    let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> ไม่สามารถเพิ่มสินค้าลงตะกร้าได้'
                     let modal_body = 'จำนวนสินค้าในรายการที่คุณสั่งซื้อ เกินกว่าที่มีอยู่ในสต๊อค...'
                     let modal_footer = null
                     let modal_overstock_payload = {modal_show, modal_header, modal_body, modal_footer}
@@ -248,14 +274,14 @@ const actions = {
                                 let wholesale_price = itemToAdd.d6.find(item => item.endqty >= (parseInt(newQty)))
                                 itemIndex[0].qt = newQty
                                 itemIndex[0].pi = wholesale_price.price
-                                itemIndex[0].po = 0
+                                itemIndex[0].po = 2
                                 localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
                                 commit('PUSH_TO_CART', true)
                             }else{
                                 let wholesale_price = itemToAdd.d6.slice(-1)[0]
                                 itemIndex[0].pi = wholesale_price.price
                                 itemIndex[0].qt = newQty
-                                itemIndex[0].po = 0
+                                itemIndex[0].po = 2
                                 localStorage.setItem('__u_set_pct', JSON.stringify(itemInCart))
                                 commit('PUSH_TO_CART', true)
                             }
@@ -293,6 +319,7 @@ const actions = {
         }else{
             let ispo = 0
             if(itemToAdd.d7){ ispo = 1 }
+            else if(itemToAdd.d6 && itemToAdd.d4 >= itemToAdd.d6[0].startqty) { ispo = 2}
             let itemToCart = []
             itemToCart = {
                 pr : itemToAdd.d1,
