@@ -147,12 +147,11 @@ const actions = {
                                 return
                             }else{
                                 dispatch('removeFromCart', products)
-                                let modal_show = true
-                                let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
-                                let modal_body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายปิดการ พรีออเดอร์ แล้ว...'
-                                let modal_footer = null
-                                let modal_preorder_payload = {modal_show, modal_header, modal_body, modal_footer}
-                                commit('PRODUCT_MODAL', modal_preorder_payload)
+                                let header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
+                                let body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายปิดการ พรีออเดอร์ แล้ว...'
+                                let footer = null
+                                let content = {header, body, footer}
+                                dispatch('modalAlert', content)
                             }
                         }else if(item.po === 0 || item.po === 2){
                             let priceInCart = item.pi
@@ -160,12 +159,12 @@ const actions = {
                                 response.data.wholesale_rates.forEach(wholesale => {
                                     if(item.qt > wholesale.startqty && item.qt < wholesale.endqty) {
                                         if(item.pi !== wholesale.price) {
-                                            let modal_show = true
-                                            let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
-                                            let modal_body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + wholesale.price + ' <br>เนื่องจากผู้ขายเปิดการสั่งแบบ ราคาส่ง...'
-                                            let modal_footer = null
-                                            let modal_enable_wholesale_payload = {modal_show, modal_header, modal_body, modal_footer}
-                                            commit('PRODUCT_MODAL', modal_enable_wholesale_payload)
+
+                                            let header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
+                                            let body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + wholesale.price + ' <br>เนื่องจากผู้ขายเปิดการสั่งแบบ ราคาส่ง...'
+                                            let footer = null
+                                            let content = {header, body, footer}
+                                            dispatch('modalAlert', content)
                                         }
 
                                         item.pi = wholesale.price
@@ -182,32 +181,29 @@ const actions = {
                                     localStorage.setItem('__u_set_pct', JSON.stringify(products))
                                     commit('PUSH_TO_CART', true)
 
-                                    let modal_show = true
-                                    let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
-                                    let modal_body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + inPrice + ' <br>เนื่องจากผู้ขายปิดการสั่งแบบ ราคาส่ง...'
-                                    let modal_footer = null
-                                    let modal_disable_wholesale_payload = {modal_show, modal_header, modal_body, modal_footer}
-                                    commit('PRODUCT_MODAL', modal_disable_wholesale_payload)
+                                    let header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้ามีการเปลี่ยนแปลง'
+                                    let body = 'รายการสินค้า "' + response.data.name + '" มีการเปลี่ยนแปลงด้านราคา จาก ' + priceInCart + ' -> ' + inPrice + ' <br>เนื่องจากผู้ขายปิดการสั่งแบบ ราคาส่ง...'
+                                    let footer = null
+                                    let content = {header, body, footer}
+                                    dispatch('modalAlert', content)
                                 }
                             }
                         }
                     }else{
                         if(response.status === 404) {
                             dispatch('removeFromCart', products)
-                            let modal_show = true
-                            let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
-                            let modal_body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายลบรายการสินค้าแล้ว...'
-                            let modal_footer = null
-                            let modal_product_delete_payload = {modal_show, modal_header, modal_body, modal_footer}
-                            commit('PRODUCT_MODAL', modal_product_delete_payload)
+                            let header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
+                            let body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายลบรายการสินค้าแล้ว...'
+                            let footer = null
+                            let content = {header, body, footer}
+                            dispatch('modalAlert', content)
                         }else if(response.data.isactive === 'N') {
                             dispatch('removeFromCart', products)
-                            let modal_show = true
-                            let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
-                            let modal_body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายปิดการขายรายการสินค้านี้อยู่...'
-                            let modal_footer = null
-                            let modal_product_delete_payload = {modal_show, modal_header, modal_body, modal_footer}
-                            commit('PRODUCT_MODAL', modal_product_delete_payload)
+                            let header = '<i class="fa fa-exclamation-circle text-danger"></i> รายการสินค้าในตะกร้าถูกลบแล้ว'
+                            let body = 'รายการสินค้า "' + response.data.name + '" ถูกลบออกไป เนื่องจากผู้ขายปิดการขายรายการสินค้านี้อยู่...'
+                            let footer = null
+                            let content = {header, body, footer}
+                            dispatch('modalAlert', content)
                         }
                     }
                 })
@@ -225,6 +221,14 @@ const actions = {
             localStorage.setItem('__u_set_pct', JSON.stringify(products))
             commit('PUSH_TO_CART', true)
         }
+    },
+    modalAlert({commit}, content) {
+        let modal_show = true
+        let modal_header = content.header
+        let modal_body = content.body
+        let modal_footer = content.footer
+        let modal_alert = {modal_show, modal_header, modal_body, modal_footer}
+        commit('PRODUCT_MODAL', modal_alert)
     },
     addToCart ({commit}, itemToAdd) {
         // console.log(itemToAdd)
@@ -349,7 +353,7 @@ const actions = {
         let modal_header = '<i class="fa fa-exclamation-circle text-danger"></i> ไม่สามารถเพิ่มสินค้าลงตะกร้าได้'
         let modal_body = 'ประเภทรายการสินค้าไม่ถูกต้อง เนื่องจาก...<br>สินค้าในตะกร้าสินค้าเป็น <u><strong>' + typeInCart + '</strong></u> และสินค้าที่เพิ่มเข้ามาเป็น <u><strong>' + typeToAdd + '</strong></u><br>กรุณาเลือกการสั่งซื้อแบบใดแบบหนึ่ง หรือกดปุ่ม <u>' + btntxt + '</u> เพื่อแทนที่ประเภทสินค้า<br><small class="text-danger">( โปรดระวัง!!...การแทนที่สินค้ารายการในตะกร้าจะถูกลบทั้งหมดและเพิ่มสินค้าตัวนี้แทน... )</small>'
         let modal_footer = {
-            iscall : 'replaceType',
+            iscall : 'replaceCart',
             istext : btntxt
         }
 
@@ -357,7 +361,7 @@ const actions = {
         commit('PRODUCT_MODAL', modal_carttype_payload)
         commit('REPLACE_TO_CART', type)
     },
-    replaceType ({commit, dispatch}) {
+    replaceCart ({commit, dispatch}) {
         localStorage.removeItem('__u_set_pct')
         commit('PUSH_TO_CART', true)
         dispatch('addToCart',state.new_to_cart)
