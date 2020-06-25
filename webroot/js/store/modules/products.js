@@ -44,7 +44,7 @@ const mutations = {
     GET_DETAIL_PRODUCT (state, response) {
         state.product_detail = response.data
         state.product_category = response.data.product_category
-        // console.log(state.product_category)
+        // console.log(state.product_detail)
     },
     GET_NEW_PRODUCT (state, response) {
         state.newProducts = response.data
