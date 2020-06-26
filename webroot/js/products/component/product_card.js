@@ -24,7 +24,6 @@ export const product_card = {
                                 <div v-if="product.isretail === 'Y'" class="label_product">
                                     <span v-if="product.special_price !== 0" class="label_sale">Sale</span>
                                 </div>
-                                
                             </div>
                             <div class="product_content">
                                 <div class="product_content_inner">

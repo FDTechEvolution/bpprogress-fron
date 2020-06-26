@@ -7,6 +7,7 @@ const state = {
     product_detail: [],
     product_category: [],
     category_product: [],
+    category_id: null,
     category_product_check: true,
     product_push_cart: false,
     loading: true,
@@ -17,6 +18,15 @@ const state = {
         header: null,
         body: null,
         footer: null
+    },
+    pagination: {
+        currentPage: 1,
+        pageSize: 20,
+        totalProducts: 0,
+
+        currentCategoryPage: 1,
+        pageCategorySize: 20,
+        totalCategoryProducts: 0
     }
 }
 
@@ -33,7 +43,13 @@ const getters = {
     modal: state => state.modal.show,
     header: state => state.modal.header,
     body: state => state.modal.body,
-    footer: state => state.modal.footer
+    footer: state => state.modal.footer,
+    currentPage: state => state.pagination.currentPage,
+    pageSize: state => state.pagination.pageSize,
+    totalProducts: state => state.pagination.totalProducts,
+    currentCategoryPage: state => state.pagination.currentCategoryPage,
+    pageCategorySize: state => state.pagination.pageCategorySize,
+    totalCategoryProducts: state => state.pagination.totalCategoryProducts
 }
 
 const mutations = {
@@ -79,15 +95,30 @@ const mutations = {
     },
     REPLACE_TO_CART (state, type) {
         state.new_to_cart = type
+    },
+    CHANGE_PAGE (state, page) {
+        state.pagination.currentPage = page
+    },
+    CHANGE_CATEGORY_PAGE (state, page) {
+        state.pagination.currentCategoryPage = page
+    },
+    TOTAL_PRODUCTS (state, total) {
+        state.pagination.totalProducts = total
+    },
+    TOTAL_CATEGORY_PRODUCTS (state, total) {
+        state.pagination.totalCategoryProducts = total
+    },
+    SET_CATEGORY_ID (state, id) {
+        state.category_id = id
     }
 }
 
 const actions = {
     async getAllProducts ({commit}) {
         try{
-            await productService.getAllProducts()
+            await productService.getAllProducts(state.pagination.pageSize, state.pagination.currentPage)
             .then((response) => {
-                // console.log(response)
+                commit('TOTAL_PRODUCTS', response.count.length)
                 commit('GET_ALL_PRODUCTS', response)
             })
             .finally(() => commit('LOADING', false))
@@ -120,20 +151,34 @@ const actions = {
         }
     },
     async getProductCategory ({commit}, id) {
+        commit('SET_CATEGORY_ID', id)
         try{
-            await productService.getCategoryProduct(id)
+            await productService.getCategoryProduct(id,state.pagination.pageCategorySize, state.pagination.currentCategoryPage)
             .then((response) => {
                 // console.log(response)
                 if(response.status === 400) {
                     commit('GET_PRODUCT_CATEGORY_CHECK', false)
                 }else if(response.status === 200) {
                     commit('GET_PRODUCT_CATEGORY', response.data)
+                    commit('TOTAL_CATEGORY_PRODUCTS', response.count.length)
                 }
             })
             .finally(() => commit('LOADING', false))
         }catch(e){
             console.log(e)
         }
+    },
+    changePage({commit, dispatch}, page) {
+        commit('CHANGE_PAGE', page)
+        commit('GET_ALL_PRODUCTS', '')
+        commit('LOADING', true)
+        dispatch('getAllProducts')
+    },
+    changeCategoryPage({commit, dispatch}, page) {
+        commit('CHANGE_CATEGORY_PAGE', page)
+        commit('GET_PRODUCT_CATEGORY', '')
+        commit('LOADING', true)
+        dispatch('getProductCategory', state.category_id)
     },
     async checkProductInCart ({commit, dispatch}, products) {
         try {

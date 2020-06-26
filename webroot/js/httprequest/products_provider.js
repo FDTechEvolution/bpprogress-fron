@@ -8,8 +8,8 @@ class ProductsProvider extends HttpRequest {
         // https://office.mapcii.com/api-assets/getlistasset
     }
 
-    async getAllProducts () {
-        const {data} = await this.get('sv-products/get-all-products')
+    async getAllProducts (pageSize, currentPage) {
+        const {data} = await this.get('sv-products/get-all-products?limit=' + pageSize + '&page=' + currentPage)
         return data
     }
 
@@ -23,8 +23,8 @@ class ProductsProvider extends HttpRequest {
         return data
     }
 
-    async getCategoryProduct (id) {
-        const {data} = await this.get('sv-products/get-product-category?id=' + id)
+    async getCategoryProduct (id, pageSize, currentPage) {
+        const {data} = await this.get('sv-products/get-product-category?id=' + id + '&limit=' + pageSize + '&page=' + currentPage)
         return data
     }
 

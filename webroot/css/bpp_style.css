@@ -131,6 +131,9 @@ ul.mega_menu_inner.user_account li a {
 
 /* mini-cart END */
 
+.btn-secondary.disabled {
+    cursor: auto;
+}
 
 /* modal style */
 .modal-dialog {
