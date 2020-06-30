@@ -10,7 +10,7 @@
     </div>
     <div class="row no-gutters shop_wrapper mb-0">
         <div class="col-12 px-3 pt-3 pb-2">
-            <h3 v-if="$store.getters.loading == false">{{__category}}</h3>
+            <h3 v-if="$store.getters.loading_category == false">{{__category}}</h3>
         </div>
         <slot v-if="!$store.getters.category_product_check">
             <article class="single_product col-lg-12 col-md-12 col-sm-1 py-5 text-center">
@@ -23,7 +23,7 @@
                 :product = 'product'
             ></product-card>
         </slot>
-        <div v-if="$store.getters.loading == true" class="col-12 text-center">
+        <div v-if="$store.getters.loading_category == true" class="col-12 text-center">
             <div class="loadingio-spinner-pulse-0xjpjhx0lbxl">
                 <div class="ldio-7znirwuftg4">
                     <div></div>

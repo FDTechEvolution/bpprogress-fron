@@ -13,6 +13,12 @@ const state = {
     loading: true,
     loading_detail: true,
     new_to_cart: null,
+    loading: {
+        allProduct: true,
+        detailProduct: true,
+        categoryProduct: true,
+        newProduct: true
+    },
     modal: {
         show: false,
         header: null,
@@ -38,8 +44,10 @@ const getters = {
     category_product: state => state.category_product,
     category_product_check: state => state.category_product_check,
     product_push_cart: state => state.product_push_cart,
-    loading: state => state.loading,
-    loading_detail: state => state.loading_detail,
+    loading_product: state => state.loading.allProduct,
+    loading_detail: state => state.loading.detailProduct,
+    loading_category: state => state.loading.categoryProduct,
+    loading_new: state => state.loading.newProduct,
     modal: state => state.modal.show,
     header: state => state.modal.header,
     body: state => state.modal.body,
@@ -74,11 +82,17 @@ const mutations = {
         state.category_product_check = status
         // console.log(state.category_product_check)
     },
-    LOADING (state, status) {
-        state.loading = status
+    LOADING_ALL_PRODUCT (state, status) {
+        state.loading.allProduct = status
     },
-    LOADING_DETAIL (state, status) {
-        state.loading_detail = status
+    LOADING_DETAIL_PRODUCT (state, status) {
+        state.loading.detailProduct = status
+    },
+    LOADING_CATEGORY_PRODUCT (state, status) {
+        state.loading.categoryProduct = status
+    },
+    LOADING_NEW_PRODUCT (state, status) {
+        state.loading.newProduct = status
     },
     PUSH_TO_CART (state, status) {
         state.product_push_cart = status
@@ -121,7 +135,7 @@ const actions = {
                 commit('TOTAL_PRODUCTS', response.count.length)
                 commit('GET_ALL_PRODUCTS', response)
             })
-            .finally(() => commit('LOADING', false))
+            .finally(() => commit('LOADING_ALL_PRODUCT', false))
         }catch(e){
             console.log(e)
         }
@@ -133,7 +147,7 @@ const actions = {
                 // console.log(response)
                 commit('GET_DETAIL_PRODUCT', response)
             })
-            .finally(() => commit('LOADING_DETAIL', false))
+            .finally(() => commit('LOADING_DETAIL_PRODUCT', false))
         }catch(e){
             console.log(e)
         }
@@ -145,7 +159,7 @@ const actions = {
                 // console.log(response)
                 commit('GET_NEW_PRODUCT', response)
             })
-            .finally(() => commit('LOADING', false))
+            .finally(() => commit('LOADING_NEW_PRODUCT', false))
         }catch(e){
             console.log(e)
         }
@@ -163,7 +177,7 @@ const actions = {
                     commit('TOTAL_CATEGORY_PRODUCTS', response.count.length)
                 }
             })
-            .finally(() => commit('LOADING', false))
+            .finally(() => commit('LOADING_CATEGORY_PRODUCT', false))
         }catch(e){
             console.log(e)
         }
@@ -171,13 +185,13 @@ const actions = {
     changePage({commit, dispatch}, page) {
         commit('CHANGE_PAGE', page)
         commit('GET_ALL_PRODUCTS', '')
-        commit('LOADING', true)
+        commit('LOADING_ALL_PRODUCT', true)
         dispatch('getAllProducts')
     },
     changeCategoryPage({commit, dispatch}, page) {
         commit('CHANGE_CATEGORY_PAGE', page)
         commit('GET_PRODUCT_CATEGORY', '')
-        commit('LOADING', true)
+        commit('LOADING_CATEGORY_PRODUCT', true)
         dispatch('getProductCategory', state.category_id)
     },
     async checkProductInCart ({commit, dispatch}, products) {

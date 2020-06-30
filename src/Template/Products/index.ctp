@@ -13,7 +13,7 @@
             v-for='product in $store.getters.products'
             :product = 'product'
         ></product-card>
-        <div v-if="$store.getters.loading == true" class="col-12 text-center">
+        <div v-if="$store.getters.loading_product == true" class="col-12 text-center">
             <div class="loadingio-spinner-pulse-0xjpjhx0lbxl">
                 <div class="ldio-7znirwuftg4">
                     <div></div>
