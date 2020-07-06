@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-9">
                                 <div class="form-group">
-                                    <input type="number" class="form-control" id="amount" name="amount" required="">
+                                    <input type="number" class="form-control" id="amount" name="amount" required="" value="<?=$order['totalamt']?>">
                                 </div>
                             </div>
                         </div>
